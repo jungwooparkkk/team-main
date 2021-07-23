@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="org.zerock.mapper.Membermappsql">
+  
+  <insert id="insert">
+  	INSERT INTO member
+  	(userid, userpw, nickName)
+  	VALUES
+  	(#{userid},#{userpw},#{nickName})
+  </insert>
+  
+  <insert id="insertAuth">
+  	INSERT INTO member_auth
+  	(userid, auth)
+  	VALUES
+  	(${userid},#{auth})
+  </insert>
+  
+  <insert id="read">
+  INSERT INTO member
+  </insert>
+  
+  <resultMap type="org.zerock.domain.DMember" id= "memberM">
+  	<id property="userid" column="userid" />
+  	<result property="userpw" column="userpw"/>
+  	<result property="nickName" column="nickName"/>
+  	<result property="enabled" column="enabled"/>
+  	<collection property="authList" resultMap="authM"/>
+  </resultMap>
+  <resultMap type="org.zerock.domain.DAuth" id="authM">
+  	<result property="userid" column="userid"/>
+  	<result property="auth" column="auth" />
+  </resultMap>
+  
+  </mapper>
