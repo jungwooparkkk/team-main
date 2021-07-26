@@ -17,7 +17,8 @@
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item active"><a class="nav-link" href="#">홈 <span
 					class="sr-only">(current)</span></a></li>
-			<li class="nav-item"><a class="nav-link" href="#">맛집리스트</a></li>
+			<li class="nav-item">
+			<a class="nav-link" href="${listUrl }">맛집리스트</a></li>
 			<li class="nav-item"><a class="nav-link" href="#">여행리스트</a></li>
 			<li class="nav-item"><a class="nav-link" href="#">자유게시판</a></li>
 		</ul>
