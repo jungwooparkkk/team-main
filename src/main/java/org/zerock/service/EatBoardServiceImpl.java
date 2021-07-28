@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.zerock.domain.Criteria;
 import org.zerock.domain.EatBoardVO;
 import org.zerock.mapper.EatBoardMapper;
 
@@ -48,10 +49,15 @@ public class EatBoardServiceImpl implements EatBoardService {
 	}
 
 	@Override
-	public List<EatBoardVO> getList() {
+	public List<EatBoardVO> getList(Criteria cri) {
 
 		log.info("getList...............");
 
-		return mapper.getList();
+		return mapper.getListWithPaging(cri);
+	}
+
+	@Override
+	public int getTotal(Criteria cri) {
+		return mapper.getTotalCount(cri);
 	}
 }

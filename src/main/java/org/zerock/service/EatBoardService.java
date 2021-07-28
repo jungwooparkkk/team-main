@@ -2,6 +2,7 @@ package org.zerock.service;
 
 import java.util.List;
 
+import org.zerock.domain.Criteria;
 import org.zerock.domain.EatBoardVO;
 
 public interface EatBoardService {
@@ -14,5 +15,9 @@ public interface EatBoardService {
 	
 	public boolean remove(Long eatbno);
 	
-	public List<EatBoardVO> getList();
+	public List<EatBoardVO> getList(Criteria cri);
+
+	public int getTotal(Criteria cri);
+
+	
 }

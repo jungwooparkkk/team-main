@@ -41,7 +41,7 @@ public class EatBoardServiceTests {
 	
 	@Test
 	public void testGetList() {
-		service.getList().forEach(board -> log.info(board));
+		service.etList().forEach(board -> log.info(board));
 	}
 	
 	@Test

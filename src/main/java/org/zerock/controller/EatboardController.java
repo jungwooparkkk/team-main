@@ -1,6 +1,7 @@
 package org.zerock.controller;
 
-import org.springframework.security.access.prepost.PreAuthorize;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.EatBoardVO;
+import org.zerock.domain.eatpageDTO;
 import org.zerock.service.EatBoardService;
 
 import lombok.AllArgsConstructor;
@@ -25,17 +27,20 @@ public class EatboardController {
 	public EatBoardService service;
 	
 	@GetMapping("/list")
-	public void list(Model model) {
+	public void list(@ModelAttribute("cri") Criteria cri, Model model) {
 		log.info("list");
+		int total = service.getTotal(cri);
 		
-		model.addAttribute("list", service.getList());
+		List<EatBoardVO> list = service.getList(cri);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pageMaker", new eatpageDTO(cri, total));
 	}
 	
 	@GetMapping("/register")
 	/* @PreAuthorize("isAuthenticated()") */
-	/* @ModelAttribute("cri") Criteria cri */
-	public void register() { 
-		// forward /WEB-INF/views/board/register.jsp
+	public void register(@ModelAttribute("cri") Criteria cri) { 
+		// forward/WEB-INF/views/board/register.jsp
 	}
 
 	
@@ -66,7 +71,7 @@ public class EatboardController {
 		if(service.modify(board)) {
 			rttr.addFlashAttribute("result", "success");
 		}
-		return "rediect:/eatboard/list";
+		return "redirect:/eatboard/list";
 	}
 	
 	@PostMapping("/remove")
