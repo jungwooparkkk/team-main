@@ -4,6 +4,7 @@ import java.security.Principal;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +13,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,7 +28,7 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 
-
+@CrossOrigin
 @Controller
 @RequestMapping("/member")
 @Log4j
@@ -39,8 +42,13 @@ public class MembersControllers {
 		
 	}
 	
+	@RequestMapping("/jusoPopup")
+	public void juso() {
+		
+	}
+	
 	@GetMapping("/signupMem")
-	public void signup() {
+	public void signupMem() {
 		
 	}
 	
@@ -50,7 +58,7 @@ public class MembersControllers {
 		boolean ok = service.insert(mem);
 		
 		if(ok) {
-			return "redirect:/member/signupMem";
+			return "redirect:/member/loginMem";
 		}else {
 			return "redirect:/member/signupMem?error";
 		}
@@ -108,12 +116,10 @@ public class MembersControllers {
 			return new ResponseEntity<> ("exist",HttpStatus.OK);
 		}
 	}
-//
-//	@PostMapping("/findid")
-//	@PreAuthorize("pricipal.nickName == #mem.usernickName")
-//	public String findid(MemberVO mem, RedirectAttributes rttr, Authentication auth) {
-//		boolean ok = service.findid(mem);
-//	}
+	
+
+	
+
 	
 	
 }

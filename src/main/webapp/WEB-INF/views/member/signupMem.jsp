@@ -5,39 +5,48 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
 
 <title>Insert title here</title>
 <script>
 
+//주소검색 팝업 및 입력
 var goPopup = function(){
-	var pop = window.open("${appRoot}/member/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+	var pop = window.open("${appRoot}/member/jusoPopup","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
 	} 
 var jusoCallBack = function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo){ 
 	document.getElementById("zipNo").value = zipNo; 
 	document.getElementById("address").value = roadAddrPart1; 
-	if(addrDetail.length>30){ 
-		alert('상세주소가 너무 길어 다시 입력해야 합니다.'); 
-		return; 
-		} 
 	document.getElementById("addrDetail").value = addrDetail; 
-
 	
-//
+	document.getElementById("fullAddressInput").value = `(\${zipNo}) \${roadAddrPart1} \${addrDetail}`;
+}
+
+
+
 $(function(){
+
 	var validId = false;
 	var passwordConfirm = false;
-		
-	
-	//아이디 중복 확인
+	var validNo = false;
+	var validMail = false;
+
+
+
+	//아이디 중복 확인 및 조합 체크
 	$("#id-dupCheck-btn").click(function() {
 		var idVal = $("#signup-inputid").val();
 		var messagePop = $("#id-message");
-		validId = false;
-		toggleEnableSubmit();
+		var regid = /^[a-zA-Z0-9]{8,20}$/
+	
 		
+		toggleEnableSubmit();
+
 		if(idVal == ""){
 			messagePop.text("아이디를 입력해주세요.");
-		}else {
+		}else if(!regid.test(idVal)){
+			messagePop.text("아이디는 숫자+영문자 조합 8자 이상 입력해주세요.");
+		}else{
 			var data = {id : idVal};
 			$.ajax({
 				type : "get",
@@ -51,9 +60,9 @@ $(function(){
 					}
 					else if (data == "exist") {
 						console.log("사용 불가 아이디")
-						messagePop.text("이미 있는 아이디 입니다. 다른 아이디를 입력해주세요.")
+						messagePop.text("이미 있는 아이디 입니다.")
 					}
-					
+
 					toggleEnableSubmit();
 				},
 				error : function() {
@@ -62,36 +71,82 @@ $(function(){
 			});
 		}
 	})
-	
-	//비밀번호 확인
-	$("#signup-inputpw, #signup-inputpwCheck").keyup(function() {
+
+	//비밀번호 일치여부 확인 및 조건 설정
+	$("#signup-input-pw, #signup-input-pwCheck").keyup(function() {
 		var pw = $("#signup-input-pw").val();
 		var pwCheck = $("#signup-input-pwCheck").val();
-		var submitBtn = $("signup-btn1");
+		var regpw = /(?=.*?[#?!@$%^&*-])(?=.*[a-z])(?=.*[A-Z]).{8}/;
+		var submitBtn = $("signup-btn");
 		passwordConfirm = false;
-		toggleEnableSubmit();
-		
+	
+	
 		if (pw != pwCheck) {
 			$("#password-message").text("비밀번호가 일치하지 않습니다.");
 		}else{
 			if(pw == ""){
 				$("#password-message").text("비밀번호를 입력해주세요.")
-			} else {
-				paswordConfirm = true;
-				$("#password-message").empty();
+			} else if(!regpw.test(pw)){
+				$("#password-message").text("적어도 숫자+대문자+소문자+특수문자 포함 8자리 이상으로 설정해주세요.")
+			}else{
+				passwordConfirm = true;
+				$("#password-message").text("사용 가능한 비밀번호 입니다.");
 			}
 		}
 		toggleEnableSubmit();
 	});
-	
+
 	function toggleEnableSubmit(){
-		if(passwordConfirm && validId){
-			$("#signup-btn1").removeAttr("disabled");
+		console.log(passwordConfirm, validId, validMail, validNo)
+		if(passwordConfirm && validId && validMail && validNo){
+			$("#signup-btn").removeAttr("disabled");
 		}else{
-			$("#signup-btn1").attr("disabled","disabled");
+			$("#signup-btn").attr("disabled","disabled");
 		}
 	}
+	
+ 	//이메일 양식 체크
+
+	$("#signup-input-email").keyup(function(){
+		var email = $("#signup-input-email").val();
+		var regmail = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/;
+		var submitBtn = $("signup-btn");
+		validMail = false;
+		toggleEnableSubmit();
+		
+		if(email ==""){
+			$("#email-message").text("이메일을 입력해주세요.");
+		}else if (!regmail.test(email)){
+			$("#email-message").text("올바른 형식의 이메일을 입력해주세요.");
+		}else{
+			validMail = true;
+			$("#email-message").empty();
+		}
+		toggleEnableSubmit();
+	}) ;
+	
+	
+	// 연락처 양식 체크
+	$("#signup-input-phoneNum").keyup(function() {
+		var phoneNum = $("#signup-input-phoneNum").val();
+		var regNo = /(\d{3}).*(\d{4}).*(\d{4})/;
+		validNo = false;
+		toggleEnableSubmit();
+		
+		if(phoneNum == ""){
+			$("#phone-message").text("휴대폰 번호를 입력해주세요")
+		}else if(!regNo.test(phoneNum)){
+			$("#phone-message").text("유효한 번호를 입력해주세요")
+		}else{
+			validNo = true;
+			$("#phone-message").empty();
+		}
+		toggleEnableSubmit();
+	});
+	
 })
+
+
 
 
 
@@ -102,68 +157,60 @@ $(function(){
 <body>
 <div class="container">
 	<c:if test="${not empty param.error }">
-			<div id="login-alert" class="alert alert-danger d-flex align-items-center" role="alert">
+			<div id="signup-alert" class="alert alert-danger" role="alert">
   			회원가입에 실패했습니다.
   			</div>
 	</c:if>
 	<h1>회원가입</h1>
 		<div class="row">	
-				<div class="col-6">
-					<form method="post" action="${appRoot }/member/signupMem">
-						<div class="form-group">
+				<div class="col-md-6 col-7">
+					<form id="signup" method="post" action="${appRoot }/member/signupMem">
+						<div class="form-group-id">
 							<label for="signup-inputid">아이디</label>
-							<div class="input-group">
 							<input type="text" class="form-control" id="signup-inputid" name="userid">
-							<div class="input-group-append">
-								<button class="btn btn-outline-secondary" type="button"
-										id="id-dupCheck-btn">
-								아이디 중복 확인		
-								</button>
-							</div>
+							
+							<button class="btn btn-outline-secondary" type="button" id="id-dupCheck-btn">아이디 중복 확인</button>
+							<small id="id-message" class="form-text"></small>
 						</div>
-						<small id="id-message" class="form-text"></small>
+									
+						<div class="form-group-pw">
+							<label for="signup-input-pw"> 비밀번호 </label>
+							<input type="password" class="form-control" id="signup-input-pw" minlength="8" name="userpw">
 					
-				</div>
-			<div class="form-group">
-				<label for="signup-input-pw"> 비밀번호 </label>
-				<input type="password" class="form-control" id="signup-input-pw" name="userpw">
-			</div>
+							<label for="signup-input-pwCheck">비밀번호 확인</label>
+							<input type="password" class="form-control" id="signup-input-pwCheck">
+							<small id="password-message" class="form-text text-danger "></small>
+						</div>
 			
-			<div class="form-group">
-				<label for="signup-input-pwCheck">비밀번호 확인</label>
-				<input type="password" class="form-control" id="signup-input-pwCheck">
-				<small id="password-message" class="form-text text-danger "></small>
-			</div>
+						<div class="form-group">
+							<label for="signup-input-nick">닉네임</label>
+							<input type="text" class="form-control" id="signup-input-nick" name="nickName">
+						</div>
+						
+				 		 <div class="form-group-adress">
+							 <label for="signup-input-address"> 주소 </label><br>
+						 	 <input type="text" class="zip_code" id="zipNo" readonly>
+							 <button type="button" class="zip_code_btn" id="addr-input-btn" onclick="javascript:goPopup();">우편번호</button>
+							 <br/> 				
+							 <input type="text" class="address" id="address" readonly>
+							 <input type="text" class="addrDetail" id="addrDetail" readonly><br><br>
+							 <input name="address" type="hidden" id="fullAddressInput">
+					
+				 			<label for="signp-input-email"> 이메일 주소 </label><br>
+				   			<input type="email" class="serchBox" id="signup-input-email" placeholder="e-mail@gmail.com" name="email">
+							<small id="email-message" class="form-text"></small>
+						</div>
 			
-			<div class="form-group">
-				<label for="signup-input-nick">닉네임</label>
-				<input type="text" class="form-control" id="signup-input-nick" name="nickName">
-			</div>
+						<div class="form-group">
+							<label for="signup-input-phoneNum"> 연락처 </label>
+							<input type="text" class="form-control" id="signup-input-phoneNum" name="phoneNum">
+							<small id="phone-message" class="form-text"></small>
+						</div>
 			
-	 		 <div class="form-group">
-				 <label for="signup-input-address"> 주소 </label><br>
-		 		 <input type="text" class="zip_code" id="zipNo" readonly>
-		 		 <button type="button" class="zip_code_btn" onclick="javascript:goPopup();">우편번호</button>
-				 <br/> 				
-				 <input type="text" placeholder="기본 주소를 입력해 주세요" id="address">
-				 <input type="text"  placeholder="나머지 주소를 입력해 주세요" id="addrDetail">
-			 </div>	
-			
-			<div class="form-group col-5">
-				<label for="signp-input-email"> 이메일 주소 </label>
-				<input type="text" class="serchBox" id="signup-input-email" 
-				placeholder="e-mail@gmail.com" name="email">
-			</div>
-			
-			<div class="form-group">
-				<label for="signup-input-phoneNum"> 연락처 </label>
-				<input type="text" class="form-control" id="signup-input-phoneNum" name="phoneNum">
-			</div>
-			<button type="submit" class="btn btn-primary" id="signup-btn1">회원 가입</button>
+							<button disabled type="submit" class="btn btn-primary" id="signup-btn">회원 가입</button>
 				</form>
-				</div>
 			</div>
-		</div>	
-
+		</div>
+	</div>		
 </body>
 </html>
