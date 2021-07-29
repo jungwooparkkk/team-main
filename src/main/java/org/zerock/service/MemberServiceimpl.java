@@ -19,7 +19,7 @@ public class MemberServiceimpl implements MemberService{
 	private PasswordEncoder encoder;
 	
 	@Override
-//	@Transactional
+	@Transactional
 	public boolean insert(MemberVO mem) {
 		mem.setUserpw(encoder.encode(mem.getUserpw()));
 		int cnt = map.insert(mem);
@@ -67,7 +67,7 @@ public class MemberServiceimpl implements MemberService{
 	}
 
 	@Override
-//	@Transactional
+	@Transactional
 	public boolean delete(MemberVO mem) {
 		
 
@@ -78,13 +78,5 @@ public class MemberServiceimpl implements MemberService{
 		return cnt == 1;
 	}
 
-	@Override
-	public boolean findid(MemberVO mem) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/*
- */
 	
 }

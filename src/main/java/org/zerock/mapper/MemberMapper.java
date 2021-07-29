@@ -1,5 +1,7 @@
 package org.zerock.mapper;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.zerock.domain.AuthVO;
 import org.zerock.domain.MemberVO;
 
@@ -9,7 +11,7 @@ public interface MemberMapper {
 
 	public void insertAuth(AuthVO authi);
 
-	public MemberVO read(String name);
+	public MemberVO read(String userid);
 
 	public int update(MemberVO mem);
 
@@ -17,6 +19,11 @@ public interface MemberMapper {
 
 	public void deleteAuth(MemberVO mem);
 	
-	public void findid(MemberVO mem);
+	public void findInfo(MemberVO mem);
+
+	public void read(MemberVO mem);
+
+	public void findid(HttpServletResponse response, MemberVO mem);
+	
 	
 }
