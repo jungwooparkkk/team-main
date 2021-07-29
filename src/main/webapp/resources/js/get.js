@@ -46,6 +46,7 @@
 						<h5 class="my-4">${reply.replyerName}</h5>
 						<p>${reply.reply}</p>
 						<small>${new Date(reply.replyDate).toISOString().split("T")[0]}</small>
+						<button id="reply-modify-btn1" style="float:right">수정</button>
 						<hr>
 					</div>
 				</li>`;
@@ -193,4 +194,8 @@
 			})
 		}
 	});
+	
+
+
+	
 })
