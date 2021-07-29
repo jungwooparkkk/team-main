@@ -1,7 +1,9 @@
+
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="tv" tagdir="/WEB-INF/tags/travel" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -11,12 +13,15 @@
 
 <title>로그인 화면</title>
 </head>
+
 <tv:navbar></tv:navbar>
+
 <body>
 <div class="container">
 	<div class="row justify-content-center">
 		<div class="col-md-6 col-7">
 					<h1>로그인</h1>
+
 			<form action="${appRoot }/login" method="post">
 				<div class="form-group">
 					<label for="input1">아이디</label>				
@@ -29,6 +34,7 @@
 				</div>
 				
 				<input class="btn btn-primary" type="submit" value="로그인">
+
 			</form>
 			
 				<div class = "form-check">
