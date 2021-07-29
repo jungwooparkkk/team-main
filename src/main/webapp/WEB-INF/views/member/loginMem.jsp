@@ -49,7 +49,9 @@
 			 
 			<form action="${appRoot }/member/signupMem" method="post">
 				<div class="find-info" >
-					<input class="btn btn-light" type="submit" value="회원가입">
+					<a class="btn btn-light" href="${appRoot }/member/signupMem">
+					회원가입
+					</a>
 				</div>
 			</form>
 			</div>
