@@ -96,10 +96,12 @@ public class MembersControllers {
 		
 		if(ok) {
 			req.logout();
-			return "redirect:/post/list";
+
+			return "redirect:/board/list";
 		}else {
 			rttr.addAttribute("status","error");
-			return "redirect:/main/info";
+			return "redirect:/member/info";
+
 		}
 	}
 	

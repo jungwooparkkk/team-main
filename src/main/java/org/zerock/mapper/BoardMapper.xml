@@ -33,7 +33,9 @@
     	content content,
     	writer writer,
     	regdate regdate,
-    	updatedate updateDate
+    	updatedate updateDate,
+    	views views,
+    	good good,
     
      FROM tbl_board
      

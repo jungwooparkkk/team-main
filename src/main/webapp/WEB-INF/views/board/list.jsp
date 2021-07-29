@@ -65,11 +65,11 @@ $(document).ready(function() {
 				
 			</tr>
 		</thead>
-		<a class="btn btn-primary" href="/jaehyun/board/write" role="button">글쓰기</a>
+		<a class="btn btn-primary" href="${appRoot }/board/write" role="button">글쓰기</a>
 		<tbody>
 			<c:forEach items="${list}" var="board">
 				<tr>
-					<td>${board.bno }</td>
+					<td style=text-align:center>${board.bno }</td>
 					<td>
 					
 					<c:url value="/board/get" var="getUrl">
@@ -86,11 +86,12 @@ $(document).ready(function() {
 						
 					
 					</td>
-					<td>${board.writer }</td>
-					<td>
+					<td style=text-align:center>${board.writer }</td>
+					<td style=text-align:center>
 						<fmt:formatDate pattern="yyyy-MM-dd" value="${board.regdate }"/>
 					</td>
-					
+					<td style=text-align:center>${board.views }</td>
+					<td style=text-align:center>${board.good }</td>
 				</tr>
 			</c:forEach>			
 		</tbody>

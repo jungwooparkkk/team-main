@@ -17,7 +17,23 @@ var boardBno = "${board.bno}";
 var userid = "${pinfo.member.userid}";
 </script>
 <script src="${appRoot }/resources/js/get.js"></script>
-
+<script>
+function getReplies() { $.getJSON("${path}/replies/all/" + article_no, function (data) { 
+	console.log(data);
+	 var str = ""; 
+	 $(data).each(function () { 
+	 str += "<li data-reply_no='" + this.reply_no + "' class='replyLi'>" 
+	 	 + "<p class='reply_text'>" + this.reply_text + "</p>" 
+	 	 + "<p class='reply_writer'>" + this.reply_writer + "</p>" 
+	 	 + "<button type='button' class='btn btn-xs btn-success' data-toggle='modal' data-target='#modifyModal'>댓글 수정</button>" 
+	 	 + "</li>" 
+	 	 + "<hr/>";
+	 	  }); 
+	 	  
+	 $("#replies").html(str); });
+	 
+ }
+</script>
 </head>
 <body>
 
@@ -61,52 +77,73 @@ var userid = "${pinfo.member.userid}";
 					<c:param name="type" value="${cri.type }" />
 				</c:url>
 				
-				<div class="container">
+				
+	<div class="container">
 	<div class="row">
 		<div class="col-12">
-			<h3>댓글 </h3>
-			
-			<sec:authorize access="isAuthenticated()">
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#reply-insert-modal">댓글 작성</button>
-			</sec:authorize>
-			<ul class="list-unstyled" id="reply-list-container">
-			
-			</ul>
+			<h3><i class="fa fa-comments fa-fw"></i> 댓글 </h3>			
+			<ul class="list-unstyled" id="reply-list-container">								
+			</ul>		
 		</div>
 	</div>
 </div>
+		<div class="col-12">											
+				<div class="reply-body">
+					<div class="row">
+					
+						<div class="form-group com-sm-8">
+							<textarea class="form-control" id="reply-reply-textarea1" placeholder="댓글을 입력 해주세요"></textarea>
+						</div>
+					<div class="form-group col-sm-2">
+						<input class="form-control input-sm" id="reply-replyer-input1" type="text" placeholder="작성자">
+					</div>
+					<div class="form-group col-sm-2">
+						<button id="reply-insert-btn1" type="button" class="btn btn-primary">등록</button>
+					</div>
+					</div>						
+				</div>
+			<div class="reply-footer">
+				<ul id="replies">
 				
+				</ul>
+			</div>
+			<div class="reply-footer">
+				<nav aria-label="Contacts page navi">
+				<ul class="pagination pageination-sm no-margin justify-content-center m-0">
 				
-				<div class="modal fade" id="reply-insert-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">새 댓글</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <input type="text" value="${board.bno }" readonly hidden id="reply-bno-input1">
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">작성자</label>
-            <input type="text" readonly value="${pinfo.member.userName }" class="form-control" />
-            <input type="hidden" value="${pinfo.member.userid }" class="form-control" id="reply-replyer-input1">
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="col-form-label">댓글</label>
-            <textarea class="form-control" id="reply-reply-textarea1"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button id="reply-insert-btn1" type="button" class="btn btn-primary">댓글 입력</button>
-      </div>
-    </div>
-  </div>
-</div>			
+				</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="modifyModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">댓글 수정</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="rno">댓글번호</label>
+					<input class="form-control" id="rno" name="rno" readonly>
+				</div>
+				<div class="form-group">
+					<label for="reply">댓글 내용</label>
+					<input class="form-control" id="reply" name="reply" placeholder="댓글 작성해주세요">
+				</div>
+				<div class="form-group">
+					<label for="writer">댓글 작성자</label>
+					<input class="form-control" id="writer" name="writer" readonly>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
+				<button type="button" class="btn btn-success modalModBtn">수정</button>
+				<button type="button" class="btn btn-danger modalDelBtn">삭제</button>
+			</div>
+		</div>
+	</div>								
 			<button data-oper='modify' class="btn btn-default">수정</button>
 			<button data-oper='list' class="btn btn-info">게시글로 돌아가기</button>
 			<form id='operForm' action="${appRoot }/board/modify" method="get">
