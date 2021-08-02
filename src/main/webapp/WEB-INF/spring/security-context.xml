@@ -5,17 +5,53 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+	<bean id="bcryptPasswordEncoder" 
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+		
+    <bean id="userDetailsService" class="org.zerock.security.PersoUserDetailService"></bean>
+	<!-- <
+	<bean id="corsFilter" class="org.springframework.web.filter.CorsFilter" >
+		<constructor-arg ref="handlerMappingIntrospector" />
+	</bean>
+	
+	<bean id="handlerMappingIntrospector" class="org.springframework.web.servlet.handler.HandlerMappingIntrospector" />
+	  -->
+	
+	<bean id="mvcHandlerMappingIntrospector" class="org.springframework.web.servlet.handler.HandlerMappingIntrospector"></bean>
+<!-- 
 	<security:http>
 		<security:http-basic />
+		<security:cors />
 		<security:csrf disabled="true"/>
 	</security:http>
-
+ 
+ 	 -->
+ 	<security:http>
+ 		<security:intercept-url pattern="/security/every" access="permitAll"/>
+ 		<security:intercept-url pattern="/security/member" access="hasRole('ROLE_MEMBER')"/>
+ 		<security:intercept-url pattern="/security/admin" access="hasRole('ROLE_ADMIN')"/>
+ 		<security:form-login login-page="/member/loginMem" default-target-url="/member/signupMem"/>
+ 		<security:logout logout-success-url="/member/loginMem"/>
+ 		<security:csrf disabled="true"/>
+ 		<security:remember-me data-source-ref="dataSource"/>
+ 	</security:http>
+ 	
+	<security:authentication-manager>
+		<security:authentication-provider user-service-ref="userDetailsService">
+			<security:password-encoder ref="bcryptPasswordEncoder" />
+		</security:authentication-provider>
+	</security:authentication-manager>
+	
+ 	
+<!-- 
 	<security:authentication-manager>
 		<security:authentication-provider>
 		  <security:user-service>
-		    <security:user name="member" password="{noop}member" authorities="ROLE_MEMBER" />
+		    <security:user name="user" password="{noop}user" authorities="ROLE_USER" />
+		    <security:user name="admin" password="{noop}admin " authorities="ROLE_ADMIN" />
 		  </security:user-service>
 		</security:authentication-provider>
 	</security:authentication-manager>
+ -->
 
 </beans>

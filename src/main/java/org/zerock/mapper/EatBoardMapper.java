@@ -12,7 +12,7 @@ public interface EatBoardMapper {
 	
 	public void insert (EatBoardVO board);
 	
-	public void insertSelectKey(EatBoardVO board);
+	public Integer insertSelectKey(EatBoardVO board);
 	
 	public EatBoardVO read(Long bno);
 	

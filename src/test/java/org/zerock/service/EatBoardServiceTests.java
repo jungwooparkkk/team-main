@@ -31,7 +31,7 @@ public class EatBoardServiceTests {
 		EatBoardVO board = new EatBoardVO();
 		board.setTitle("새로 작성하는 글");
 		board.setContent("새로 작성하는 내용");
-		board.setAdress("새로 작성하는 주소");
+		board.setAddress("새로 작성하는 주소");
 		board.setWriter("newbie");
 		
 		service.register(board);
@@ -41,7 +41,7 @@ public class EatBoardServiceTests {
 	
 	@Test
 	public void testGetList() {
-		service.etList().forEach(board -> log.info(board));
+		service.getList().forEach(board -> log.info(board));
 	}
 	
 	@Test

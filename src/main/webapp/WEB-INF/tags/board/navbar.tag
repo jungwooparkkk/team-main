@@ -28,6 +28,17 @@
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item active"><a class="nav-link" href="#">홈 <span
 					class="sr-only">(current)</span></a></li>
+					
+					 <sec:authorize access="!isAuthenticated()">
+				<a href="${appRoot }/member/loginMem" class="dropdown-item">로그인</a>  
+  		  </sec:authorize>
+  		  <sec:authorize access="isAuthenticated()">
+	  			<form action="${appRoot }/logout" method="post">
+	  			<input type="submit" class="dropdown-item" value="로그아웃">
+	 			</form>
+  		  </sec:authorize>
+  		  
+  		  
 			<li class="nav-item">
 			<a class="nav-link" href="${listUrl }">맛집리스트</a></li>
 			<li class="nav-item"><a class="nav-link" href="#">여행리스트</a></li>

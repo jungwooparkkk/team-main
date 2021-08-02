@@ -35,11 +35,11 @@ var userid = "${pinfo.member.userid}";
 			<form>
 				<div class="form-group">
 					<label for="input1">제목</label>
-					<input readonly="readonly" id="input1" class="form-control" name="title" value="${board.eatbno }">
+					<input readonly="readonly" id="input1" class="form-control" name="title" value="${board.title }">
 				</div>
 				<div class="form-group">
 					<label for="input3">주소</label>
-					<input readonly="readonly" id="input3" class="form-control" name="adress" value="${board.adress}">
+					<input readonly id="input3" class="form-control" name="address" value="${board.address}">
 				</div>
 				<div class="form-group">
 					<label for="textarea1">내용</label>
@@ -47,7 +47,7 @@ var userid = "${pinfo.member.userid}";
 					name="content"><c:out value="${board.content }" /></textarea>
 				</div>
 				
-				<%-- <c:if test="${not empty board.fileName }">
+<%-- 				 <c:if test="${not empty board.fileName }">
 					<div>
 						<img class="img-fluid" 
 						src="${imgRoot}${board.eatbno }/${board.fileName}">
@@ -57,8 +57,8 @@ var userid = "${pinfo.member.userid}";
 				<div class="form-group">
 					<label for="input2">작성자</label>
 					<input type="hidden" readonly="readonly" id="input2" class="form-control" name="writer" value="${board.writer}">
-					<input readonly="readonly" class="form-control" value="${board.writer }">
-				</div>				
+					<input readonly="readonly" class="form-control" value="${board.writerName}">
+				</div>			
 				
 				<c:url value="/eatboard/modify" var="modifyUrl">
 					<c:param name="eatbno" value="${board.eatbno }" />
@@ -72,6 +72,17 @@ var userid = "${pinfo.member.userid}";
 				<a class="btn btn-secondary" href="${modifyUrl }">수정/삭제</a>
 				</c:if>
 				
+				<c:url value="/eatboard/list" var="listUrl">
+					<c:if test="${not empty cri.pageNum }">
+						<c:param name="pageNum" value="${cri.pageNum }"></c:param>
+					</c:if>
+					<c:if test="${not empty cri.amount }">
+						<c:param name="amount" value="${cri.amount }"></c:param>
+					</c:if>
+						<c:param name="keyword" value="${cri.keyword }"></c:param>
+						<c:param name="type" value="${cri.type }"></c:param>
+				</c:url>
+				<a class="btn btn-secondary" href="${listUrl }">글 목록</a>
 				
 			</form>
 		</div>
@@ -112,7 +123,7 @@ var userid = "${pinfo.member.userid}";
           <input type="text" value="${board.eatbno }" readonly hidden id="reply-bno-input1">
           <div class="form-group">
              <label for="recipient-name" class="col-form-label">작성자</label>
-            <input type="text" readonly value="${pinfo.member.userName }" class="form-control" />
+            <input type="text" readonly value="${pinfo.member.nickName }" class="form-control" />
             <input type="hidden" value="${pinfo.member.userid }" class="form-control" id="reply-replyer-input1">
           </div>
           <div class="form-group">

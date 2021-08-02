@@ -7,11 +7,16 @@ import lombok.Data;
 @Data
 public class EatBoardVO {
 
-	private long eatbno;
+	private Long eatbno;
 	private String title;
 	private String content;
-	private String adress;
+	private String address;
 	private String writer;
+	private String writerName;
 	private Date regdate;
 	private Date updatedate;
+	private Long likes;
+	private Long views;
+
+//	private String fileName;
 }

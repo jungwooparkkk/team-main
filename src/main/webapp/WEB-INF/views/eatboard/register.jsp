@@ -26,7 +26,7 @@
 				
  				<div class="form-group">
 					<label for="input3">주소</label>
-					<input placeholder="서울 or 제주" id="input3" class="form-control" name="adress">
+					<input placeholder="서울 or 제주" id="input3" class="form-control" name="address">
 				</div>
  					
 				<div class="form-group">
@@ -34,10 +34,24 @@
 					<textarea id="textarea1" class="form-control" name="content"></textarea>
 				</div>
 				<div class="form-group">
-					<lebel for="input2">작성자</lebel>
-					<input id="input2" class="form-control" name="writer">
+					<label for="input2">작성자</label>
+					<input id="input2" hidden value="${pinfo.member.userid }" readonly class="form-control" name="writer">
+					<input value="${pinfo.member.nickName }" readonly class="form-control">
 				</div>
+				
 				<input class="btn btn-primary" type="submit" value="작성"/>
+				
+				<c:url value="/eatboard/list" var="listUrl">
+					<c:if test="${not empty cri.pageNum }">
+						<c:param name="pageNum" value="${cri.pageNum }"></c:param>
+					</c:if>
+					<c:if test="${not empty cri.amount }">
+						<c:param name="amount" value="${cri.amount }"></c:param>
+					</c:if>
+						<c:param name="keyword" value="${cri.keyword }"></c:param>
+						<c:param name="type" value="${cri.type }"></c:param>
+				</c:url>
+				<a class="btn btn-secondary" href="${listUrl }">글 목록</a>
 				
 			</form>
 		</div>

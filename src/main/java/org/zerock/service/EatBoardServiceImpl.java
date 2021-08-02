@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.EatBoardVO;
 import org.zerock.mapper.EatBoardMapper;
+//import org.zerock.mapper.EatFileMapper;
 
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -19,6 +20,9 @@ public class EatBoardServiceImpl implements EatBoardService {
 
 	@Setter(onMethod_= @Autowired)
 	public EatBoardMapper mapper;
+	
+//	@Setter(onMethod_= @Autowired)
+//	public EatFileMapper eatfileMapper;
 
 	@Override
 	public void register(EatBoardVO board) {
@@ -45,7 +49,9 @@ public class EatBoardServiceImpl implements EatBoardService {
 	public boolean remove(Long eatbno) {
 		log.info("remove........" + eatbno);
 		
-		return mapper.delete(eatbno) == 1;
+		int cnt = mapper.delete(eatbno);
+		
+		return cnt == 1;
 	}
 
 	@Override

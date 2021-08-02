@@ -35,6 +35,18 @@ $(document).ready(function() {
 	<div class="container">
 	<h1>글 목록</h1>
 	
+	<c:url value="/eatboard/register" var="registerUrl">
+	<c:if test="${not empty cri.pageNum }">
+		<c:param name="pageNum" value="${cri.pageNum }"></c:param>
+	</c:if>
+	<c:if test="${not empty cri.amount }">
+		<c:param name="amount" value="${cri.amount }"></c:param>
+	</c:if>
+		<c:param name="keyword" value="${cri.keyword }"></c:param>
+		<c:param name="type" value="${cri.type }"></c:param>
+</c:url>
+	<a class="btn btn-secondary" href="${registerUrl }">글작성</a>
+	
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -69,7 +81,7 @@ $(document).ready(function() {
 					</a>
 					
 					</td>
-					<td>${board.writer }</td>
+					<td>${board.writerName}</td>
 					<td>
 						<fmt:formatDate pattern="yyyy-MM-dd" value="${board.regdate }"/>
 					</td>

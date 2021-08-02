@@ -37,7 +37,7 @@ public class EatBoardMapperTests {
 		EatBoardVO board = new EatBoardVO();
 		board.setTitle("새로 작성하는글");
 		board.setContent("새로 작성하는 내용");
-		board.setAdress("새로 작성하는 주소");
+		board.setAddress("새로 작성하는 주소");
 		board.setWriter("newbie");
 		
 		mapper.insert(board);
@@ -50,7 +50,7 @@ public class EatBoardMapperTests {
 		EatBoardVO board = new EatBoardVO();
 		board.setTitle("새로 작성하는 글 select key");
 		board.setContent("새로 작성하는 내용 select key");
-		board.setAdress("새로 작성하는 주소 select key");
+		board.setAddress("새로 작성하는 주소 select key");
 		board.setWriter("newbie");
 		
 		mapper.insertSelectKey(board);
@@ -74,10 +74,10 @@ public class EatBoardMapperTests {
 	public void testUpdate() {
 		EatBoardVO board = new EatBoardVO();
 		// 실행전 존재하는 번호인지 확인
-		board.setEatbno(5L);
-		board.setTitle("수정된 제목");
+		board.setEatbno(29L);
+		board.setTitle("수정된 제목1");
 		board.setContent("수정된 내용");
-		board.setAdress("수정된 주소");
+		board.setAddress("수정된 주소");
 		board.setWriter("user00");
 		
 		int count = mapper.update(board);

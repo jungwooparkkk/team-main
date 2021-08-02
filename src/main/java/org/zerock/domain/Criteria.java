@@ -8,8 +8,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Criteria {
-	private int pageNum;
-	private int amount;
+	private Integer pageNum;
+	private Integer amount;
 	
 	private String type;
 	private String keyword;

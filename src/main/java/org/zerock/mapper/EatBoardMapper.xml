@@ -13,10 +13,12 @@
 		eatbno eatbno,
 		title title,
 		content content,
-		adress adress,
+		address address,
 		writer writer,
 		regdate regdate,
-		updatedate updatedate
+		updatedate updatedate,
+		likes likes,
+		views views
 	FROM eatBoard
 	where eatbno > 0 order by eatbno DESC
      
@@ -44,20 +46,25 @@
 	
 
 	<select id="getTotalCount" resultType="int">
-		SELECT COUNT(*) FROM eatBoard
+		SELECT COUNT(*) FROM eatBoard e
 		<include refid="criteria"></include>
 	</select>
 
 <select id="getListWithPaging" resultType="org.zerock.domain.EatBoardVO">
     SELECT 
-    	eatbno,
-    	title,
-    	content,
-    	adress,
-    	writer,
-    	regdate,
-    	updatedate
-     FROM eatBoard 
+    	e.eatbno eatbno,
+    	e.title title,
+    	e.content content,
+    	e.address address,
+    	e.writer writer,
+    	e.regdate regdate,
+    	e.updatedate updatedate,
+    	e.likes likes,
+    	e.views views,
+    	m.nickName writerName
+    	
+     FROM eatBoard  e INNER JOIN tbl_member2 m ON e.writer = m.userid
+     			
      
   <include refid="criteria"></include>
 	 GROUP BY eatbno
@@ -68,18 +75,30 @@
   </select>
 	
 	<insert id="insert">
-		INSERT INTO eatBoard (title, content, adress, writer)
-		VALUES (#{title}, #{content}, #{adress}, #{writer})
+		INSERT INTO eatBoard (title, content, address, writer)
+		VALUES (#{title}, #{content}, #{address}, #{writer})
 	</insert>
 
 	<insert id="insertSelectKey" useGeneratedKeys="true"
 		keyProperty="eatbno" keyColumn="eatbno">
-		INSERT INTO eatBoard (title, content, adress, writer)
-		VALUES (#{title}, #{content}, #{adress}, #{writer})
+		INSERT INTO eatBoard (title, content, address, writer)
+		VALUES (#{title}, #{content}, #{address}, #{writer})
 	</insert>
 
 	<select id="read" resultType="org.zerock.domain.EatBoardVO">
-		SELECT * FROM eatBoard WHERE eatbno = #{eatbno}
+		SELECT
+			e.eatbno eatbno,
+			e.title title,
+			e.content content,
+			e.address address,
+			e.writer writer,
+			e.regdate regdate,
+			e.updatedate updatedate,
+			e.likes likes,
+			e.views views,
+			m.nickname writerName
+		FROM eatBoard e JOIN tbl_member2 m ON e.writer = m.userid
+		WHERE e.eatbno = #{eatbno}
 	</select>
 
 	<delete id="delete">
@@ -91,9 +110,9 @@
 		SET
 		title = #{title},
 		content = #{content},
-		adress = #{adress},
+		address = #{address},
 		writer = #{writer},
-		updateDate = NOW()
+		updatedate = NOW()
 
 		WHERE
 		eatbno = #{eatbno}
