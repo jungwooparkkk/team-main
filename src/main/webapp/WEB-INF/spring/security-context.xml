@@ -5,14 +5,26 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+	<bean id="bcryptPasswordEncoder" 
+	class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	
+	
+
 	<security:http>
-		<security:http-basic />
+		<security:intercept-url pattern="/secure/all" access="permitAll"/>
+		<security:intercept-url pattern="/secure/member" access="hasRole('ROLE_MEMBER')"/>
+		<security:intercept-url pattern="/secure/admin" access="hasRole('ROLE_ADMIN')"/>
+		<security:form-login login-page="/member/login" default-target-url="/board/list"/>
+		<security:logout logout-success-url="/member/loginMem"/>
+		<security:csrf disabled="true"/>
+		<security:remember-me data-source-ref="dataSource"/>
 	</security:http>
 
 	<security:authentication-manager>
 		<security:authentication-provider>
 		  <security:user-service>
 		    <security:user name="member" password="{noop}member" authorities="ROLE_MEMBER" />
+		    
 		  </security:user-service>
 		</security:authentication-provider>
 	</security:authentication-manager>

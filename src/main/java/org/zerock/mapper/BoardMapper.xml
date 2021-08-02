@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="org.zerock.mapper.BoardMapper">
+
+<sql id="criteria">
+     <where>
+	     <foreach item="type" separator="OR" collection="typeArr">
+	     	<choose>
+	     		<when test='type == "T"'>
+	     			b.title LIKE CONCAT('%', #{keyword}, '%')
+	     		</when>
+	     		<when test='type == "W"'>
+	     			b.writer LIKE CONCAT('%', #{keyword}, '%')
+	     		</when>
+	     		<when test='type == "C"'>
+	     			b.content LIKE CONCAT('%', #{keyword}, '%')
+	     		</when>
+	     	</choose>
+	     </foreach>
+     </where>	
+	</sql>
+
+<select id="getList" resultType="org.zerock.domain.BoardVO">
+    
+    <![CDATA[
+    
+    SELECT 
+    	bno bno,
+    	title title,
+    	content content,
+    	writer writer,
+    	regdate regdate,
+    	updatedate updateDate,
+    	views views,
+    	good good,
+    
+     FROM tbl_board
+     
+     WHERE bno > 0 ORDER BY bno DESC
+     
+    ]]>
+    
+  </select>
+
+<insert id="write">
+  	INSERT INTO tbl_board (title, content, writer) 
+  	VALUES (#{title}, #{content}, #{writer})
+  </insert>
+  
+  <insert id="writeSelectKey" useGeneratedKeys="true" keyProperty="bno" keyColumn="bno">
+  	INSERT INTO tbl_board (title, content, writer)
+  	VALUES (#{title}, #{content}, #{writer})
+  </insert>
+  
+<select id="getListWithPaging" resultType="org.zerock.domain.BoardVO">
+    SELECT 
+    	bno,
+    	title,
+    	content,
+    	writer,
+    	regdate,
+    	updatedate
+     FROM tbl_board b 
+     
+  <include refid="criteria"></include>
+	 GROUP BY bno
+     ORDER BY bno DESC
+     LIMIT #{from}, #{amount}
+   
+     
+  </select>
+
+
+  <select id="getTotalCount" resultType="int">
+  SELECT COUNT(*) FROM tbl_board b
+  <include refid="criteria"></include>
+  </select>
+
+
+<select id="read" resultType="org.zerock.domain.BoardVO">
+	select * from tbl_board where bno = #{bno} 
+</select>
+
+<delete id="delete">
+	delete from tbl_board where bno = #{bno}
+</delete>
+
+<update id="update">
+	update tbl_board
+	set 
+	title= #{title},
+	content= #{content},
+	writer= #{writer},
+	updateDate = now()
+	where bno = #{bno}
+</update>
+
+</mapper>
