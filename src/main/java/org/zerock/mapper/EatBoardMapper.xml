@@ -31,13 +31,16 @@
 			<foreach item="type" separator="OR" collection="typeArr">
 				<choose>
 					<when test='type == "T"'>
-						b.title LIKE CONCAT('%', #{keyword}, '%')
+						e.title LIKE CONCAT('%', #{keyword}, '%')
 					</when>
 					<when test='type == "W"'>
-						b.writer LIKE CONCAT('%', #{keyword}, '%')
+						m.nickName LIKE CONCAT('%', #{keyword}, '%')
 					</when>
 					<when test='type == "C"'>
-						b.content LIKE CONCAT('%', #{keyword}, '%')
+						e.content LIKE CONCAT('%', #{keyword}, '%')
+					</when>
+					<when test='type == "A"'>
+						e.address LIKE CONCAT('%', #{keyword}, '%')
 					</when>
 				</choose>
 			</foreach>
@@ -46,7 +49,7 @@
 	
 
 	<select id="getTotalCount" resultType="int">
-		SELECT COUNT(*) FROM eatBoard e
+		SELECT COUNT(*) FROM eatBoard e INNER JOIN tbl_member2 m ON e.writer = m.userid
 		<include refid="criteria"></include>
 	</select>
 
@@ -62,8 +65,8 @@
     	e.likes likes,
     	e.views views,
     	m.nickName writerName
-    	
-     FROM eatBoard  e INNER JOIN tbl_member2 m ON e.writer = m.userid
+     FROM eatBoard e
+     				INNER JOIN tbl_member2 m ON e.writer = m.userid
      			
      
   <include refid="criteria"></include>
@@ -96,7 +99,7 @@
 			e.updatedate updatedate,
 			e.likes likes,
 			e.views views,
-			m.nickname writerName
+			m.nickName writerName
 		FROM eatBoard e JOIN tbl_member2 m ON e.writer = m.userid
 		WHERE e.eatbno = #{eatbno}
 	</select>

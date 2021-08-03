@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.MemberVO;
-import org.zerock.security.PersoUser;
+import org.zerock.security.domain.PersoUser;
 import org.zerock.service.MemberService;
 
 import lombok.Setter;

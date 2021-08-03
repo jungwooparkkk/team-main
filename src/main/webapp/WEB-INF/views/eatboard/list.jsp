@@ -8,7 +8,7 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
-
+<link rel="stylesheet" href="${appRoot }/resources/css/eatboard.css"/>
 <title>Insert title here</title>
 
 <script>
@@ -47,7 +47,7 @@ $(document).ready(function() {
 </c:url>
 	<a class="btn btn-secondary" href="${registerUrl }">글작성</a>
 	
-	<table class="table table-striped">
+ 	<table class="table table-striped">
 		<thead>
 			<tr>
 				<th>이미지</th>
@@ -75,9 +75,9 @@ $(document).ready(function() {
 					
 					<a href="${getUrl }">
 						${board.title }
-						<%-- <c:if test="${board.replyCnt >0 }">
+						<c:if test="${board.replyCnt >0 }">
 							[${board.replyCnt }]
-						</c:if> --%>
+						</c:if>
 					</a>
 					
 					</td>
@@ -85,9 +85,9 @@ $(document).ready(function() {
 					<td>
 						<fmt:formatDate pattern="yyyy-MM-dd" value="${board.regdate }"/>
 					</td>
-					 <%-- <td>
+					 <td>
 						<fmt:formatDate pattern="yyyy-MM-dd" value="${board.updateDate }"/>
-					</td> --%> 
+					</td> 
 				</tr>
 			</c:forEach>			
 		</tbody>

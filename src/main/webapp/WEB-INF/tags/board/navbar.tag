@@ -45,14 +45,27 @@
 			<li class="nav-item"><a class="nav-link" href="#">자유게시판</a></li>
 		</ul>
 
-		<form class="form-inline my-2 my-lg-0">
-			<input class="form-control mr-sm-2" type="search"
-				placeholder="맛집, 여행찾아보기" aria-label="Search">
-			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
-		</form>
+
+	  <form action="${listUrl }" method="get" class="form-inline">
+  	<select name="type" class="form-control mr-sm-2">
+  		<option value="TWCA" ${cri.type == "TWCA" ? 'selected' : '' }>전체검색</option>
+  		<option value="T" ${cri.type == "T" ? 'selected' : '' }>제목</option>
+  		<option value="C" ${cri.type == "C" ? 'selected' : '' }>내용</option>
+  		<option value="W" ${cri.type == "W" ? 'selected' : '' }>작성자</option>
+  		<option value="A" ${cri.type == "A" ? 'selected' : '' }>주소</option>
+  	</select>
+  
+    <input  name="keyword" value="${cri.keyword }" class="form-control mr-sm-2" type="search" placeholder="맛집, 여행 찾아보기" aria-label="Search">
+    
+    <input type="hidden" name="pageNum" value="1">
+    <input  type="hidden" name="amount" value="${cri.amount }">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
+  </form>
 		<button class="btn btn-outline-dark" type="submit">
 			<i class="bi-cart-fill me-1"></i> 찜리스트 <span
 				class="badge bg-dark text-white ms-1 rounded-pill">0</span>
 		</button>
 	</div>
+	
+	
 </nav>

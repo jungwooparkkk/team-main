@@ -16,7 +16,7 @@ var appRoot = "${appRoot}";
 var boardBno = "${board.eatbno}";
 var userid = "${pinfo.member.userid}";
 </script>
-<%-- <script src="${appRoot }/resources/js/get.js" ></script> --%>
+<script src="${appRoot }/resources/js/eatget.js"></script>
 
 
 </head>
@@ -120,7 +120,7 @@ var userid = "${pinfo.member.userid}";
       </div>
       <div class="modal-body">
         <form>
-          <input type="text" value="${board.eatbno }" readonly hidden id="reply-bno-input1">
+          <input type="text" value="${board.eatbno }" readonly hidden id="reply-eatbno-input1">
           <div class="form-group">
              <label for="recipient-name" class="col-form-label">작성자</label>
             <input type="text" readonly value="${pinfo.member.nickName }" class="form-control" />
@@ -152,8 +152,8 @@ var userid = "${pinfo.member.userid}";
       </div>
       <div class="modal-body">
         <form>
-          <input type="text" value="" readonly hidden id="reply-rno-input2" >
-          <input type="text" value="${board.eatbno }" readonly hidden id="reply-bno-input2">
+          <input type="text" value="" readonly hidden id="reply-eatrno-input2" >
+          <input type="text" value="${board.eatbno }" readonly hidden id="reply-eatbno-input2">
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">작성자</label>
             <input type="text" class="form-control" id="reply-replyer-input2" readonly>
