@@ -1,7 +1,5 @@
 package org.zerock.service;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.zerock.domain.MemberVO;
 
 public interface MemberService {
@@ -18,6 +16,14 @@ public interface MemberService {
 
 	boolean delete(MemberVO mem, String exPassword);
 	
+	MemberVO check(String email);
+	
 
+
+
+
+	
+
+	
 	
 }

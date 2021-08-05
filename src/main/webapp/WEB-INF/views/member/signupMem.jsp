@@ -167,7 +167,7 @@ $(function(){
 					<form id="signup" method="post" action="${appRoot }/member/signupMem">
 						<div class="form-group-id">
 							<label for="signup-inputid">아이디</label>
-							<input type="text" class="form-control" id="signup-inputid" name="userid">
+							<input required="required" type="text" class="form-control" id="signup-inputid" name="userid">
 							
 							<button class="btn btn-outline-secondary" type="button" id="id-dupCheck-btn">아이디 중복 확인</button>
 							<small id="id-message" class="form-text"></small>
@@ -175,10 +175,10 @@ $(function(){
 									
 						<div class="form-group-pw">
 							<label for="signup-input-pw"> 비밀번호 </label>
-							<input type="password" class="form-control" id="signup-input-pw" minlength="8" name="userpw">
+							<input required="required" type="password" class="form-control" id="signup-input-pw" name="userpw">
 					
 							<label for="signup-input-pwCheck">비밀번호 확인</label>
-							<input type="password" class="form-control" id="signup-input-pwCheck">
+							<input required="required" type="password" class="form-control" id="signup-input-pwCheck">
 							<small id="password-message" class="form-text text-danger "></small>
 						</div>
 			
@@ -197,13 +197,13 @@ $(function(){
 							 <input name="address" type="hidden" id="fullAddressInput">
 					
 				 			<label for="signp-input-email"> 이메일 주소 </label><br>
-				   			<input type="email" class="serchBox" id="signup-input-email" placeholder="e-mail@gmail.com" name="email">
+				   			<input required="required" type="email" class="serchBox" id="signup-input-email" placeholder="e-mail@gmail.com" name="email">
 							<small id="email-message" class="form-text"></small>
 						</div>
 			
 						<div class="form-group">
 							<label for="signup-input-phoneNum"> 연락처 </label>
-							<input type="text" class="form-control" id="signup-input-phoneNum" name="phoneNum">
+							<input required="required" type="text" class="form-control" id="signup-input-phoneNum" name="phoneNum">
 							<small id="phone-message" class="form-text"></small>
 						</div>
 			
