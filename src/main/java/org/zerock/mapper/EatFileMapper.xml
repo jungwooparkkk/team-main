@@ -10,7 +10,7 @@ INSERT INTO eatBoard_file (eatbno, fileName)
 VALUES (#{eatbno}, #{fileName})
 </insert>
 
-<delete id="deleteBYEatBno">
+<delete id="deleteByEatBno">
 DELETE FROM eatBoard_file
 WHERE eatbno = #{eatbno}
 </delete>

@@ -22,8 +22,8 @@ public class EatReplyServiceImpl implements EatReplyService {
 	}
 	
 	@Override
-	public EatReplyVO get(Long rno) {
-		return mapper.read(rno);
+	public EatReplyVO get(Long eatrno) {
+		return mapper.read(eatrno);
 	}
 	
 	@Override
@@ -32,13 +32,13 @@ public class EatReplyServiceImpl implements EatReplyService {
 	}
 	
 	@Override
-	public int remove(Long rno) {
-		return mapper.delete(rno);
+	public int remove(Long eatrno) {
+		return mapper.delete(eatrno);
 	}
 	
 	@Override
-	public List<EatReplyVO> getList(Long bno){
-		return mapper.getList(bno);
+	public List<EatReplyVO> getList(Long eatbno){
+		return mapper.getList(eatbno);
 	}
 	
 

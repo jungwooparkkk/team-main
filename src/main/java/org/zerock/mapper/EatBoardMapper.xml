@@ -10,17 +10,18 @@
     <![CDATA[
     
 	SELECT
-		eatbno eatbno,
-		title title,
-		content content,
-		address address,
-		writer writer,
-		regdate regdate,
-		updatedate updatedate,
-		likes likes,
-		views views
-	FROM eatBoard
-	where eatbno > 0 order by eatbno DESC
+		e.eatbno eatbno,
+		e.title title,
+		e.content content,
+		e.address address,
+		e.writer writer,
+		e.regdate regdate,
+		e.updatedate updatedate,
+		e.likes likes,
+		e.views views,
+		f.fileName fileName
+	FROM eatBoard e LEFT JOIN eatBoard_file f ON e.eatbno = f.eatbno
+	where e.eatbno > 0 order by e.eatbno DESC
      
     ]]>
 
@@ -49,7 +50,7 @@
 	
 
 	<select id="getTotalCount" resultType="int">
-		SELECT COUNT(*) FROM eatBoard e INNER JOIN tbl_member2 m ON e.writer = m.userid
+		SELECT COUNT(*) FROM eatBoard e
 		<include refid="criteria"></include>
 	</select>
 
@@ -64,14 +65,16 @@
     	e.updatedate updatedate,
     	e.likes likes,
     	e.views views,
-    	m.nickName writerName
-     FROM eatBoard e
+    	m.nickName writerName,
+    	count(r.eatrno) replyCnt
+     FROM eatBoard e LEFT JOIN eat_reply r ON e.eatbno = r.eatbno
      				INNER JOIN tbl_member2 m ON e.writer = m.userid
+     				
      			
      
   <include refid="criteria"></include>
-	 GROUP BY eatbno
-     ORDER BY eatbno DESC
+	 GROUP BY e.eatbno
+     ORDER BY e.eatbno DESC
      LIMIT #{from}, #{amount}
    
      
@@ -99,8 +102,10 @@
 			e.updatedate updatedate,
 			e.likes likes,
 			e.views views,
+			f.fileName fileName,
 			m.nickName writerName
-		FROM eatBoard e JOIN tbl_member2 m ON e.writer = m.userid
+		FROM eatBoard e LEFT JOIN eatBoard_file f ON e.eatbno = f.eatbno
+						 JOIN tbl_member2 m ON e.writer = m.userid
 		WHERE e.eatbno = #{eatbno}
 	</select>
 
@@ -121,6 +126,12 @@
 		eatbno = #{eatbno}
 
 	</update>
+	
+	<delete id="removeByUserid">
+	DELETE FROM eatBoard
+	WHERE writer = #{userid}
+	</delete>
+	
 </mapper>
 
 

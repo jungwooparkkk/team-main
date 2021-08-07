@@ -61,7 +61,10 @@ $(document).ready(function() {
 		<tbody>
 			<c:forEach items="${list }" var="board">
 				<tr>
-					<td>이미지</td>
+					<td>
+						<img class="img-fluid" 
+						src="${imgRoot}${board.eatbno }/${board.fileName}">
+					</td>
 					<td>${board.eatbno }</td>
 					<td>
 					
@@ -75,19 +78,20 @@ $(document).ready(function() {
 					
 					<a href="${getUrl }">
 						${board.title }
-						<c:if test="${board.replyCnt >0 }">
-							[${board.replyCnt }]
-						</c:if>
 					</a>
+					<c:if test="${board.replyCnt > 0 }">
+						<i class="far fa-comment-dots"></i> ${board.replyCnt }
+					</c:if>
+					
 					
 					</td>
 					<td>${board.writerName}</td>
 					<td>
 						<fmt:formatDate pattern="yyyy-MM-dd" value="${board.regdate }"/>
 					</td>
-					 <td>
+					 <%-- <td>
 						<fmt:formatDate pattern="yyyy-MM-dd" value="${board.updateDate }"/>
-					</td> 
+					</td>  --%>
 				</tr>
 			</c:forEach>			
 		</tbody>

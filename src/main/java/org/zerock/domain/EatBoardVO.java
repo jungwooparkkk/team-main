@@ -17,6 +17,8 @@ public class EatBoardVO {
 	private Date updatedate;
 	private Long likes;
 	private Long views;
+	
+	private int replyCnt;
 
-//	private String fileName;
+	private String fileName;
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.EatBoardVO;
@@ -47,10 +48,12 @@ public class EatboardController {
 	
 	@PostMapping("/register")
 	@PreAuthorize("isAuthenticated()")
-	public String register(EatBoardVO board, RedirectAttributes rttr) {
+	public String register(EatBoardVO board, @RequestParam("file") MultipartFile file, RedirectAttributes rttr) {
 		log.info("register: " + board);
 		
-		service.register(board);
+		board.setFileName(file.getOriginalFilename());
+		
+		service.register(board, file);
 		
 		// redirect 목적지로 정보 전달
 		rttr.addFlashAttribute("result", board.getEatbno());
@@ -73,10 +76,14 @@ public class EatboardController {
 
 	
 	@PostMapping("/modify")
-	public String modify(EatBoardVO board, Criteria cri, RedirectAttributes rttr) {
+	@PreAuthorize("principal.username == #board.writer")
+	public String modify(EatBoardVO board, Criteria cri, 
+			@RequestParam("file") MultipartFile file, RedirectAttributes rttr) {
 		log.info("modify:" + board);
 		
-		if(service.modify(board)) {
+		boolean success = service.modify(board, file);
+		
+		if(success) {
 			rttr.addFlashAttribute("result", "success");
 			rttr.addFlashAttribute("messageTitle", "수정 성공");
 			rttr.addFlashAttribute("messageBody", "수정 되었습니다.");
@@ -90,11 +97,15 @@ public class EatboardController {
 	}
 	
 	@PostMapping("/remove")
-	public String remove(@RequestParam("eatbno") Long eatbno, 
-			RedirectAttributes rttr, 
+	@PreAuthorize("principal.username == #writer")
+	public String remove(@RequestParam("eatbno") Long eatbno, String writer,
+			RedirectAttributes rttr,
 			Criteria cri) {
 		log.info("remove..." + eatbno);
-		if(service.remove(eatbno)) {
+		
+		boolean success = service.remove(eatbno);
+		
+		if(success) {
 			rttr.addFlashAttribute("result", "success");
 			rttr.addFlashAttribute("messageTitle", "삭제 성공.");
 			rttr.addFlashAttribute("messageBody", "삭제 되었습니다.");

@@ -51,7 +51,7 @@ public class EatReplyController {
 	}
 
 	@DeleteMapping("/{eatrno}")
-	@PreAuthorize("principal.nickName == #vo.replyer")
+	@PreAuthorize("principal.username == #vo.replyer")
 	public ResponseEntity<String> remove(@PathVariable Long eatrno, @RequestBody EatReplyVO vo) {
 
 		int cnt = service.remove(eatrno);
@@ -64,7 +64,7 @@ public class EatReplyController {
 	}
 
 	@RequestMapping(value = "/{eatrno}", method = {RequestMethod.PUT, RequestMethod.PATCH})
-	@PreAuthorize("principal.nickName == #vo.replyer")
+	@PreAuthorize("principal.username == #vo.replyer")
 	public ResponseEntity<String> modify(@RequestBody EatReplyVO vo, @PathVariable Long eatrno) {
 		int cnt = service.modify(vo);
 

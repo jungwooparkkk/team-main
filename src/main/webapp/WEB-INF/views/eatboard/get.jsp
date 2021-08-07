@@ -47,12 +47,12 @@ var userid = "${pinfo.member.userid}";
 					name="content"><c:out value="${board.content }" /></textarea>
 				</div>
 				
-<%-- 				 <c:if test="${not empty board.fileName }">
+ 				 <c:if test="${not empty board.fileName }">
 					<div>
 						<img class="img-fluid" 
 						src="${imgRoot}${board.eatbno }/${board.fileName}">
 					</div>
-				</c:if> --%>
+				</c:if>
 				
 				<div class="form-group">
 					<label for="input2">작성자</label>
@@ -122,7 +122,7 @@ var userid = "${pinfo.member.userid}";
         <form>
           <input type="text" value="${board.eatbno }" readonly hidden id="reply-eatbno-input1">
           <div class="form-group">
-             <label for="recipient-name" class="col-form-label">작성자</label>
+            <label for="recipient-name" class="col-form-label">작성자</label>
             <input type="text" readonly value="${pinfo.member.nickName }" class="form-control" />
             <input type="hidden" value="${pinfo.member.userid }" class="form-control" id="reply-replyer-input1">
           </div>
@@ -156,7 +156,8 @@ var userid = "${pinfo.member.userid}";
           <input type="text" value="${board.eatbno }" readonly hidden id="reply-eatbno-input2">
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">작성자</label>
-            <input type="text" class="form-control" id="reply-replyer-input2" readonly>
+            <input type="hidden" class="form-control" id="reply-replyer-input2" readonly>
+            <input type="text" class="form-control" id="reply-replyerName-input2" readonly>
           </div>
           <div class="form-group">
             <label for="message-text" class="col-form-label">댓글</label>
