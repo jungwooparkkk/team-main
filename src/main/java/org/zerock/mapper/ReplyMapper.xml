@@ -13,9 +13,9 @@
 		r.replyer replyer,
 		r.replyDate replyDate,
 		r.updateDate updateDate,
-		m.username replyerName
+		m.nickName replyerName
 	FROM 
-	    tbl_reply r JOIN tbl_member m ON r.replyer = m.userid
+	    tbl_reply r JOIN tbl_member2 m ON r.replyer = m.userid
 	WHERE
 	    r.bno = #{bno}
 	ORDER BY r.rno ASC
@@ -26,9 +26,25 @@
 		VALUES (#{bno}, #{reply}, #{replyer})
 	</insert>
 	
+	<insert id="insertSelectKey" useGeneratedKeys="true" keyProperty="rno" keyColumn="rno">
+		INSERT INTO tbl_reply (bno, reply, replyer)
+		VALUES (#{bno}, #{reply}, #{replyer})
+	</insert>
+	
 	<select id="read" resultType="org.zerock.domain.ReplyVO">
-		select * from tbl_reply where rno = #{rno}
-	</select>
+	SELECT 
+		r.rno rno,
+		r.bno bno,
+		r.reply reply,
+		r.replyer replyer,
+		r.replyDate replyDate,
+		r.updateDate updateDate,
+		m.nickName replyerName
+	FROM 
+	    tbl_reply r JOIN tbl_member2 m ON r.replyer = m.userid
+	WHERE
+		r.rno = #{rno}	
+	</select>	
 	
 	<delete id="delete">
 		delete from tbl_reply where rno = #{rno}
@@ -37,7 +53,10 @@
 	<update id="update">
 		update tbl_reply 
 		set
-		reply = #{reply}, updatedate = now() where rno = #{rno}			
+		reply = #{reply},
+		replyer = #{replyer},
+		 updatedate = now()
+		  where rno = #{rno}			
 	</update>
 	
 	<select id="getListWithPaging" resultType="org.zerock.domain.ReplyVO">
@@ -48,4 +67,25 @@
 		bno = #{bno}
 		order by rno ASC
 	</select>
+	
+	<select id="getCountByBno" resultType="int">
+		SELECT COUNT(*) FROM tbl_reply WHERE bno = #{bno}
+	</select>
+	
+	<delete id="removeByBnoByUserid">
+		DELETE FROM tbl_reply
+		WHERE bno IN (
+			SELECT bno FROM tbl_board WHERE writer = #{userid}
+		)
+	</delete>
+
+	<delete id="removeByUserid">
+		DELETE FROM tbl_reply
+		WHERE replyer = #{userid}
+	</delete>
+	
+	<delete id="deleteByBno">
+		DELETE FROM tbl_reply
+		WHERE bno = #{bno}
+	</delete>
 </mapper>

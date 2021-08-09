@@ -1,6 +1,12 @@
 package org.zerock.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -42,16 +48,20 @@ int total = service.getTotal(cri);
 	}
 
 	@GetMapping("/write")
+	@PreAuthorize("isAuthenticated()")
 	public String write() {
 		System.out.println("글쓰기");
 		return "board/write";
 	}
 
 	@PostMapping("/write")
-	public String write(BoardVO board, RedirectAttributes rttr) {
+	@PreAuthorize("isAuthenticated()")
+	public String write(BoardVO board,@RequestParam("file")MultipartFile file, RedirectAttributes rttr) {
 		log.info("write: " + board);
 		
-		service.write(board);
+		board.setFileName(file.getOriginalFilename());
+		
+		service.write(board, file);
 		
 		rttr.addFlashAttribute("result", board.getBno());
 		
@@ -98,9 +108,16 @@ int total = service.getTotal(cri);
 	}
 	
 	
-	@GetMapping({"/get","/modify"})
+	@GetMapping("/get")
 	public void get(@RequestParam("bno") long bno,@ModelAttribute("cri") Criteria cri, Model model) {
-		log.info("수정 삭제 작업");
+		log.info("게시글 보기");
 		model.addAttribute("board", service.get(bno));
+		service.views(bno);
+	}
+	
+	@GetMapping("/modify")
+	public void modify(@RequestParam("bno")long bno, @ModelAttribute("cri") Criteria cri, Model model) {
+		log.info("수정작업");
+		model.addAttribute("board",service.get(bno));
 	}
 }

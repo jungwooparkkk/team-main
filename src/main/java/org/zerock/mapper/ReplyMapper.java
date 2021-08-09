@@ -18,4 +18,6 @@ public interface ReplyMapper {
 
 
 	public List<ReplyVO> getList(Long bno);
+
+	public void deleteByBno(long bno);
 }

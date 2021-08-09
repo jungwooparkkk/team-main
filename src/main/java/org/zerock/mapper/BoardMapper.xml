@@ -5,6 +5,28 @@
   
 <mapper namespace="org.zerock.mapper.BoardMapper">
 
+<update id="likecheck1" >
+	update
+		 tbl_board_good
+	set
+		likecheck = likecheck + 1
+	where
+		userid = #{userid}
+	and
+		bno = #{bno}
+</update>
+
+<update id="likecheck0" >
+	update
+		 tbl_board_good
+	set
+		likecheck = 0
+	where
+		userid = #{userid}
+	and
+		bno = #{bno}
+</update>
+
 <sql id="criteria">
      <where>
 	     <foreach item="type" separator="OR" collection="typeArr">
@@ -22,6 +44,12 @@
 	     </foreach>
      </where>	
 	</sql>
+	
+<update id="views">
+	update tbl_board set views = views + 1 where bno = #{bno}
+</update>
+
+
 
 <select id="getList" resultType="org.zerock.domain.BoardVO">
     
@@ -46,13 +74,13 @@
   </select>
 
 <insert id="write">
-  	INSERT INTO tbl_board (title, content, writer) 
-  	VALUES (#{title}, #{content}, #{writer})
+  	INSERT INTO tbl_board (title, content, writer, views, good) 
+  	VALUES (#{title}, #{content}, #{writer}, #{views}, #{good})
   </insert>
   
   <insert id="writeSelectKey" useGeneratedKeys="true" keyProperty="bno" keyColumn="bno">
-  	INSERT INTO tbl_board (title, content, writer)
-  	VALUES (#{title}, #{content}, #{writer})
+  	INSERT INTO tbl_board (title, content, writer, views, good)
+  	VALUES (#{title}, #{content}, #{writer}, #{views}, #{good})
   </insert>
   
 <select id="getListWithPaging" resultType="org.zerock.domain.BoardVO">
@@ -62,7 +90,9 @@
     	content,
     	writer,
     	regdate,
-    	updatedate
+    	updatedate,
+    	views,
+    	good
      FROM tbl_board b 
      
   <include refid="criteria"></include>
@@ -81,7 +111,19 @@
 
 
 <select id="read" resultType="org.zerock.domain.BoardVO">
-	select * from tbl_board where bno = #{bno} 
+	SELECT 
+  	 b.bno bno,
+  	 b.title title,
+  	 b.content content,
+  	 b.writer writer,
+  	 b.regdate regdate,
+  	 b.updatedate updateDate,
+  	 b.views views,
+  	 f.fileName fileName,
+  	 m.nickName writerName
+  	FROM tbl_board b LEFT JOIN tbl_board_file f ON b.bno = f.bno
+  	                      JOIN tbl_member2 m ON b.writer = m.userid
+  	WHERE b.bno = #{bno} 
 </select>
 
 <delete id="delete">
@@ -97,5 +139,7 @@
 	updateDate = now()
 	where bno = #{bno}
 </update>
+
+
 
 </mapper>

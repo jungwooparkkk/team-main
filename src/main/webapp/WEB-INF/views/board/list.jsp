@@ -32,6 +32,7 @@ $(document).ready(function() {
 </script>
 
 
+
 </head>
 <body>
 	<bd:navbar />
@@ -65,7 +66,7 @@ $(document).ready(function() {
 				
 			</tr>
 		</thead>
-		<a class="btn btn-primary" href="${appRoot }/board/write" role="button">글쓰기</a>
+		<a class="btn btn-primary" href="${appRoot }/board/write" role="button" id="writebutton">글쓰기</a>
 		<tbody>
 			<c:forEach items="${list}" var="board">
 				<tr>
