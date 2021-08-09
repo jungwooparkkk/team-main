@@ -4,7 +4,7 @@ import lombok.Data;
 
 import java.util.Date;
 
-import org.springframework.web.multipart.MultipartFile;
+
 
 @Data
 public class BoardVO {
@@ -17,6 +17,9 @@ public class BoardVO {
 	private Date regdate;
 	private Date updateDate;
 	
-	private long views;
-	private long good;
+	private int views;
+	private int good;
+	
+	private String fileName;	
+	
 }
