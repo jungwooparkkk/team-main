@@ -192,4 +192,11 @@ public class EatBoardServiceImpl implements EatBoardService {
 	public int getTotal(Criteria cri) {
 		return mapper.getTotalCount(cri);
 	}
+
+
+	 @Override 
+	 public int views(Long eatbno) { 
+		 return mapper.views(eatbno); }
+
+	
 }

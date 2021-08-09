@@ -20,7 +20,9 @@ public interface EatBoardService {
 
 	public int getTotal(Criteria cri);
 
-	public  void register(EatBoardVO board, MultipartFile file);
+	public void register(EatBoardVO board, MultipartFile file);
 	
 	public boolean modify(EatBoardVO board, MultipartFile file);
+
+	public int views(Long eatbno);
 }

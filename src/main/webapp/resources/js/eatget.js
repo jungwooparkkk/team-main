@@ -193,4 +193,28 @@
 			})
 		}
 	});
+	
+		$("#like-button1").click(function() {
+		var operation = $(this).attr("data-operation");
+		
+		var url = "${appRoot}/eatboard/" + likes;
+		
+		$.post({
+			url : url,
+			success : function(data) {
+				//$("#like-icon1").toggleClass("far fas");
+				$("#like-cnt1").text(data);
+				
+				if(operation == "like"){
+					$("#like-button1").attr("data-operation", "dislike");
+					$("#like-icon1").removeClass("far").addClass("fas");
+				} else{
+					$("#like-button1").attr("data-operation", "like");
+					$("#like-icon1").removeClass("fas").addClass("far");
+				}
+			}
+		});
+	});
+	
+	
 })

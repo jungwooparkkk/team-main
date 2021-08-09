@@ -29,8 +29,9 @@ public class EatboardController {
 	public EatBoardService service;
 	
 	@GetMapping("/list")
-	public void list(@ModelAttribute("cri") Criteria cri, Model model) {
+	public void list(@ModelAttribute("cri") Criteria cri, Model model, @ModelAttribute("vo") EatBoardVO vo) {
 		log.info("list");
+		
 		int total = service.getTotal(cri);
 		
 		List<EatBoardVO> list = service.getList(cri);
@@ -71,6 +72,8 @@ public class EatboardController {
 		EatBoardVO vo = service.get(eatbno);
 		
 		model.addAttribute("board", vo);
+		
+		service.views(eatbno);
 	}
 	
 

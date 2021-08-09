@@ -26,4 +26,7 @@ public interface EatBoardMapper {
 	public int getTotalCount(Criteria cri);
 	
 	public void removeByUserid(MemberVO vo);
+	
+	public int views(Long eatbno);
+
 }

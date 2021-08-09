@@ -20,7 +20,9 @@
 		e.likes likes,
 		e.views views,
 		f.fileName fileName
+		count(r.eatrno) replyCnt
 	FROM eatBoard e LEFT JOIN eatBoard_file f ON e.eatbno = f.eatbno
+					LEFT JOIN eat_reply r ON e.eatbno = r.eatbno
 	where e.eatbno > 0 order by e.eatbno DESC
      
     ]]>
@@ -66,9 +68,11 @@
     	e.likes likes,
     	e.views views,
     	m.nickName writerName,
+    	f.fileName fileName,
     	count(r.eatrno) replyCnt
      FROM eatBoard e LEFT JOIN eat_reply r ON e.eatbno = r.eatbno
      				INNER JOIN tbl_member2 m ON e.writer = m.userid
+     				LEFT JOIN eatBoard_file f ON e.eatbno = f.eatbno
      				
      			
      
@@ -81,14 +85,15 @@
   </select>
 	
 	<insert id="insert">
-		INSERT INTO eatBoard (title, content, address, writer)
-		VALUES (#{title}, #{content}, #{address}, #{writer})
+		INSERT INTO eatBoard (title, content, address, writer, views)
+		VALUES (#{title}, #{content}, #{address}, #{writer}, #{views})
 	</insert>
 
 	<insert id="insertSelectKey" useGeneratedKeys="true"
 		keyProperty="eatbno" keyColumn="eatbno">
-		INSERT INTO eatBoard (title, content, address, writer)
-		VALUES (#{title}, #{content}, #{address}, #{writer})
+		INSERT INTO eatBoard (title, content, address, writer, views)
+		VALUES (#{title}, #{content}, #{address}, #{writer}, #{views})
+		
 	</insert>
 
 	<select id="read" resultType="org.zerock.domain.EatBoardVO">
@@ -103,9 +108,11 @@
 			e.likes likes,
 			e.views views,
 			f.fileName fileName,
-			m.nickName writerName
+			m.nickName writerName,
+			count(r.eatrno) replyCnt
 		FROM eatBoard e LEFT JOIN eatBoard_file f ON e.eatbno = f.eatbno
 						 JOIN tbl_member2 m ON e.writer = m.userid
+						 LEFT JOIN eat_reply r ON e.eatbno = r.eatbno
 		WHERE e.eatbno = #{eatbno}
 	</select>
 
@@ -131,6 +138,15 @@
 	DELETE FROM eatBoard
 	WHERE writer = #{userid}
 	</delete>
+	
+	<update id="views">
+		UPDATE
+			eatBoard
+		SET
+			views = views +1
+		WHERE
+			eatbno = #{eatbno}
+	</update>
 	
 </mapper>
 

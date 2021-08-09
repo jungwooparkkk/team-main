@@ -15,8 +15,8 @@ public class EatBoardVO {
 	private String writerName;
 	private Date regdate;
 	private Date updatedate;
-	private Long likes;
-	private Long views;
+	private int likes;
+	private int views;
 	
 	private int replyCnt;
 
