@@ -1,6 +1,6 @@
 /**
  * 
- */
+ */ 
  $(function() {
 	function showModifyModal(eatrno) {
 		$.ajax({

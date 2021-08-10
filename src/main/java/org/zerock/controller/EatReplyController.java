@@ -24,7 +24,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @AllArgsConstructor
 public class EatReplyController {
-
+ 
 	private EatReplyService service;
 	
 	@PostMapping("/new")
