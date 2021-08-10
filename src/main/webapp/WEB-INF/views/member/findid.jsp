@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +14,9 @@ String email = request.getParameter("email");
 %>
 <title>Insert title here</title>
 
-<script type="text/javascript">
+
+
+<script>
 
 
 	//이메일 정보 매칭해서 아이디 알려주기
@@ -21,9 +24,7 @@ String email = request.getParameter("email");
 		 $("#findmailBtn").click(function() {
 			var emailVal = $("#find-pw-email").val();
 			var regmail = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/;
-		
-			var id = ${"mem.userid"};
-			
+			var id = "${userid};"
 			if(emailVal == ""){
 				alert("이메일을 입력해주세요.")
 			}else if (!regmail.test(emailVal)){
@@ -35,11 +36,10 @@ String email = request.getParameter("email");
 					url : "${appRoot}/member/checkMail",
 					data : data,
 					success : function (data) {
-						if(data == "exist"){
+						if(data[0] == "exist"){
 							console.log("이미 회원 가입되어 있는 이메일")
-							alert("회원가입 되어있는 아이디는"+id+"입니다.");
-							
-						}else if (data == "fail"){
+							alert("회원가입 되어있는 아이디는"+data[1]+ "입니다.");
+						} else if(data[0] == "fail"){
 							console.log("등록되어 있지 않은 이메일")
 							alert("등록되어 있지 않은 이메일입니다. 회원 가입을 진행해주세요.");
 						}
@@ -66,7 +66,7 @@ String email = request.getParameter("email");
 	 		 <div class="form-group">
 	  			<p>회원가입 시 입력한 이메일 주소를 입력하세요.</p>
 				  	<div class="mb-3">
-				  		<form id="findpw" method="get" action="${appRoot }/member/findid">
+				  		<form id="findid" method="get" action="${appRoot }/member/findid">
 						  <label for="find-pw-email" class="form-label">이메일</label>
 						  <input type="email" class="form-control" id="find-pw-email" name = "email" placeholder="email@gmail.com">
 				  		</form>

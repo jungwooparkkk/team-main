@@ -18,6 +18,14 @@ public interface MemberService {
 	
 	MemberVO check(String email);
 	
+	void send(String subject, String text, String from, String to);
+
+	void modify(MemberVO user, String string, String tempPw);
+	
+	
+
+
+	
 
 
 

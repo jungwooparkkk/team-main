@@ -17,8 +17,8 @@ public class PersoUser extends User{
 	@Setter
 	private MemberVO member;
 	
-	public PersoUser(String nickName, String password, Collection<? extends GrantedAuthority> authorities ) {
-		super(nickName, password, authorities);
+	public PersoUser(String username, String password, Collection<? extends GrantedAuthority> authorities ) {
+		super(username, password, authorities);
 	}
 	
 	public PersoUser(MemberVO mem) {

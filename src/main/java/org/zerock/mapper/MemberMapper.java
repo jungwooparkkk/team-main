@@ -9,7 +9,7 @@ public interface MemberMapper {
 	
 	public int insert(MemberVO mem);
 
-	public void insertAuth(AuthVO authi);
+	public void insertAuth(AuthVO auth);
 
 	public MemberVO read(String userid);
 
@@ -19,11 +19,8 @@ public interface MemberMapper {
 
 	public void deleteAuth(MemberVO mem);
 	
-	public void findInfo(MemberVO mem);
+	public MemberVO check(String email);
 
-	public void read(MemberVO mem);
-
-	public void findid(HttpServletResponse response, MemberVO mem);
 	
 	
 }

@@ -1,10 +1,16 @@
 package org.zerock.service;
 
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 //import javax.mail.MessagingException;
 //import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 //import org.springframework.mail.javamail.JavaMailSender;
 //import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,8 +30,8 @@ public class MemberServiceimpl implements MemberService{
 	@Setter(onMethod_=@Autowired)
 	private PasswordEncoder encoder;
 	
-//	@Setter(onMethod_=@Autowired)
-//	private JavaMailSender javaMailSender;
+	@Autowired
+	private JavaMailSender javaMailSender;
 	
 	
 	@Override
@@ -46,6 +52,12 @@ public class MemberServiceimpl implements MemberService{
 	public MemberVO read(String name) {
 		
 		return map.read(name);
+	}
+	
+	@Override
+	public void modify(MemberVO user, String string, String tempPw) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -92,30 +104,32 @@ public class MemberServiceimpl implements MemberService{
 	public MemberVO check(String email) {
 		return map.check(email);
 	}
-//
-//	@Override
-//	public boolean send(String subject, String text, String from, String to) {
-//		   // javax.mail.internet.MimeMessage
-//        MimeMessage message = javaMailSender.createMimeMessage();
-// 
-//        try {
-//            // org.springframework.mail.javamail.MimeMessageHelper
-//            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-//            helper.setSubject(subject);
-//            helper.setText(text, true);
-//            helper.setFrom(from);
-//            helper.setTo(to);
-// 
-//  
-// 
-//            javaMailSender.send(message);
-//            return true;
-//        } catch (MessagingException e) {
-//            e.printStackTrace();
-//        }
-//        return false;
-//    }
-//
+
+	@Override
+	public void send(String subject, String text, String from, String to) {
+		   // javax.mail.internet.MimeMessage
+        MimeMessage message = javaMailSender.createMimeMessage();
+        
+        String ContentText = text;
+ 
+        try {
+            // org.springframework.mail.javamail.MimeMessageHelper
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+            helper.setSubject("임시 비밀번호 설정");
+ //           helper.setText(text, true);
+            helper.setText(ContentText);
+            helper.setFrom(from);
+            helper.setTo(to);
+  
+ 
+            javaMailSender.send(message);
+       
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+      
+    }
+
 
 	
 }

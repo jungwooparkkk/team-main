@@ -7,7 +7,7 @@
 <head>
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
 
-<title>Insert title here</title>
+<title>회원가입</title>
 <script>
 
 //주소검색 팝업 및 입력
@@ -53,12 +53,12 @@ $(function(){
 				url : "${appRoot}/member/checkdupMem",
 				data : data,
 				success : function (data) {
-					if (data == "success"){
+					if (data[0] == "success"){
 						console.log("사용 가능 아이디")
 						validId = true;
 						messagePop.text("사용 가능한 아이디 입니다.");
 					}
-					else if (data == "exist") {
+					else if (data[0] == "exist") {
 						console.log("사용 불가 아이디")
 						messagePop.text("이미 있는 아이디 입니다.")
 					}
@@ -165,7 +165,7 @@ $(function(){
 		<div class="row">	
 				<div class="col-md-6 col-7">
 					<form id="signup" method="post" action="${appRoot }/member/signupMem">
-						<div class="form-group-id">
+						<div class="form-floating form-group-id">
 							<label for="signup-inputid">아이디</label>
 							<input required="required" type="text" class="form-control" id="signup-inputid" name="userid">
 							

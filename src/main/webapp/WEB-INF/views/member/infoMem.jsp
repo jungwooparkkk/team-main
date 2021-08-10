@@ -25,7 +25,7 @@ $(function() {
 			break;
 			case "delete-button" :
 				$("#member-info-form1")
-				.attr("action", "${appRoot}/main/deleteMem")
+				.attr("action", "${appRoot}/member/deleteMem")
 				.submit();
 			break;
 		}
@@ -101,7 +101,7 @@ $(function() {
 	<h1>회원 정보</h1>
 	<div class="row">
 		<div class="col-12">
-			<form id="member-info-form1" method="post" action="${appRoot }/main/modify">
+			<form id="member-info-form1" method="post" action="${appRoot }/member/infoMem">
 					<div class="form-group">
 					  <label for="member-info-inputid" > 아이디</label>
 					  <input readonly value="${mem.userid }" type="text" class="form-control" id="member-info-inputid" name="userid" placeholder="아이디를 입력해주세요.">
@@ -133,6 +133,21 @@ $(function() {
 				<div class="form-group">
 					<label for="member-info-nick">닉네임</label>
 					<input value="${mem.nickName }" type="text" class="form-control" id="member-info-nick" name="nickName">
+				</div>
+				
+				<div class="form-group">
+					<label for="member-info-addr">주소</label>
+					<input value="${mem.address }" type="text" class="form-control" id="member-info-addr" name="address">
+				</div>
+				
+				<div class="form-group">
+					<label for="member-info-mail">이메일</label>
+					<input value="${mem.email }" type="email" class="form-control" id="member-info-mail" name="email">
+				</div>
+				
+				<div class="form-group">
+					<label for="member-info-phone">연락처</label>
+					<input value="${mem.phoneNo }" type="text" class="form-gontrol" id="member-info-phone" name="phoneNo">
 				</div>
 				
 				<button disabled type="submit" class="btn btn-secondary" id="member-info-modify-btn1">정보 수정</button>

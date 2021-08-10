@@ -1,4 +1,7 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
+
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 <!DOCTYPE html>
@@ -7,26 +10,36 @@
 
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
 
+
 <title>로그인 화면</title>
+
+
 </head>
 <body>
 <div class="container">
+
 	<div class="row justify-content-center">
 		<div class="col-md-6 col-7">
 					<h1>로그인</h1>
-			<form action="${appRoot }/member/loginMem" method="post">
+			<form action="${appRoot }/login" method="post">
 				<div class="form-group">
 					<label for="inid">아이디</label>
-					<input id="inid" class="form-control" name="userid">
+					<input id="inid"  required="required" type="text" class="form-control" name="username">
 				</div>
 				<div class="form-group">
 					<label for="inpw">비밀번호</label>
-					<input id="inpw" type="password" class="form-control" name="userpw" />
+					<input id="inpw"  required="required" type="password" class="form-control" name="password" />
 				</div>
 				
+	
 				<div class="form-group">
-					<input class="btn btn-primary" type="submit"  style="width:290px;" value="로그인">
+					<button name="button" type="submit" id="loginBtn" class="btn btn-primary btn-block" tabindex="3">
+	       			 로그인 
+					</button>
+			<%-- 		<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" /> --%>
+
 				</div>
+				
 			</form>
 			
 				<div class = "form-check">
@@ -36,24 +49,10 @@
 				
 			<div class="form-row">
 				<div class="find-info">
-					<a href="${appRoot }/member/findid"></a>
-					<form action="${appRoot }/member/findid" method="get">
-							<input class="btn btn-light" type="submit" value="아이디 찾기">
-					</form>		
+						<a class="btn btn-light" href="${appRoot }/member/findid">아이디 찾기</a>
+						<a class="btn btn-light" href="${appRoot }/member/findpw">비밀번호 찾기</a>
+						<a class="btn btn-light" href="${appRoot }/member/signupMem">회원가입</a>
 				</div>
-				<div class="find-info">
-					<form action="${appRoot }/member/findpw" method="post">
-							<input class="btn btn-light" type="submit" value="비밀번호 찾기">
-					</form>
-				</div>
-			 
-			<form action="${appRoot }/member/signupMem" method="post">
-				<div class="find-info" >
-					<a class="btn btn-light" href="${appRoot }/member/signupMem">
-					회원가입
-					</a>
-				</div>
-			</form>
 			</div>
 		</div>
 			
