@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<%@ taglib prefix="bd" tagdir="/WEB-INF/tags/travel" %>
 
 
 <!DOCTYPE html>
@@ -53,7 +53,17 @@ $(document).ready(function(){
 			<label for="input1">제목</label>
 			<input id="input1" value="${board.title }" class="form-control" name="title">
 	</div>
-	
+	<c:if test="${not empty board.fileName }">
+					<div>
+						<img class="img-fluid" 
+						src="${imgRoot}${board.bno }/${board.fileName}">
+					</div>
+				</c:if>
+				
+				<div class="form-group">
+					<label for="input3">파일</label>
+					<input id="input3" class="form-control" type="file" name="file" accept="image/*">
+				</div>
 	<div class="form-group">
 					<label for="textarea1">내용</label>
 					<textarea id="textarea1" class="form-control" 

@@ -11,6 +11,8 @@ public interface BoardMapper {
 	// @Select("select * from tbl_board where bno > 0")
 	public List<BoardVO> getList();
 	
+	public int views(long bno);
+	
 	
 	public boolean write(BoardVO board);
 	
