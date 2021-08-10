@@ -5,27 +5,33 @@
   
 <mapper namespace="org.zerock.mapper.BoardMapper">
 
-<update id="likecheck1" >
-	update
-		 tbl_board_good
-	set
-		likecheck = likecheck + 1
-	where
-		userid = #{userid}
-	and
-		bno = #{bno}
-</update>
+ <update id="likecheck" parameterType="HashMap">
+    UPDATE tbl_board_good
+    SET goodcheck = goodcheck + 1 
+    WHERE userid=#{userid} AND bno=#{bno}
+  </update>
+  
+  <update id="likecheckcancel" parameterType="HashMap">
+    UPDATE tbl_board_good
+    SET goodcheck = 0
+    WHERE userid=#{userid} AND bno=#{bno}
+  </update>
+  
+  <select id="countbyLike" resultType="int" parameterType="HashMap">
+   SELECT COUNT(goodno) as cnt
+   FROM tbl_board_good
+   WHERE bno=#{bno} AND userid=#{userid}
+</select>
 
-<update id="likecheck0" >
-	update
-		 tbl_board_good
-	set
-		likecheck = 0
-	where
-		userid = #{userid}
-	and
-		bno = #{bno}
-</update>
+<insert id="create" parameterType="HashMap">
+   INSERT INTO tbl_board_good(goodno, bno, userid, goodcheck) 
+   VALUES ((SELECT NVL(MAX(goodno), 0) + 1 as goodno FROM tbl_board_good),
+                #{bno}, #{userid}, 0)
+</insert>
+
+
+
+
 
 <sql id="criteria">
      <where>
