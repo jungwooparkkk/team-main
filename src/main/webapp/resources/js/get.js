@@ -14,20 +14,22 @@
 				// 댓글 작성자와 로그인 유저가 같지 않으면 
 				// 수정/삭제 버튼 삭제
 				if (userid != reply.replyer) {
-					$("#reply-modify-modal")
-					  .find("#reply-modify-delete-btn-wrapper")
-					  .hide();	
+					$("#reply-list-container")
+					  .find("#reply-modify-btn1")
+					  .find("#reply-delete-btn1")
+					  .hide();
+					  
 					
-					$("#reply-modify-reply").attr("readonly", "readonly");
 				} else {
-					$("#reply-modify-modal")
-					  .find("#reply-modify-delete-btn-wrapper")
+					$("#reply-modify-btn1")					  
+					  .show();
+					$("#reply-delete-btn1")
 					  .show();	
 					
-					$("#reply-modify-reply").removeAttr("readonly");
+					
 				}
 
-				$("#reply-modify-modal").modal("show");
+				
 			},
 			error: function () {
 				console.log("댓글 가져오기 실패");
@@ -44,10 +46,18 @@
 					<div class="media-body">
 						<h5 class="my-4">${reply.replyerName}</h5>
 						<p>${reply.reply}</p>
-						<small>${new Date(reply.replyDate).toISOString().split("T")[0]}</small>
-						<button id="reply-delete-btn1" data-toggle='modal' data-target='#deleteModal' style="float:right">삭제</button>
-						<button id="reply-modify-btn1" data-toggle='modal' data-target='#modifyModal' style="float:right">수정</button>
-						<hr>
+						<small>${new Date(reply.replyDate).toISOString().split("T")[0]}</small>`
+						+
+							(reply.replyer == userid
+								?
+									`
+									<button id="reply-delete-btn1" data-toggle='modal' data-target='#deleteModal' style="float:right">삭제</button>
+									<button id="reply-modify-btn1" data-toggle='modal' data-target='#modifyModal' style="float:right">수정</button>
+									`
+								: ``
+							)
+						+
+						`<hr>
 					</div>
 				</li>`;
 			var replyComponent = $(replyHTML).click(function() {
