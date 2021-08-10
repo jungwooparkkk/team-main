@@ -68,7 +68,6 @@ public class EatboardController {
 	@GetMapping({"/get", "/modify"})
 	public void get(@RequestParam("eatbno") Long eatbno, Model model, @ModelAttribute("cri") Criteria cri) {
 		log.info("/get or /modify");
-		
 		EatBoardVO vo = service.get(eatbno);
 		
 		model.addAttribute("board", vo);

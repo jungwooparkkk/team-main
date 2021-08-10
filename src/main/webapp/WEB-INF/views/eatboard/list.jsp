@@ -57,11 +57,19 @@
 							<c:param name="amount" value="${pageMaker.cri.amount }" />
 							<c:param name="type" value="${pageMaker.cri.type }" />
 							<c:param name="keyword" value="${pageMaker.cri.keyword }" />
-						</c:url> <a class="img" href="${getUrl }"><img
-							src="${imgRoot}${board.eatbno }/${board.fileName}"></a> <a
-						class="item-title" href="${getUrl }"> <span class="list-num">${board.eatbno }</span>
+						</c:url>
+						<a class="img" href="${getUrl }">
+							<img src="${imgRoot}${board.eatbno }/${board.fileName}">
+						</a>
+							<a class="item-title" href="${getUrl }">
+							<span class="list-num">${board.eatbno }</span>
 							<span class="title">${board.title }</span>
-					</a>
+							</a>
+						<a class="item-content" href="${getUrl }">
+						<div class="address">${board.address }</div>
+						<div class="kategorie">${board.kategorie }</div>
+						<div class="content">${board.content }</div>
+						</a>
 						<div class="writer">${board.writerName}</div>
 						<div class="item-info">
 							<div class="reply">

@@ -14,6 +14,7 @@
 		e.title title,
 		e.content content,
 		e.address address,
+		e.kategorie kategorie,
 		e.writer writer,
 		e.regdate regdate,
 		e.updatedate updatedate,
@@ -52,7 +53,7 @@
 	
 
 	<select id="getTotalCount" resultType="int">
-		SELECT COUNT(*) FROM eatBoard e
+		SELECT COUNT(*) FROM eatBoard e JOIN tbl_member2 m ON e.writer = m.userid
 		<include refid="criteria"></include>
 	</select>
 
@@ -62,6 +63,7 @@
     	e.title title,
     	e.content content,
     	e.address address,
+    	e.kategorie kategorie,
     	e.writer writer,
     	e.regdate regdate,
     	e.updatedate updatedate,
@@ -85,14 +87,14 @@
   </select>
 	
 	<insert id="insert">
-		INSERT INTO eatBoard (title, content, address, writer, views)
-		VALUES (#{title}, #{content}, #{address}, #{writer}, #{views})
+		INSERT INTO eatBoard (title, content, address, kategorie, writer, views)
+		VALUES (#{title}, #{content}, #{address}, #{kategorie}, #{writer}, #{views})
 	</insert>
 
 	<insert id="insertSelectKey" useGeneratedKeys="true"
 		keyProperty="eatbno" keyColumn="eatbno">
-		INSERT INTO eatBoard (title, content, address, writer, views)
-		VALUES (#{title}, #{content}, #{address}, #{writer}, #{views})
+		INSERT INTO eatBoard (title, content, address, kategorie, writer, views)
+		VALUES (#{title}, #{content}, #{address}, #{kategorie}, #{writer}, #{views})
 		
 	</insert>
 
@@ -102,6 +104,7 @@
 			e.title title,
 			e.content content,
 			e.address address,
+			e.kategorie kategorie,
 			e.writer writer,
 			e.regdate regdate,
 			e.updatedate updatedate,
@@ -126,6 +129,7 @@
 		title = #{title},
 		content = #{content},
 		address = #{address},
+		kategorie = #{kategorie},
 		writer = #{writer},
 		updatedate = NOW()
 

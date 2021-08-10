@@ -43,6 +43,10 @@ $(document).ready(function(){
 					<input id="address1" class="form-control" name="address" value="${board.address}">
 				</div>
 				<div class="form-group">
+					<label for="kategorie1">음식 종류</label>
+					<input id="kategorie1" class="form-control" name="kategorie" value="${board.kategorie}">
+				</div>
+				<div class="form-group">
 					<label for="textarea1">내용</label>
 					<textarea id="textarea1" class="form-control" name="content"><c:out value="${board.content }"></c:out></textarea>
 				</div>

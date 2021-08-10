@@ -75,6 +75,21 @@
 	text-align: right;
 	font-size: 16px;
 }
+
+.eat-board-list .item .address {
+	text-align: reft;
+	font-size: 14px;
+	color: #544c48;
+	margin-bottom: 20px;
+}
+
+.eat-board-list .item .kategorie {
+	text-align: reft;
+	font-size: 14px;
+	color: #544c48;
+	margin-bottom: 20px;
+}
+
 .eat-board-list .item .item-info {
 	text-align: right;
 }
@@ -158,7 +173,7 @@
 .eat-board-detail .form-group textarea.form-control:read-only {
 	height: 100px;
 }
-.eat-board-detail .btn-wrap {
+.eat-board-detail .btn-wrap { 
 	text-align: right;
 }
 .eat-board-detail .btn-wrap .btn {
@@ -212,6 +227,24 @@
 	.eat-board-list .item .item-title {
 		padding-left: 260px;
 		font-size: 26px;
+	}
+	.eat-board-list .item .address {
+		padding-left: 260px;
+		font-size: 14px;
+		color: #544c48;
+		margin-bottom: 20px;
+	}
+
+	.eat-board-list .item .kategorie {
+		padding-left: 260px;
+		font-size: 14px;
+		color: #544c48;
+		margin-bottom: 20px;
+	}
+
+	.eat-board-list .item .content {
+		padding-left: 260px;
+		margin-bottom: 20px;
 	}
 	.eat-board-list .item .item-title .list-num {
 		float: left;

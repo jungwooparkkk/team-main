@@ -11,6 +11,7 @@ public class EatBoardVO {
 	private String title;
 	private String content;
 	private String address;
+	private String kategorie;
 	private String writer;
 	private String writerName;
 	private Date regdate;

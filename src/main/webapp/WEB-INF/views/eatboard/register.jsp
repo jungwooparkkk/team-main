@@ -28,7 +28,10 @@
 					<label for="input3">주소</label>
 					<input placeholder="서울 or 제주" id="input3" class="form-control" name="address">
 				</div>
- 					
+ 				<div class="form-group">
+					<label for="kategorie1">음식 종류</label>
+					<input placeholder="ex : 파스타, 피자" id="kategorie1" class="form-control" name="kategorie">
+				</div>
 				<div class="form-group">
 					<label for="textarea1">내용</label>
 					<textarea id="textarea1" class="form-control" name="content"></textarea>

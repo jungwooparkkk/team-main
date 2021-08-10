@@ -63,6 +63,10 @@
 							class="form-control" name="address" value="${board.address}">
 					</div>
 					<div class="form-group">
+						<label for="kategorie1">음식종류</label> <input readonly id="kategorie1"
+							class="form-control" name="kategorie" value="${board.kategorie}">
+					</div>
+					<div class="form-group">
 						<label for="input2">작성자</label> <input type="hidden"
 							readonly="readonly" id="input2" class="form-control"
 							name="writer" value="${board.writer}"> <input
