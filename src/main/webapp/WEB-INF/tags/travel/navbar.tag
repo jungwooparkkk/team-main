@@ -4,7 +4,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <nav class="navbar navbar-expand-sm navbar-light bg-light">
-  <a class="navbar-brand" href="/jaehyun/travel/main" style="
+  <a class="navbar-brand" href="" style="
     width: 500px;
   ">로고</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,13 +27,23 @@
     <ul class="navbar-nav ml-auto">
       <li class="nav-item dropdown">
          <a  class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-         	메뉴
+         	<i class="fas fa-list"></i>메뉴
         </a>
         <div class="dropdown-menu dropdown-menu-right"  aria-labelledby="navbarDropdown">
-          <a href="/jaehyun/member/login" class="dropdown-item" href="#">로그인</a>
-          <a href="/jaehyun/member/signup" class="dropdown-item" href="#">회원 가입</a>
+          <sec:authorize access="!isAuthenticated()">
+				<a href="${appRoot }/member/loginMem" class="dropdown-item">로그인</a>
+				<a href="${appRoot }/member/signupMem" class="dropdown-item" href="#">회원 가입</a>  
+  		  </sec:authorize>
+  		  <sec:authorize access="isAuthenticated()">
+	  			<form action="${appRoot }/logout" method="post">
+	  			<input type="submit" class="dropdown-item" value="로그아웃">
+	  			<a href="${appRoot }/member/infoMem" class="dropdown-item" href="#">정보 수정</a>
+	 			</form>
+  		  </sec:authorize>
+  		 
+          
           <a href="" class="dropdown-item" href="#">맛집</a>
-          <a href="/jaehyun/travel/area" class="dropdown-item" href="#">여행</a>
+          <a href="${appRoot }/travel/area" class="dropdown-item" href="#">여행</a>
           <a class="dropdown-item" href="/jaehyun/board/list">
           <div class="dropdown-divider" ></div>자유 게시판</a>
         </div>

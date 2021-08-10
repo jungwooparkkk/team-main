@@ -1,0 +1,260 @@
+/* MOBILE */
+.eat-board {
+	padding: 30px 20px;
+}
+.eat-board h1 {
+	text-align: center;
+	font-size: 32px;
+	font-weight: bold;
+	margin-bottom: 30px;
+}
+.eat-board > .btn-wrap {
+	overflow: hidden;
+}
+.eat-board > .btn-wrap .btn {
+	float: right;
+	margin-bottom: 30px;
+	background-color: #ff792a;
+	border: 1px solid #ff792a;
+}
+.eat-board > .btn-wrap > .btn:hover, .eat-board > .btn:focus {
+	background-color: #f59a64;
+	border: 1px solid #f59a64;
+}
+/* list */
+.eat-board ul {
+	padding: 0;
+	margin: 0;
+} 
+.eat-board-list ul .item {
+	list-style: none;
+}
+.eat-board-list .item .img {
+	position: relative;
+	display: block;
+    overflow: hidden;
+    background-size: cover;
+    background-position: 50% 50%;
+}
+.eat-board-list .item .img::before {
+	display: block;
+    content: "";
+    width: 100%;
+    padding-top: 42.85714%;
+}
+.eat-board-list .item .img img {
+	display: block;
+	position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+	margin-bottom: 10px;
+}
+.eat-board-list .item .item-title {
+	display: block;
+	font-size: 20px;
+	color: #555;
+	font-weight: bold;
+	padding-top: 10px;
+}
+.eat-board-list .item .item-title:hover {
+	text-decoration: none;
+}
+.eat-board-list .item .item-title .list-num {
+	display: inline-block;
+}
+.eat-board-list .item .item-title .list-num::after {
+	content: '.';
+}
+.eat-board-list .item .item-title .title {
+	display: inline-block;
+}
+.eat-board-list .item .writer {
+	text-align: right;
+	font-size: 16px;
+}
+
+.eat-board-list .item .address {
+	text-align: reft;
+	font-size: 14px;
+	color: #544c48;
+	margin-bottom: 20px;
+}
+
+.eat-board-list .item .kategorie {
+	text-align: reft;
+	font-size: 14px;
+	color: #544c48;
+	margin-bottom: 20px;
+}
+
+.eat-board-list .item .item-info {
+	text-align: right;
+}
+.eat-board-list .item .item-info .reply {
+	display: inline-block;
+	margin-right: 10px;
+}
+.eat-board-list .item .item-info .view {
+	display: inline-block;
+	margin-right: 10px;
+}
+.eat-board-list .item .item-info .like {
+	display: inline-block;
+}
+.eat-board-list .item .date {
+	text-align: right;
+	font-size: 14px;
+	color: #544c48;
+	margin-bottom: 20px;
+}
+/* pagination */
+.eat-board .page-item.active .page-link {
+	background-color: #ff792a;
+	border-color: #ff792a;
+	color:#fff;
+}
+.eat-board .page-item .page-link {
+	color: #ff792a;
+}
+.eat-board .page-item .page-link:hover,.eat-board .page-item .page-link:focus {
+	background-color: #f5dcd0;
+	border-color: #f5dcd0;
+	color:#fff;
+}
+/* 글 보기 */
+.eat-board-detail h1 {
+	text-align: center;
+	font-size: 32px;
+	font-weight: bold;
+	margin-bottom: 30px;
+}
+.eat-board-detail .img-wrap {
+	margin-bottom: 30px;
+}
+.eat-board-detail .item-info {
+	text-align: right;
+	margin-bottom: 30px;
+}
+.eat-board-detail .item-info .icon-reply,
+.eat-board-detail .item-info .icon-view,
+.eat-board-detail .item-info button {
+	display: inline-block;
+}
+.eat-board-detail .item-info .icon-reply,
+.eat-board-detail .item-info .icon-view {
+	margin-right: 7px;
+}
+.eat-board-detail .item-info .btn-like {
+	border: 0;
+	background-color: #fff;
+	padding: 0;
+}
+.eat-board-detail .form-group {
+	margin-bottom: 20px;
+}
+.eat-board-detail .form-group label {
+	font-size: 16px;
+	font-weight: bold;
+}
+.eat-board-detail .form-group .form-control:read-only {
+	background-color: transparent;
+	border: 0;
+}
+.eat-board-detail .form-group .form-control:focus {
+    outline: none;
+    box-shadow: none;
+}
+.eat-board-detail .form-group textarea.form-control {
+	resize: none;
+}
+.eat-board-detail .form-group textarea.form-control:read-only {
+	height: 100px;
+}
+.eat-board-detail .btn-wrap { 
+	text-align: right;
+}
+.eat-board-detail .btn-wrap .btn {
+	margin-bottom: 30px;
+	background-color: #ff792a;
+	border: 1px solid #ff792a;
+}
+.eat-board-detail .btn-wrap .btn.btn-border {
+	background-color: #fff;
+	color: #ff792a;
+}
+.reply-wrap {
+	border-top: 1px solid #e9e9e9;
+    padding-top: 30px;
+}
+.reply-wrap .reply-header {
+	display: flex;
+	justify-content: space-between;
+}
+.reply-wrap .reply-header h3 {
+	font-size: 18px;
+	font-size: 26px;
+    font-weight: bold;
+    margin: 0;
+}
+.reply-wrap .reply-header .btn {
+	background-color: #ff792a;
+	border: 1px solid #ff792a;
+}
+.reply-wrap .list-unstyled .media-body small {
+    display: block;
+    text-align: right;
+}
+/* --------------------------------------------------------- */
+/* WEB */
+@media (min-width: 768px) {
+	.eat-board-list ul .item {
+		position: relative;
+		height: 261px;
+		padding-bottom: 20px;
+		margin-bottom: 20px;
+		border-bottom: 1px solid #dbdbdb;
+	}
+	.eat-board-list .item .img {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 240px;
+		width: 240px;
+	}
+	.eat-board-list .item .item-title {
+		padding-left: 260px;
+		font-size: 26px;
+	}
+	.eat-board-list .item .address {
+		padding-left: 260px;
+		font-size: 14px;
+		color: #544c48;
+		margin-bottom: 20px;
+	}
+
+	.eat-board-list .item .kategorie {
+		padding-left: 260px;
+		font-size: 14px;
+		color: #544c48;
+		margin-bottom: 20px;
+	}
+
+	.eat-board-list .item .content {
+		padding-left: 260px;
+		margin-bottom: 20px;
+	}
+	.eat-board-list .item .item-title .list-num {
+		float: left;
+		margin-right: 10px;
+	}
+	.eat-board-list .item .item-title .title {
+		width: calc(100% - 50px);
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		margin-bottom: 30px;
+	}
+}

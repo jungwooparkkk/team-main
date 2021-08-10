@@ -4,14 +4,22 @@ import lombok.Data;
 
 import java.util.Date;
 
-import org.springframework.web.multipart.MultipartFile;
+
 
 @Data
 public class BoardVO {
 	private long bno;
+	
 	private String title;
 	private String content;
 	private String writer;
+	
 	private Date regdate;
 	private Date updateDate;
+	
+	private int views;
+	private int good;
+	
+	private String fileName;	
+	
 }

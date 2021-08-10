@@ -4,9 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.FileVO;
 import org.zerock.mapper.BoardMapper;
+import org.zerock.mapper.FileMapper;
+import org.zerock.mapper.ReplyMapper;
 
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -19,11 +24,31 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Setter(onMethod_ = @Autowired)
 	private BoardMapper mapper;
+	
+	@Setter (onMethod_ = @Autowired)
+	private ReplyMapper replyMapper;
 
+	@Setter (onMethod_ = @Autowired)
+	private FileMapper fileMapper;
+	
 	@Override
-	public boolean write(BoardVO board) {
-		log.info("write..." + board);
-		return mapper.write(board);
+	public void write(BoardVO board) {
+		mapper.writeSelectKey(board);
+	}
+	
+	@Override
+	@Transactional
+	public void write(BoardVO board, MultipartFile file) {
+		write(board);
+		
+		if (file != null && file.getSize() > 0) {
+			FileVO vo = new FileVO();
+			vo.setBno(board.getBno());
+			vo.setFileName(file.getOriginalFilename());
+			
+			fileMapper.insert(vo);
+			
+		}
 	}
 
 	@Override
@@ -41,8 +66,11 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
+	@Transactional
 	public boolean remove(long bno) {
 		log.info("remove..." + bno);
+		replyMapper.deleteByBno(bno);
+		
 		return mapper.delete(bno) == 1;
 	}
 	
@@ -53,11 +81,7 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.getListWithPaging(cri);
 	}
 
-	@Override
-	public List<BoardVO> getList() {
-		
-		return mapper.getList();
-	}
+	
 
 	@Override
 	public int getTotal(Criteria cri) {
@@ -66,5 +90,11 @@ public class BoardServiceImpl implements BoardService {
 	
 	}
 	
+	@Override
+	public int views(long bno) {
+		return mapper.views(bno);
+	}
+	
 
 }
+

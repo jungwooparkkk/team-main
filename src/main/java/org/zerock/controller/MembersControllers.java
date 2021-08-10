@@ -108,10 +108,19 @@ public class MembersControllers {
 		
 		if(ok) {
 			req.logout();
+master
 			return "redirect:/member/loginMem";
 		}else {
 			rttr.addAttribute("status","error");
 			return "redirect:/member/infoMem";
+
+
+			return "redirect:/board/list";
+		}else {
+			rttr.addAttribute("status","error");
+			return "redirect:/member/info";
+
+
 		}
 	}
 	
