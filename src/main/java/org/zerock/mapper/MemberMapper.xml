@@ -33,6 +33,7 @@
 			tbl_member2 m LEFT JOIN tbl_member_auth2 a ON m.userid = a.userid
 		WHERE 
 			m.userid = #{userid}
+
   </select>
   
   <update id="update">
@@ -41,10 +42,10 @@
   	  nickName = #{nickName},
   	  phoneNum = #{phoneNum}
   WHERE
-  	user id = #{userid}
+  	userid = #{userid}
   </update>
   
-  <delete id="remove">
+  <delete id="delete">
   DELETE FROM tbl_member2
   WHERE userid=#{userid}
   </delete>
@@ -53,13 +54,29 @@
   DELETE FROM tbl_member_auth2
   WHERE user id = #{userid}
   </delete>
+
   
-  <select id="findid">
-  INSERT INTO member
-  (nickName, email, userid)
-  VALUES
-  (${nickName}, ${email},${userid})
+  <select id="check" resultMap="memberM">
+    	SELECT
+			m.userid userid,
+			m.email email,
+			m.userpw userpw,
+			m.nickName nickName,
+			m.address address,
+			m.phoneNum phoneNum
+		FROM
+			tbl_member2 m LEFT JOIN tbl_member_auth2 a ON m.userid = a.userid
+		WHERE 
+			m.email = #{email}
   </select>
+  
+  <!-- 비밀번호 변경 -->
+	<update id="updatePw" >
+		update member 
+		set pw = #{pw} 
+		where 
+		userid = #{userid}
+	</update>
   
 
   
