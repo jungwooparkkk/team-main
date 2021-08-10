@@ -138,7 +138,6 @@ public class MembersControllers {
 		if(mem == null) {
 			return new ResponseEntity<> (new String[] {"fail", ""},HttpStatus.OK);
 		}else{
-			findpwPost(session, email);
 			return new ResponseEntity<> (new String[] {"exist", mem.getUserid()} ,HttpStatus.OK);
 		}
 	}

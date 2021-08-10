@@ -7,10 +7,7 @@
 <head>
 
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
-<%
-String id =request.getParameter("userid");
-String email = request.getParameter("email");
-%>
+
 <title>Insert title here</title>
 
 
