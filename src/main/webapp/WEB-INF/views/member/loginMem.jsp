@@ -38,8 +38,6 @@
 					<button name="button" type="submit" id="loginBtn" class="btn btn-primary btn-block" tabindex="3">
 	       			 로그인 
 					</button>
-					<input class="btn btn-primary" type="submit"  style="width:290px;"value="로그인">
-
 				</div>
 				
 			</form>

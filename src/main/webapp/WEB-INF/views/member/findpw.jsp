@@ -28,7 +28,7 @@
 				var data = {email : emailVal};
 				$.ajax({
 					type : "get",
-					url : "${appRoot}/member/checkMail",
+					url : "${appRoot}/member/newpassword",
 					data : data,
 					success : function (data) {
 						if(data[0] == "exist"){	

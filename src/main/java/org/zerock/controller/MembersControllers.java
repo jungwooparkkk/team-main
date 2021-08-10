@@ -34,7 +34,6 @@ import org.zerock.service.MemberService;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
-//modi
 @Controller
 @RequestMapping("/member")
 @Log4j
@@ -108,19 +107,10 @@ public class MembersControllers {
 		
 		if(ok) {
 			req.logout();
-master
 			return "redirect:/member/loginMem";
 		}else {
 			rttr.addAttribute("status","error");
 			return "redirect:/member/infoMem";
-
-
-			return "redirect:/board/list";
-		}else {
-			rttr.addAttribute("status","error");
-			return "redirect:/member/info";
-
-
 		}
 	}
 	
@@ -140,7 +130,7 @@ master
 	
 	@GetMapping("/checkMail")
 	@ResponseBody
-	public ResponseEntity<String[]>emailDupcheck(HttpSession session, String email, RedirectAttributes rttr){
+	public ResponseEntity<String[]> emailDupcheck(HttpSession session, String email, RedirectAttributes rttr){
 		log.info("check signed email method");
 		
 		MemberVO mem = service.check(email);
@@ -148,20 +138,40 @@ master
 		if(mem == null) {
 			return new ResponseEntity<> (new String[] {"fail", ""},HttpStatus.OK);
 		}else{
-			findpw(session, email);
+			findpwPost(session, email);
+			return new ResponseEntity<> (new String[] {"exist", mem.getUserid()} ,HttpStatus.OK);
+		}
+	}
+	
+	@GetMapping("/newpassword")
+	@ResponseBody
+	public ResponseEntity<String[]> newpassword(HttpSession session, String email, RedirectAttributes rttr){
+		log.info("check signed email method");
+		
+		MemberVO mem = service.check(email);
+		
+		if(mem == null) {
+			return new ResponseEntity<> (new String[] {"fail", ""},HttpStatus.OK);
+		}else{
+			findpwPost(session, email);
 			return new ResponseEntity<> (new String[] {"exist", mem.getUserid()} ,HttpStatus.OK);
 		}
 	}
 	
 
 	
-	@GetMapping(value = {"/findid", "/findpw"})
+	@GetMapping("/findid")
 	public void findid() {
 		
 	}
 	
+	@GetMapping("/findpw")
+	public void findpw() {
+		
+	}
+	
 	@PostMapping("/findpw")
-	public String findpw(HttpSession session, @RequestParam String email) {
+	public String findpwPost(HttpSession session, @RequestParam String email) {
 
 		MemberVO user = service.check(email);
 		
