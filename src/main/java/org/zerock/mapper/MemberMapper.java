@@ -6,6 +6,7 @@ import org.zerock.domain.AuthVO;
 import org.zerock.domain.MemberVO;
 
 public interface MemberMapper {
+	
 	public int insert(MemberVO mem);
 
 	public void insertAuth(AuthVO authi);

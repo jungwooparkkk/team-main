@@ -10,8 +10,8 @@ import org.zerock.security.domain.PersoUser;
 
 import lombok.Setter;
 
-public class PersoUserDetailService implements UserDetailsService {
-	
+public class PersoUserDetailService implements  UserDetailsService{
+
 	@Setter(onMethod_ = @Autowired)
 	private MemberMapper map;
 
@@ -20,7 +20,7 @@ public class PersoUserDetailService implements UserDetailsService {
 		MemberVO mem = map.read(username);
 
 		if(mem == null) {
-			throw new UsernameNotFoundException("사용자를 찾을 수 없습니다. nickname : "+username);
+			throw new UsernameNotFoundException("사용자를 찾을 수 없습니다. nickname : "+ username);
 		}
 		return new PersoUser(mem);
 	}

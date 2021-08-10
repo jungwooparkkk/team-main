@@ -1,16 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="bd" tagdir="/WEB-INF/tags/board" %>
-
 
 <!DOCTYPE html>
 <html>
-
-<bd:navbar></bd:navbar>
 <head>
-
-<%@ include file ="/WEB-INF/subModules/bootstrapHeader.jsp" %>
+<%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
 
 <title>Insert title here</title>
 <script>
@@ -218,5 +213,4 @@ $(function(){
 		</div>
 	</div>		
 </body>
-
 </html>

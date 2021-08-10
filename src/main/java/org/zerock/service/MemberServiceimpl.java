@@ -2,7 +2,6 @@ package org.zerock.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.AuthVO;
@@ -10,9 +9,9 @@ import org.zerock.domain.MemberVO;
 import org.zerock.mapper.MemberMapper;
 
 import lombok.Setter;
+
 @Service
-@Repository
-public class MemberServiceimpl implements MemberService {
+public class MemberServiceimpl implements MemberService{
 	@Setter(onMethod_=@Autowired)
 	private MemberMapper map;
 	

@@ -28,10 +28,9 @@ public class Criteria {
 	}
 	
 	public String[] getTypeArr() {
-		
-		if(type == null) {
+		if (type == null) {
 			return new String[] {};
-		}else {
+		} else {
 			String[] types = type.split("");
 			return types;
 		}

@@ -1,7 +1,9 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
+
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="bd" tagdir="/WEB-INF/tags/board" %>
+<%@ taglib prefix="tv" tagdir="/WEB-INF/tags/travel" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -10,14 +12,11 @@
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
 
 <title>로그인 화면</title>
-
-
-
 </head>
+
+<tv:navbar></tv:navbar>
+
 <body>
-
-<bd:navbar></bd:navbar>
-
 <div class="container">
 	<div class="row justify-content-center">
 		<div class="col-md-6 col-7">
