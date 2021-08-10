@@ -1,11 +1,8 @@
 package org.zerock.service;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.zerock.domain.MemberVO;
 
 public interface MemberService {
-
 	boolean insert(MemberVO mem);
 
 	MemberVO read(String name);
