@@ -130,6 +130,11 @@ public class MemberServiceimpl implements MemberService{
       
     }
 
+	@Override
+	public MemberVO dupNickcheck(String nickName) {
+		return map.dupNickcheck(nickName);
+	}
+
 
 	
 }

@@ -17,6 +17,8 @@ public interface MemberService {
 	
 	MemberVO check(String email);
 	
+	MemberVO dupNickcheck(String nickName);
+	
 	void send(String subject, String text, String from, String to);
 
 	void modify(MemberVO user, String string, String tempPw);
