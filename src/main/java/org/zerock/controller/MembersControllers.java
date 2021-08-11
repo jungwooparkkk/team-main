@@ -76,6 +76,7 @@ public class MembersControllers {
 		
 	}
 	
+
 	@GetMapping("/infoMem")
 	@PreAuthorize("isAuthenticated()")
 	public void info(Criteria cri, Principal principal, Model model) {
@@ -117,7 +118,7 @@ public class MembersControllers {
 	@GetMapping("/checkdupMem")
 	@ResponseBody
 	public ResponseEntity<String[]>copy(String id){
-		log.info("check duplicate method");
+		log.info("아이디 중복 확인");
 		
 		MemberVO mem = service.read(id);
 		
@@ -131,7 +132,7 @@ public class MembersControllers {
 	@GetMapping("/checkMail")
 	@ResponseBody
 	public ResponseEntity<String[]> emailDupcheck(HttpSession session, String email, RedirectAttributes rttr){
-		log.info("check signed email method");
+		log.info("이메일 주소 유효 여부 확인");
 		
 		MemberVO mem = service.check(email);
 		
@@ -139,6 +140,21 @@ public class MembersControllers {
 			return new ResponseEntity<> (new String[] {"fail", ""},HttpStatus.OK);
 		}else{
 			return new ResponseEntity<> (new String[] {"exist", mem.getUserid()} ,HttpStatus.OK);
+		}
+	}
+	
+	@GetMapping("/checkNick")
+	@ResponseBody
+	public ResponseEntity<String> nickDupcheck(String nickName){
+		
+		log.info("닉네임 중복 확인");
+		
+		MemberVO mem = service.dupNickcheck(nickName);
+		
+		if(mem == null) {
+			return new ResponseEntity<> ("success",HttpStatus.OK);
+		}else{
+			return new ResponseEntity<> ("exist",HttpStatus.OK);
 		}
 	}
 	

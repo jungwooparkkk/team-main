@@ -69,6 +69,20 @@
 			m.email = #{email}
   </select>
   
+    <select id="dupNickcheck" resultMap="memberM">
+    	SELECT
+			m.userid userid,
+			m.email email,
+			m.userpw userpw,
+			m.nickName nickName,
+			m.address address,
+			m.phoneNum phoneNum
+		FROM
+			tbl_member2 m LEFT JOIN tbl_member_auth2 a ON m.userid = a.userid
+		WHERE 
+			m.nickName = #{nickName}
+  </select>
+  
 
 
   

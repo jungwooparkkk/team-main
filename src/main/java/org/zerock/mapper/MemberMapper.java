@@ -20,6 +20,10 @@ public interface MemberMapper {
 	public void deleteAuth(MemberVO mem);
 	
 	public MemberVO check(String email);
+	
+	public MemberVO dupNickcheck(String nickName);
+	
+	
 
 	
 	
