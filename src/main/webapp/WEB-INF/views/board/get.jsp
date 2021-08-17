@@ -17,7 +17,40 @@ var boardBno = "${board.bno}";
 var userid = "${pinfo.member.userid}";
 </script>
 <script src="${appRoot }/resources/js/get.js"></script>
+<script>
+function like_func(){
+	 // var  = $('#');
+	  var bno = $('#bno', ).val();
+	  
+	  
+	  $.ajax({
+	    url: appRoot + "liketo",
+	    type: "GET",
+	    cache: false,
+	    dataType: "json",
+	    data: 'bno=' +bno,
+	    success: function(data) {
+	      var msg = '';
+	      var like_icon = '';
+	      msg += data.msg;
+	      alert(msg);
+	      
+	      if(data.likecheck == 0){
+	        like_icon = <i class="far fa-heart" style="font-size:16px;color:red"></i>;
+	      } else {
+	        like_icon = <i class="fas fa-heart" style="font-size:16px;color:red"></i>;
+	      }      
+	      $('#like_icon', ).attr('icon', like_icon);
+	      $('#like_cnt').html(data.good);
+	      $('#likecheck').html(data.likecheck);
+	    },
+	    error: function(request, status, error){
+	      alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	    }
+	  });
+	}
 
+</script>
 </head>
 <body>
 
@@ -69,28 +102,29 @@ var userid = "${pinfo.member.userid}";
 				<div>
 					<div class="w3-border w3-center w3-padding">
 				
+					
+					
+					<div class="form-group">
+						<label>조회수</label>
+						<input class="form-control" name='views'
+					value='<c:out value="${board.views }"/>'readonly="readonly">
+					</div>
 					<c:choose>
-						<c:when test="${userid ne null }">
-							<a href='javascript: like_func();'><i class="far fa-heart" style="font-size:16px;color:red"></i></a>
+						<c:when test="${pinfo.member.userid ne null }">
+							<a href='javascript: like_func();'><i class="far fa-heart" style="font-size:16px;color:red" id='like_icon'></i></a>
 						</c:when>
 						<c:otherwise>
 							<a href= 'javascript: login_need();'><i class="far fa-heart" style="font-size:16px;color:red"></i></a>
 						</c:otherwise>
 					</c:choose>
-					
-					
-					<div class="form-group">
-						<label>작성자</label>
-						<input class="form-control" name='views'
-					value='<c:out value="${board.views }"/>'readonly="readonly">
-					</div>
 			</div>
 			</div>		
 				<div class="container">
 	<div class="row">
 		<div class="col-12">
 			<h3><i class="fa fa-comments fa-fw"></i> 댓글 </h3>			
-			<ul class="list-unstyled" id="reply-list-container">								
+			<ul class="list-unstyled" id="reply-list-container">
+											
 			</ul>		
 		</div>
 	</div>
@@ -100,13 +134,21 @@ var userid = "${pinfo.member.userid}";
 					<div class="row">
 						<form>
 							<input type="text" value="${board.bno }" readonly hidden id="reply-bno-input1">
+						<c:choose>
+						<c:when test="${pinfo.member.userid ne null }">
 						<div class="form-group com-sm-8">
-							<textarea class="form-control" id="reply-reply-textarea1" placeholder="댓글을 입력 해주세요"></textarea>
+							<textarea class="form-control"  id="reply-reply-textarea1" placeholder="댓글을 입력해주세요"></textarea>
 						</div>
+						</c:when>
+						<c:otherwise>
+							<textarea class="form-control" readonly id="reply-reply-textarea1" placeholder="로그인 후 이용 부탁드립니다"></textarea>
+						</c:otherwise>
+						</c:choose>
 					<div class="form-group col-sm-2">					
             					<input type="hidden"  readonly value="${pinfo.member.userid }" class="form-control" />
             					<input type="hidden" value="${pinfo.member.nickName }" class="form-control" id="reply-replyer-input1">
 					</div>
+					
 					<div class="form-group col-sm-2">
 						<button id="reply-insert-btn1" type="button" class="btn btn-primary" style="
     					width: 56px;
