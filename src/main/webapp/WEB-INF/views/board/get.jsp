@@ -17,40 +17,7 @@ var boardBno = "${board.bno}";
 var userid = "${pinfo.member.userid}";
 </script>
 <script src="${appRoot }/resources/js/get.js"></script>
-<script>
-function like_func(){
-	 // var  = $('#');
-	  var bno = $('#bno', ).val();
-	  
-	  
-	  $.ajax({
-	    url: appRoot + "liketo",
-	    type: "GET",
-	    cache: false,
-	    dataType: "json",
-	    data: 'bno=' +bno,
-	    success: function(data) {
-	      var msg = '';
-	      var like_icon = '';
-	      msg += data.msg;
-	      alert(msg);
-	      
-	      if(data.likecheck == 0){
-	        like_icon = <i class="far fa-heart" style="font-size:16px;color:red"></i>;
-	      } else {
-	        like_icon = <i class="fas fa-heart" style="font-size:16px;color:red"></i>;
-	      }      
-	      $('#like_icon', ).attr('icon', like_icon);
-	      $('#like_cnt').html(data.good);
-	      $('#likecheck').html(data.likecheck);
-	    },
-	    error: function(request, status, error){
-	      alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-	    }
-	  });
-	}
 
-</script>
 </head>
 <body>
 
@@ -83,7 +50,7 @@ function like_func(){
 				<c:if test="${not empty board.fileName }">
 					<div>
 						<img class="img-fluid" 
-						src="${imgRoot}/${board.bno }/${board.fileName}">
+						src="${imgRoot}${board.bno }/${board.fileName}">
 					</div>
 				</c:if>
 				<div class="form-group">
@@ -145,8 +112,8 @@ function like_func(){
 						</c:otherwise>
 						</c:choose>
 					<div class="form-group col-sm-2">					
-            					<input type="hidden"  readonly value="${pinfo.member.userid }" class="form-control" />
-            					<input type="hidden" value="${pinfo.member.nickName }" class="form-control" id="reply-replyer-input1">
+            					<input type="hidden"  readonly value="${pinfo.member.userid }" class="form-control" id="reply-replyer-input1"/>
+            					<input type="hidden" value="${pinfo.member.nickName }" class="form-control" >
 					</div>
 					
 					<div class="form-group col-sm-2">
@@ -176,7 +143,7 @@ function like_func(){
 		</div>
 	</div>
 								
-			<c:if test="${pinfo.member.userid eq board.writer }" >
+			<c:if test="${pinfo.member.nickName eq board.writer }" >
 					<a class="btn btn-secondary" href="${modifyUrl }">수정</a>
 				</c:if>
 			 <button class="btn btn-info" type="button" onclick="location.href='${appRoot }/board/list'">게시글로 돌아가기</button>
