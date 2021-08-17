@@ -5,6 +5,7 @@
    xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+<<<<<<< HEAD
    <bean id="bcryptPasswordEncoder" 
       class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
       
@@ -53,5 +54,37 @@
       </security:authentication-provider>
    </security:authentication-manager>
  -->
+=======
+	<bean id="bcryptPasswordEncoder" 
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+		
+    <bean id="userDetailsService" class="org.zerock.security.PersoUserDetailService"></bean>
+
+
+
+
+ 	<security:http>
+ 		<security:intercept-url pattern="/security/every" access="permitAll"/>
+ 		<security:intercept-url pattern="/security/member" access="hasRole('ROLE_MEMBER')"/>
+ 		<security:intercept-url pattern="/security/admin" access="hasRole('ROLE_ADMIN')"/>
+
+		<!-- 로그인된 상태에서는 로그인이나 회원가입 화면에 접근 못하도록 함	-->
+<!-- 		<security:intercept-url pattern="/member/loginMem" access="isAnonymous()" />
+		<security:intercept-url pattern="/member/signupMem" access="isAnonymous()" />  -->
+
+ 		<security:form-login login-page="/member/loginMem" default-target-url="/member/signupMem"/>
+ 		<security:logout logout-success-url="/member/loginMem"/>
+ 		<security:csrf disabled="true"/>
+ 		<security:remember-me data-source-ref="dataSource"/>
+ 	</security:http>
+ 	
+	<security:authentication-manager>
+		<security:authentication-provider user-service-ref="userDetailsService">
+			<security:password-encoder ref="bcryptPasswordEncoder" />
+		</security:authentication-provider>
+	</security:authentication-manager>
+	
+ 	
+>>>>>>> branch 'master' of https://github.com/twp3379/team-main.git
 
 </beans>
