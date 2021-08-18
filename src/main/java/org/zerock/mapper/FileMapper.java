@@ -11,5 +11,7 @@ public interface FileMapper {
 	public void deleteByBno(Long bno);
 
 	public void removeByUserid(MemberVO vo);
+
+	public void deleteByUserid(MemberVO mem);
 }
 
