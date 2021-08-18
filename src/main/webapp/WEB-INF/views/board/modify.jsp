@@ -47,7 +47,7 @@ $(document).ready(function(){
 <tv:navbar></tv:navbar>
 <body>
 <div class="container">
-	<form role="form" action="${appRoot }/board/modify" method="post">
+	<form role="form" action="${appRoot }/board/modify" method="post" enctype="multipart/form-data">
 	
 	<input hidden name="bno" value="${board.bno }" />
 	<div class="form-group">
