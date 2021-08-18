@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="org.zerock.mapper.travel.T_BoardMapper">
+
+
+<sql id="T_criteria">
+     <where>
+			<foreach item="type" separator="OR" collection="typeArr">
+				<choose>
+					<when test='type == "T"'>
+						t.title LIKE CONCAT('%', #{keyword}, '%')
+					</when>
+					<when test='type == "W"'>
+						m.nickName LIKE CONCAT('%', #{keyword}, '%')
+					</when>
+					<when test='type == "C"'>
+						t.content LIKE CONCAT('%', #{keyword}, '%')
+					</when>
+				</choose>
+			</foreach>
+		</where>
+	</sql>
+
+
+  <select id="getList" resultType="org.zerock.domain.travel.T_BoardVO">
+    
+    <![CDATA[
+	    
+	    SELECT 
+	    	t.bno bno,
+	    	t.title title,
+	    	t.content content,
+	    	t.address address,
+	    	t.writer writer,
+	    	t.regdate regdate,
+	    	t.updateDate updateDate,
+	    	t.views views,
+	    	f.fileName fileName
+	     FROM travel_board t
+	     LEFT JOIN travel_board_file f 
+	     ON t.bno = f.bno
+		 WHERE t.bno > 0 
+		 ORDER BY t.bno DESC
+     
+    ]]>
+    
+  </select>
+  
+  
+  <select id="getListWithPaging" resultType="org.zerock.domain.travel.T_BoardVO">
+
+    SELECT 
+    	t.bno bno,
+    	t.title title,
+    	t.content content,
+    	t.address address,
+    	t.writer writer,
+    	t.regdate regdate,
+    	t.updateDate updateDate,
+		t.views views,
+        m.nickName writerName,
+        f.fileName fileName,
+    	count(r.rno) replyCnt 
+     FROM travel_board t 
+     LEFT JOIN travel_reply r
+     ON t.bno = r.bno
+	 INNER JOIN tbl_member2 m
+     ON t.writer = m.userid 
+	 INNER JOIN travel_board_file f
+     ON t.bno = f.bno
+
+	<include refid="T_criteria"></include>
+	 GROUP BY t.bno
+     ORDER BY t.bno DESC
+     LIMIT #{from}, #{amount}
+
+  </select>
+  
+  <select id="getTotalCount" resultType="int">
+  SELECT COUNT(*) FROM travel_board t LEFT JOIN travel_reply r ON t.bno = r.bno
+                     INNER JOIN tbl_member2 m ON t.writer = m.userid 
+  
+  <include refid="T_criteria"></include>
+  </select>
+  
+ <insert id="insert">
+		INSERT INTO travel_board (title, address, content, writer, views)
+		VALUES (#{title}, #{address}, #{content}, #{writer}, #{views})
+	</insert>
+  
+ <insert id="insertSelectKey" useGeneratedKeys="true"
+		keyProperty="bno" keyColumn="bno">
+		INSERT INTO travel_board (title, address, content, writer, views)
+		VALUES (#{title}, #{address}, #{content}, #{writer}, #{views})
+		
+	</insert>
+  
+  <select id="read" resultType="org.zerock.domain.travel.T_BoardVO">
+  	SELECT 
+  	 t.bno bno,
+  	 t.title title,
+  	 t.address address,
+  	 t.content content,
+  	 t.writer writer,
+  	 t.regdate regdate,
+  	 t.updatedate updateDate,
+	 t.views views,
+  	 f.fileName fileName,
+  	 m.nickName writerName
+  	FROM travel_board t LEFT JOIN travel_board_file f ON t.bno = f.bno
+  	                      JOIN tbl_member2 m ON t.writer = m.userid
+  	WHERE t.bno = #{bno}
+  </select>
+  
+  <delete id="delete">
+  	DELETE FROM travel_board WHERE bno = #{bno}
+  </delete>
+  
+  <update id="update">
+  	UPDATE travel_board
+  	
+  	SET
+  	    title = #{title}, 
+  	    address = #{address},
+  	    content = #{content},
+  	    writer = #{writer},
+  	    updateDate = NOW()
+  	    
+  	WHERE
+  	    bno = #{bno}
+  
+  </update>
+  
+  <delete id="removeByUserid">
+  DELETE FROM travel_board
+  WHERE writer = #{userid}
+  </delete>
+  
+  <update id="views">
+		UPDATE
+			travel_board
+		SET
+			views = views +1
+		WHERE
+			bno = #{bno}
+	</update>
+  
+  
+</mapper>
+
+
+
+	

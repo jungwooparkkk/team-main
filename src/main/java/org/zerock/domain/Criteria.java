@@ -1,7 +1,5 @@
 package org.zerock.domain;
 
-import org.springframework.web.util.UriComponentsBuilder;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -10,9 +8,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Criteria {
-	
-	private int pageNum;
-	private int amount;
+	private Integer pageNum;
+	private Integer amount;
 	
 	private String type;
 	private String keyword;
@@ -39,11 +36,5 @@ public class Criteria {
 		}
 	}
 
-
 	
 }
-
-
-
-
-

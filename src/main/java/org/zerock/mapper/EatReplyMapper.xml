@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.zerock.mapper.EatReplyMapper">
+
+<delete id="removeByBnoByUserid">
+DELETE FROM eat_reply
+WHERE eatbno IN (
+	SELECT eatbno FROM eatBoard WHERE writer = #{userid}
+)
+
+</delete>
+
+<delete id="removeByUserid">
+DELETE FROM eat_reply
+WHERE replyer = #{userid}
+</delete>
+
+ <insert id="insert">
+		INSERT INTO eat_reply (eatbno, reply, replyer)		
+		VALUES (#{eatbno}, #{reply}, #{replyer})
+</insert>
+	
+<select id="read" resultType="org.zerock.domain.EatReplyVO">
+		SELECT
+			r.eatrno eatrno,
+			r.eatbno eatbno,
+			r.reply reply,
+			r.replyer replyer,
+			r.replyDate replyDate,
+			r.updateDate updateDate,
+			r.likes likes,
+			m.nickName replyerName
+		FROM
+			eat_reply r JOIN tbl_member2 m on r.replyer = m.userid
+		WHERE
+			r.eatrno = #{eatrno}
+</select>
+
+<delete id="delete">
+		DELETE FROM eat_reply WHERE eatrno = #{eatrno}
+</delete>
+	
+<update id="update">
+	UPDATE eat_reply
+	SET reply = #{reply},
+		replyer = #{replyer},
+		updateDate = now()
+	WHERE eatrno = #{eatrno}
+</update>
+	
+<select id="getList" resultType="org.zerock.domain.EatReplyVO">
+	SELECT
+		r.eatrno eatrno,
+		r.eatbno eatbno,
+		r.reply reply,
+		r.replyer replyer,
+		r.replyDate replyDate,
+		r.updateDate updateDate,
+		r.likes likes,
+		m.nickName replyerName
+	FROM
+		eat_reply r JOIN tbl_member2 m ON r.replyer = m.userid
+	WHERE
+		r.eatbno = #{eatbno}
+	ORDER BY r.eatrno ASC
+</select>
+
+<select id="getCountByBno" resultType="int">
+SELECT COUNT(*) FROM eat_reply WHERE eatbno = #{eatbno}
+</select>
+
+
+<delete id="deleteByBno">
+DELETE FROM eat_reply
+WHERE eatbno = #{eatbno}
+</delete>
+</mapper>
