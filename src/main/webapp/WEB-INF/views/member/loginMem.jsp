@@ -74,7 +74,6 @@
 
 <title>로그인 화면</title>
 
-
 </head>
 
 <tv:navbar></tv:navbar>
@@ -106,7 +105,7 @@
 			
 				<div class = "form-check">
 					<label class="form-check-label" for="checkbox">remember me</label>
-					<input name="remember-me" type="checkbox" class="form-check-input" id="checkbox">
+					<input name="remember-me" type="checkbox" class="form-check-label" id="checkbox">
 				</div>
 				
 			<div class="form-row">

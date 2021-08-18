@@ -38,6 +38,11 @@ public class AppListener implements ServletContextListener {
     	String bucketUrl = "https://choongang-jwpark1.s3.ap-northeast-2.amazonaws.com/";
 >>>>>>> branch 'master' of https://github.com/twp3379/team-main.git
     	application.setAttribute("imgRoot", bucketUrl);
+    	
+
+    	// aws s3 profile file 주소
+    	String profileBucketUrl = "https://ca-myuniq.s3.ap-northeast-2.amazonaws.com/";
+    	application.setAttribute("profile", profileBucketUrl);
     }
 	
 }

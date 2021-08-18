@@ -12,13 +12,13 @@ public interface BoardService {
 	
 	public BoardVO get(long bno);
 	
-	public boolean modify(BoardVO board);
+	public boolean modify(BoardVO board, MultipartFile file);
 	
 	public boolean remove(long bno);
 
 	public int views(long bno);
 	
-	
+	public boolean modify(BoardVO board);
 	
 	public List<BoardVO> getList(Criteria cri);
 
