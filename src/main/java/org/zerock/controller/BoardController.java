@@ -74,9 +74,7 @@ public class BoardController {
 			@RequestParam("file") MultipartFile file, RedirectAttributes rttr) {
 		log.info("글 수정/삭제: " + board);
 		
-		boolean success = service.modify(board, file);
-		
-		if(success) {
+		if(service.modify(board,file)) {
 			rttr.addFlashAttribute("result", "success");
 		}
 		

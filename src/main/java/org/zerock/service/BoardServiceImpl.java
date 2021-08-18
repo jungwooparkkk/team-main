@@ -154,6 +154,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
+	@Transactional
 	public boolean modify(BoardVO board, MultipartFile file) {
 		if (file != null & file.getSize() > 0) {
 			
