@@ -26,7 +26,8 @@
 			m.nickName nickName,
 			m.email email,
 			m.address address,
-			m.phoneNum phoneNumm,
+			m.phoneNum phoneNum,
+			m.fileName fileName,
 			a.auth auth
 		FROM
 			tbl_member2 m LEFT JOIN tbl_member_auth2 a ON m.userid = a.userid
@@ -39,6 +40,8 @@
   UPDATE tbl_member2
   SET userpw = #{userpw},
   	  nickName = #{nickName},
+  	  email = #{email},
+  	  address = #{address},
   	  phoneNum = #{phoneNum}
   WHERE
   	userid = #{userid}
@@ -83,7 +86,13 @@
 			m.nickName = #{nickName}
   </select>
   
-
+	  <update id = "upload">
+  UPDATE tbl_member2
+  SET
+  	fileName = #{fileName}
+  WHERE
+    userid = #{userid}
+  </update>
 
   
   <resultMap type="org.zerock.domain.MemberVO" id= "memberM">
@@ -94,11 +103,15 @@
   	<result property="address" column="address"/>
   	<result property="phoneNum" column="phoneNum" />
   	<result property="enabled" column="enabled"/>
+  	<result property="fileName" column="fileName"/>
   	<collection property="authList" resultMap="authM"/>
   </resultMap>
   <resultMap type="org.zerock.domain.AuthVO" id="authM">
   	<result property="userid" column="userid"/>
   	<result property="auth" column="auth" />
   </resultMap>
-  
+    <resultMap type="org.zerock.domain.FileDTO" id="fileM">
+  	<result property="filename" column="filename"/>
+  	<result property="fileRealName" column="fileRealName"/>
+  </resultMap>
   </mapper>

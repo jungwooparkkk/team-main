@@ -109,10 +109,12 @@ $(function(){
 	//닉네임 중복 체크
 	
 	$("#nick-dupCheck-btn").click(function() {
-		var nickVal = $("signup-input-nick").val(); 
-	
+		var nickVal = $("#signup-input-nick").val(); 
+		
+		toggleEnableSubmit();
+		
 		if(nickVal == ""){
-			$("nickname-message").text("닉네임을 입력해주세요.");
+			$("#nickname-message").text("닉네임을 입력해주세요.");
 		}else{
 			var data = {nickName : nickVal};
 			$.ajax({
@@ -120,13 +122,13 @@ $(function(){
 				url : "${appRoot}/member/checkNick",
 				data : data,
 				success : function(data) {
-					if(data == "exist"){
+					if(data[0] == "success"){
 						console.log("사용가능 닉네임")
-						validNick = true;
 						$("#nickname-message").text("사용 가능한 닉네임입니다.");
 					}
-					else if(data == "success") {
+					else if(data[0] == "exist") {
 						console.log("사용불가 닉네임")
+						validNick = true;
 						$("#nickname-message").text("이미 사용중인 닉네임입니다.");
 					}
 					toggleEnableSubmit();

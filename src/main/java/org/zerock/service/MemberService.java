@@ -1,5 +1,6 @@
 package org.zerock.service;
 
+import org.springframework.web.multipart.MultipartFile;
 import org.zerock.domain.MemberVO;
 
 public interface MemberService {
@@ -20,8 +21,8 @@ public interface MemberService {
 	MemberVO dupNickcheck(String nickName);
 	
 	void send(String subject, String text, String from, String to);
-
-	void modify(MemberVO user, String string, String tempPw);
+	
+	boolean upload(String userid, MultipartFile mfile);
 	
 	
 
