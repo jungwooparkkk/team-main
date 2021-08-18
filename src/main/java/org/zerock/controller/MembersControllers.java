@@ -1,5 +1,7 @@
 package org.zerock.controller;
 
+import java.io.File;
+import java.io.InputStream;
 import java.security.Principal;
 
 import javax.servlet.ServletException;
@@ -16,7 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,9 +25,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.FileDTO;
 import org.zerock.domain.MemberVO;
 import org.zerock.security.domain.PersoUser;
 import org.zerock.service.MemberService;
@@ -39,7 +43,6 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class MembersControllers {
 	
-
 
 	@Setter(onMethod_=@Autowired)
 	private MemberService service;
@@ -69,15 +72,14 @@ public class MembersControllers {
 		boolean ok = service.insert(mem);
 		
 		if(ok) {
-			return "forward:/member/loginMem";
+			return "redirect:/member/loginMem";
 		}else {
 			return "redirect:/member/signupMem?error";
 		}
 		
 	}
 	
-
-	@GetMapping("/infoMem")
+	@RequestMapping(value={"/infoMem","infoModify"}, method= {RequestMethod.GET,RequestMethod.POST})
 	@PreAuthorize("isAuthenticated()")
 	public void info(Criteria cri, Principal principal, Model model) {
 		log.info(principal.getName());
@@ -86,8 +88,8 @@ public class MembersControllers {
 		model.addAttribute("members", members);
 	}
 	
-	@PostMapping("/modifyMem")
-	@PreAuthorize("principal.nickName == #mem.userid")
+	@RequestMapping(value="/modifyMem", method= {RequestMethod.GET,RequestMethod.POST})
+	@PreAuthorize("principal.username == #mem.userid")
 	public String modify(MemberVO mem, RedirectAttributes rttr, Authentication auth, String exPassword) {
 		boolean ok = service.modify(mem, exPassword);
 		
@@ -101,9 +103,10 @@ public class MembersControllers {
 		return "redirect:/member/infoMem";
 	}
 	
-	@PostMapping("/deleteMem")
-	@PreAuthorize("pricipal.nickName == #mem.userid")
+	@RequestMapping(value="/deleteMem", method= {RequestMethod.GET,RequestMethod.POST})
+	@PreAuthorize("principal.username == #mem.userid")
 	public String delete(MemberVO mem, RedirectAttributes rttr, HttpServletRequest req, String exPassword) throws ServletException{
+
 		boolean ok = service.delete(mem, exPassword);
 		
 		if(ok) {
@@ -118,7 +121,7 @@ public class MembersControllers {
 	@GetMapping("/checkdupMem")
 	@ResponseBody
 	public ResponseEntity<String[]>copy(String id){
-		log.info("아이디 중복 확인");
+		log.info("check duplicate method");
 		
 		MemberVO mem = service.read(id);
 		
@@ -129,10 +132,24 @@ public class MembersControllers {
 		}
 	}
 	
+	@GetMapping("/checkNick")
+	@ResponseBody
+	public ResponseEntity<String[]>checkname(String nickName){
+		log.info("check duplicate nick");
+		
+		MemberVO mem = service.dupNickcheck(nickName);
+		
+		if (mem == null) {
+			return new ResponseEntity<> (new String[] {"success", ""} , HttpStatus.OK);
+		}else {
+			return new ResponseEntity<> (new String[] {"exist",mem.getNickName()},HttpStatus.OK);
+		}
+	}
+	
 	@GetMapping("/checkMail")
 	@ResponseBody
 	public ResponseEntity<String[]> emailDupcheck(HttpSession session, String email, RedirectAttributes rttr){
-		log.info("이메일 주소 유효 여부 확인");
+		log.info("check signed email method");
 		
 		MemberVO mem = service.check(email);
 		
@@ -143,24 +160,9 @@ public class MembersControllers {
 		}
 	}
 	
-	@GetMapping("/checkNick")
-	@ResponseBody
-	public ResponseEntity<String> nickDupcheck(String nickName){
-		
-		log.info("닉네임 중복 확인");
-		
-		MemberVO mem = service.dupNickcheck(nickName);
-		
-		if(mem == null) {
-			return new ResponseEntity<> ("success",HttpStatus.OK);
-		}else{
-			return new ResponseEntity<> ("exist",HttpStatus.OK);
-		}
-	}
-	
 	@GetMapping("/newpassword")
 	@ResponseBody
-	public ResponseEntity<String[]> newpassword(HttpSession session, String email, RedirectAttributes rttr){
+	public ResponseEntity<String[]> newpassword(HttpSession session, String email){
 		log.info("check signed email method");
 		
 		MemberVO mem = service.check(email);
@@ -168,7 +170,7 @@ public class MembersControllers {
 		if(mem == null) {
 			return new ResponseEntity<> (new String[] {"fail", ""},HttpStatus.OK);
 		}else{
-			findpwPost(session, email);
+			findpw(session, email);
 			return new ResponseEntity<> (new String[] {"exist", mem.getUserid()} ,HttpStatus.OK);
 		}
 	}
@@ -186,7 +188,7 @@ public class MembersControllers {
 	}
 	
 	@PostMapping("/findpw")
-	public String findpwPost(HttpSession session, @RequestParam String email) {
+	public String findpw(HttpSession session, @RequestParam String email) {
 
 		MemberVO user = service.check(email);
 		
@@ -205,16 +207,34 @@ public class MembersControllers {
 	}
 		
 	
-	@GetMapping("/infoModify")
-	public void modify() {
-		
-	}
+
 	
 	@GetMapping("/simpleinfo")
 	public void simpleinfo() {
 		
 	}
+	
+	@GetMapping("/uploadAction")
+	public void upload() {
+		
+	}
+	
+	@PostMapping("/uploadAction")
+	@PreAuthorize("principal.username == #userid")
+	public String uploadActionPost(String userid, @RequestParam("file") MultipartFile uploadfile) {
+		log.info("uploadfileName :" + uploadfile.getOriginalFilename());
+		
+		service.upload(userid, uploadfile);
+		
+		return "redirect:/member/infoMem";
+	}
+	
 
+	
+	@GetMapping("/admin")
+	public void admin() {
+		
+	}
 
 	
 }
