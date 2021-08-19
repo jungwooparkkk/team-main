@@ -1,5 +1,6 @@
 package org.zerock.controller.travel;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,6 +17,7 @@ import org.zerock.domain.travel.T_BoardVO;
 import org.zerock.domain.travel.T_Criteria;
 import org.zerock.domain.travel.T_PageDTO;
 import org.zerock.service.travel.T_BoardService;
+import org.zerock.service.travel.T_LikesService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -28,10 +30,11 @@ import lombok.extern.log4j.Log4j;
 public class T_BoardController {
 	
 	private T_BoardService service;
+	private T_LikesService lservice;
 	
 	@GetMapping("/T_list")
-	public void list(@ModelAttribute("cri") T_Criteria cri, Model model) {
-		log.info("board/list method.....");
+	public void list(@ModelAttribute("cri") T_Criteria cri, Model model, Principal principal) {
+		log.info("t_list");
 		int total = service.getTotal(cri);
 		
 		// service getList() 실행 결과를
@@ -41,8 +44,20 @@ public class T_BoardController {
 		log.info(list);
 		model.addAttribute("list", list);
 		model.addAttribute("pageMaker", new T_PageDTO(cri, total));
-		System.out.println("되나?");
-		// view로 포워드
+		log.info(principal);
+		//좋아요
+		if (principal != null) {
+			List<Long> likesTravelList = lservice.getLikeList(principal.getName());
+			
+			log.info(likesTravelList);
+			
+			for (T_BoardVO evo : list) {
+				if (likesTravelList.contains(evo.getBno())) {
+					log.info(evo);
+					evo.setLikeClicked(true);
+				}
+			}
+		}
 	}
 	
 	
@@ -73,17 +88,26 @@ public class T_BoardController {
 	
 	@GetMapping({"/T_get", "/T_modify"})
 	public void get(@RequestParam("bno") Long bno, 
-			@ModelAttribute("cri") T_Criteria cri, 
+			@ModelAttribute("cri") T_Criteria cri, Principal principal,
 			Model model) {
 		log.info("T_get or /T_modify");
 		
 		// service에게 일 시킴
 		T_BoardVO vo = service.get(bno);
 		
-		// 결과를 모델에 넣음
-		model.addAttribute("board", vo);
 		
-		service.views(bno);
+		//좋아요
+				if (principal != null) {
+					Long likeClicked = lservice.getLikeClicked(principal.getName(), vo.getBno());
+					Long one = 1L;
+					if (one.equals(likeClicked)) {
+						vo.setLikeClicked(true);
+					}
+				}
+				// 결과를 모델에 넣음
+				model.addAttribute("board", vo);
+				
+				service.views(bno);
 		
 		// forward 
 	}

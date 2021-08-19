@@ -2,7 +2,7 @@ package org.zerock.mapper.travel;
 
 import java.util.List;
 
-import org.zerock.domain.travel.MemberVO;
+import org.zerock.domain.MemberVO;
 import org.zerock.domain.travel.T_BoardVO;
 import org.zerock.domain.travel.T_Criteria;
 

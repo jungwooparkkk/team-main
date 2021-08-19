@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--좋아요  -->
+<mapper namespace="org.zerock.mapper.travel.T_LikesMapper">
+
+	<select id="likescount" resultType="int">
+		SELECT count(lno) 
+		FROM travel_likes 
+		WHERE userid = #{userid} 
+			and bno=#{bno}
+	</select>
+	
+	<insert id="likesinsert">
+		INSERT INTO travel_likes(userid, bno, lno)
+		VALUES (#{userid}, #{bno}, 1)
+	</insert>
+	
+	<select id="likesgetinfo" resultType="org.zerock.domain.travel.T_LikesVO">
+		SELECT lno 
+		FROM travel_likes 
+		WHERE userid = #{userid} 
+			and bno=#{bno}
+	</select>
+	
+	<update id="likesupdate">
+		UPDATE travel_likes
+		SET  lno = IF(lno = 0, 1, 0)
+		WHERE userid=#{userid} and bno=#{bno}
+	</update>
+	
+	
+	<select id="likeList" resultType="long">
+		SELECT bno
+		FROM travel_likes
+		WHERE userid = #{userid}
+		   AND lno = 1
+	
+	</select>
+	
+	<select id="likeClicked" resultType="long">
+	SELECT lno
+	FROM travel_likes
+	WHERE userid = #{userid}
+	AND bno = #{bno}
+	</select>
+</mapper>
