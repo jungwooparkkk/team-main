@@ -15,6 +15,8 @@
 </head>
 
 <tv:navbar></tv:navbar>
+<h1>정보수정필요</h1>
+
 
 <body>
 <div class="container">
