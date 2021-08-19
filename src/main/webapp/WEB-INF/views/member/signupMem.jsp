@@ -199,6 +199,9 @@ $(function(){
 
 
 </head>
+
+<tv:navbar></tv:navbar>
+
 <body>
 <div class="container">
 	<c:if test="${not empty param.error }">
