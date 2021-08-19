@@ -8,8 +8,13 @@
 <head>
 
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
-
-<title>Insert title here</title>
+<style>
+div.container {
+  border: 15px solid transparant;
+  margin: 110px; 
+}
+</style>
+<title>회원정보</title>
 
 <script>
 $(function() {
