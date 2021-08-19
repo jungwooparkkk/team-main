@@ -9,7 +9,7 @@
 
 <%@ include file ="/WEB-INF/subModules/bootstrapHeader.jsp" %>
 
-<title>Insert title here</title>
+<title>맛집 리스트</title>
 </head>
 <body>
 <bd:navbar></bd:navbar>
@@ -48,7 +48,7 @@
 				
 				<input class="btn btn-primary" type="submit" value="작성"/>
 				
-				<c:url value="/eatboard/list" var="listUrl">
+				<c:url value="/eatboard/list" var="eatlistUrl">
 					<c:if test="${not empty cri.pageNum }">
 						<c:param name="pageNum" value="${cri.pageNum }"></c:param>
 					</c:if>
@@ -58,7 +58,7 @@
 						<c:param name="keyword" value="${cri.keyword }"></c:param>
 						<c:param name="type" value="${cri.type }"></c:param>
 				</c:url>
-				<a class="btn btn-secondary" href="${listUrl }">글 목록</a>
+				<a class="btn btn-secondary" href="${eatlistUrl }">글 목록</a>
 				
 			</form>
 		</div>

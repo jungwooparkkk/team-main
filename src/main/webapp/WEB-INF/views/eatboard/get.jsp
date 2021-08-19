@@ -11,7 +11,7 @@
 
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp"%>
 
-<title>Insert title here</title>
+<title>맛집 리스트</title>
 <script>
 	var appRoot = "${appRoot}";
 	var boardBno = "${board.eatbno}";
@@ -19,7 +19,6 @@
 </script>
 <script src="${appRoot }/resources/js/eatget.js"></script>
 <link rel="stylesheet" href="${appRoot }/resources/css/eatboard.css" />
-
 </head>
 <body>
 	<bd:navbar></bd:navbar>
@@ -47,10 +46,23 @@
 					</div>
 					<div class="icon-view">
 						<i class="far fa-eye"></i>&nbsp;${board.views }
-					</div>
-					<button class="btn-like" id="like-button1" data-operation="like">
-						<i id="like-icon1" class="far fa-heart"></i> <span id="like-cnt1">&nbsp;${board.likes }</span>
-					</button>
+					<c:choose>
+						<c:when test="${!board.likeClicked}">
+						<span class="likebtn">
+							<i type="button" class="far fa-heart"></i>
+						</span>
+							<input type="hidden" class="likecheck" value="${eatlno }">
+						</c:when>					
+						<c:when test="${board.likeClicked}">
+						<span class="likebtn">
+							<i type="button" class="fas fa-heart"></i>
+						</span>
+							<input type="hidden" class="likecheck" value="${eatlno }">
+						</c:when>
+						<c:otherwise>
+							0도 아니고 1도 아님.
+						</c:otherwise>
+					</c:choose> ${board.likesCnt }
 				</div>
 				<form>
 					<div class="form-group">
@@ -78,7 +90,7 @@
 						<textarea readonly="readonly" id="textarea1" class="form-control"
 							name="content"><c:out value="${board.content }" /></textarea>
 					</div>
-					<c:url value="/eatboard/modify" var="modifyUrl">
+					<c:url value="/eatboard/modify" var="eatmodifyurl">
 						<c:param name="eatbno" value="${board.eatbno }" />
 						<c:param name="pageNum" value="${cri.pageNum }" />
 						<c:param name="amount" value="${cri.amount }" />
@@ -87,7 +99,7 @@
 					</c:url>
 					<div class="btn-wrap">
 						<c:if test="${pinfo.member.userid eq board.writer }">
-							<a class="btn btn-secondary btn-border" href="${modifyUrl }">수정/삭제</a>
+							<a class="btn btn-secondary btn-border" href="${eatmodifyUrl }">수정/삭제</a>
 						</c:if>
 						<c:url value="/eatboard/list" var="listUrl">
 							<c:param name="pageNum" value="${cri.pageNum }"></c:param>
@@ -101,6 +113,35 @@
 			</div>
 		</div>
 	</div>
+	
+	
+	<!-- 댓글 입력 -->
+	
+  	<div class="row">
+		<div class="col-12">
+			<form>
+				<input type="text" value="${board.eatbno }" readonly hidden
+							id="reply-eatbno-input1">
+						<div hidden class="form-group">
+							<label for="recipient-name" class="col-form-label">작성자</label> <input
+								type="text" readonly value="${pinfo.member.nickName }"
+								class="form-control" /> <input type="hidden"
+								value="${pinfo.member.userid }" class="form-control"
+								id="reply-replyer-input1">
+						</div>
+					<sec:authorize access="isAuthenticated()">
+						<div class="form-group">
+							<label for="message-text" class="col-form-label">댓글</label>
+							<textarea class="form-control" id="reply-reply-textarea1"></textarea>
+						</div>
+						<input type="submit" class="btn btn-primary"
+							id="reply-insert-btn1" value="댓글 작성"/>
+					</sec:authorize>
+			</form>
+		</div>
+	</div>
+	
+	
 	<div class="container reply-wrap">
 		<div class="row">
 			<div class="col-12">
@@ -116,13 +157,10 @@
 			</div>
 		</div>
 	</div>
-
-
-
-
+	
 	<%-- 댓글 입력 모달 --%>
 
-	<div class="modal fade" id="reply-insert-modal" tabindex="-1"
+	<%-- <div class="modal fade" id="reply-insert-modal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -158,7 +196,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> --%>
 
 	<%-- 댓글 수정, 삭제 모달 --%>
 	<div class="modal fade" id="reply-modify-modal" tabindex="-1"

@@ -19,7 +19,10 @@ public class EatBoardVO {
 	private int likes;
 	private int views;
 	
+	private boolean likeClicked;
+	
 	private int replyCnt;
+	private int likesCnt;
 
 	private String fileName;
 }
