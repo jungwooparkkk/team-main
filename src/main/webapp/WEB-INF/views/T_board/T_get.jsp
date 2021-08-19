@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="bd" tagdir="/WEB-INF/tags/board" %>
+<%@ taglib prefix="bd" tagdir="/WEB-INF/tags/travel" %>
 
 <!DOCTYPE html>
 <html>
@@ -10,13 +10,13 @@
 
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp"%>
 
-<title>Insert title here</title>
+<title>여행 리스트</title>
 <script>
 	var appRoot = "${appRoot}";
 	var boardBno = "${board.bno}";
 	var userid = "${pinfo.member.userid}";
 </script>
-<script src="${appRoot }/resources/js/get.js"></script>
+<script src="${appRoot }/resources/js/T_get.js"></script>
 <link rel="stylesheet" href="${appRoot }/resources/css/T_board.css" />
 
 </head>
@@ -46,10 +46,23 @@
 					</div>
 					<div class="icon-view">
 						<i class="far fa-eye"></i>&nbsp;${board.views }
-					</div>
-					<button class="btn-like" id="like-button1" data-operation="like">
-						<i id="like-icon1" class="far fa-heart"></i>
-					</button>
+					<c:choose>
+						<c:when test="${!board.likeClicked}">
+						<span class="likebtn">
+							<i type="button" class="far fa-heart"></i>
+						</span>
+							<input type="hidden" class="likecheck" value="${lno }">
+						</c:when>					
+						<c:when test="${board.likeClicked}">
+						<span class="likebtn">
+							<i type="button" class="fas fa-heart"></i>
+						</span>
+							<input type="hidden" class="likecheck" value="${lno }">
+						</c:when>
+						<c:otherwise>
+							0도 아니고 1도 아님.
+						</c:otherwise>
+					</c:choose> ${board.likesCnt }
 				</div>
 				<form>
 					<div class="form-group">
