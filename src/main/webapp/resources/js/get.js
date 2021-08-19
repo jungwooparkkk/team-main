@@ -225,7 +225,7 @@
 			}
 		})
 	}
-	/*댓글 출력*/
+	/*댓글 출력.*/
 	function showReplyList(list) {
 		var container = $("#reply-list-container").empty();
 		
