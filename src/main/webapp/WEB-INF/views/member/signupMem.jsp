@@ -7,6 +7,12 @@
 <head>
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
 
+<style>
+div.container {
+  border: 15px solid transparant;
+  margin: 110px; 
+}
+</style>
 <title>회원가입</title>
 <script>
 

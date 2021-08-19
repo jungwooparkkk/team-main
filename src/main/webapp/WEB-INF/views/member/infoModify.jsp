@@ -9,7 +9,7 @@
 
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
 
-<title>Insert title here</title>
+<title>회원 정보 수정</title>
 
 <script>
 
@@ -97,6 +97,11 @@ $(function() {
 </head>
 <style>
 
+div.container {
+  border: 15px solid transparant;
+  margin: 110px; 
+}
+
 hr.distinct{
 border : none;
 
@@ -125,7 +130,7 @@ border : none;
 		</div>
 	</c:if>
 		 --%>
-	<div class = "modify-form">
+	
 		<h1> 회원 정보 </h1>
 <hr>
 		<form id = "profileUpdate" action="${appRoot }/member/uploadAction" method="post" enctype="multipart/form-data">
@@ -157,7 +162,7 @@ border : none;
 			</div>	
 			</div>
 			</form>
-		</div>
+		
 	</div>
 				</div>
 	 
