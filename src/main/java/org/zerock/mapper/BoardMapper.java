@@ -2,9 +2,10 @@ package org.zerock.mapper;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Select;
+
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.MemberVO;
 
 public interface BoardMapper {
 
@@ -14,7 +15,7 @@ public interface BoardMapper {
 	public int views(long bno);
 	
 	
-	public boolean write(BoardVO board);
+	public int write(BoardVO board);
 	
 	public int writeSelectKey(BoardVO board);
 	
@@ -28,6 +29,8 @@ public interface BoardMapper {
 
 
 	public int getTotalCount(Criteria cri);
+
+	public void deleteByUserid(MemberVO mem);
 	
 	
 }

@@ -128,7 +128,7 @@
   	 f.fileName fileName,
   	 m.nickName writerName
   	FROM tbl_board b LEFT JOIN tbl_board_file f ON b.bno = f.bno
-  	                      JOIN tbl_member2 m ON b.writer = m.userid
+  	                      JOIN tbl_member2 m ON b.writer = m.nickname
   	WHERE b.bno = #{bno} 
 </select>
 
@@ -146,6 +146,9 @@
 	where bno = #{bno}
 </update>
 
-
+<delete id="removeByUserid">
+  DELETE FROM tbl_board
+  WHERE writer = #{userid}
+  </delete>
 
 </mapper>

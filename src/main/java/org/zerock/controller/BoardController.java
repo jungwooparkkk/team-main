@@ -38,7 +38,7 @@ public class BoardController {
 	public void list(Criteria cri ,Model model) {
 		log.info("게시판" + cri);
 
-int total = service.getTotal(cri);
+		int total = service.getTotal(cri);
 		
 		// service getList() 실행 결과를
 		List<BoardVO> list = service.getList(cri);
@@ -49,7 +49,7 @@ int total = service.getTotal(cri);
 
 	@GetMapping("/write")
 	@PreAuthorize("isAuthenticated()")
-	public String write() {
+	public String write(@ModelAttribute("cri") Criteria cri) {
 		System.out.println("글쓰기");
 		return "board/write";
 	}
@@ -70,10 +70,11 @@ int total = service.getTotal(cri);
 	}
 
 	@PostMapping("/modify")
-	public String modify(BoardVO board,@ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
+	public String modify(BoardVO board,@ModelAttribute("cri") Criteria cri,
+			@RequestParam("file") MultipartFile file, RedirectAttributes rttr) {
 		log.info("글 수정/삭제: " + board);
 		
-		if(service.modify(board)) {
+		if(service.modify(board,file)) {
 			rttr.addFlashAttribute("result", "success");
 		}
 		
@@ -111,6 +112,9 @@ int total = service.getTotal(cri);
 	@GetMapping("/get")
 	public void get(@RequestParam("bno") long bno,@ModelAttribute("cri") Criteria cri, Model model) {
 		log.info("게시글 보기");
+		
+		BoardVO vo = service.get(bno);
+		
 		model.addAttribute("board", service.get(bno));
 		service.views(bno);
 	}
@@ -118,6 +122,9 @@ int total = service.getTotal(cri);
 	@GetMapping("/modify")
 	public void modify(@RequestParam("bno")long bno, @ModelAttribute("cri") Criteria cri, Model model) {
 		log.info("수정작업");
+		
+		BoardVO vo = service.get(bno);
+		
 		model.addAttribute("board",service.get(bno));
 	}
 }

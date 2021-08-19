@@ -1,11 +1,11 @@
 /**
  * 
- */
+ */ 
  $(function() {
 	function showModifyModal(eatrno) {
 		$.ajax({
 			type: "get",
-			url: appRoot + "/replies/" + eatrno,
+			url: appRoot + "/eatreplies/" + eatrno,
 			success: function (reply) {
 				$("#reply-eatrno-input2").val(reply.eatrno);
 				$("#reply-replyer-input2").val(reply.replyer);
@@ -80,7 +80,7 @@
 	function getReplyList() {
 		$.ajax({
 			type: "get",
-			url: appRoot + "/replies/pages/" + boardBno,
+			url: appRoot + "/eatreplies/pages/" + boardBno,
 			success: function(list) {
 				console.log(list);
 				showReplyList(list);
@@ -107,7 +107,7 @@
 		
 		$.ajax({
 			type: "post",
-			url: appRoot + "/replies/new",
+			url: appRoot + "/eatreplies/new",
 			data: JSON.stringify(data),
 			contentType: "application/json",
 			success: function() {
@@ -142,7 +142,7 @@
 		
 		$.ajax({
 			type: "put",
-			url: appRoot + "/replies/" + eatrno,
+			url: appRoot + "/eatreplies/" + eatrno,
 			data: JSON.stringify(data),
 			contentType : "application/json",
 			success: function() {
@@ -176,7 +176,7 @@
 
 			$.ajax({
 				type: "delete",
-				url: appRoot + "/replies/" + eatrno,
+				url: appRoot + "/eatreplies/" + eatrno,
 				data : JSON.stringify(data),
 				contentType : "application/json",
 				success: function () {
