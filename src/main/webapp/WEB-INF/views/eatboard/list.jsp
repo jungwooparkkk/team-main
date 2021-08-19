@@ -3,7 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="bd" tagdir="/WEB-INF/tags/board"%>
+<%@ taglib prefix="bd" tagdir="/WEB-INF/tags/travel" %>
 
 <!DOCTYPE html>
 <html>
