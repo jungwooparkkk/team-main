@@ -60,6 +60,9 @@ div.container {
 	
 </script>
 </head>
+
+<tv:navbar></tv:navbar>
+
 <body>
 
 

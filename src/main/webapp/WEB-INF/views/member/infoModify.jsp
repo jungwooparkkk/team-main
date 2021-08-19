@@ -121,6 +121,8 @@ border : none;
 }
 </style>
 
+<tv:navbar></tv:navbar>
+
 <body>
 <div class="container">
 <%-- 
