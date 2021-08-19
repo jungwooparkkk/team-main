@@ -131,11 +131,11 @@ $(function(){
 				success : function(data) {
 					if(data[0] == "success"){
 						console.log("사용가능 닉네임")
+						validNick = true;
 						$("#nickname-message").text("사용 가능한 닉네임입니다.");
 					}
 					else if(data[0] == "exist") {
-						console.log("사용불가 닉네임")
-						validNick = true;
+						console.log("사용불가 닉네임")	
 						$("#nickname-message").text("이미 사용중인 닉네임입니다.");
 					}
 					toggleEnableSubmit();
