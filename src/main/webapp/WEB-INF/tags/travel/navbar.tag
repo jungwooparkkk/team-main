@@ -44,9 +44,9 @@
   		  </sec:authorize>
   		 
           
-          <a href="" class="dropdown-item" href="#">맛집</a>
-          <a href="${appRoot }/travel/area" class="dropdown-item" href="#">여행</a>
-          <a class="dropdown-item" href="/jaehyun/board/list">
+          <a href="${appRoot }/eatboard/list" class="dropdown-item" href="#">맛집</a>
+          <a href="${appRoot }/T_board/T_list" class="dropdown-item" href="#">여행</a>
+          <a class="dropdown-item" href="${appRoot }/board/list">
           <div class="dropdown-divider" ></div>자유 게시판</a>
         </div>
       </li>
