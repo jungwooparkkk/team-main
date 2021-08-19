@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.MemberVO;
 import org.zerock.domain.ReplyVO;
 
 public interface ReplyMapper {
@@ -20,4 +21,10 @@ public interface ReplyMapper {
 	public List<ReplyVO> getList(Long bno);
 
 	public void deleteByBno(long bno);
+
+	public void ByBnoByUserid(MemberVO mem);
+
+	public void deleteByBnoByUserid(MemberVO mem);
+
+	public void deleteByUserid(MemberVO mem);
 }
