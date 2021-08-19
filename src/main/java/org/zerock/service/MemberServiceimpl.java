@@ -20,7 +20,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.zerock.domain.AuthVO;
 import org.zerock.domain.FileDTO;
 import org.zerock.domain.MemberVO;
+import org.zerock.mapper.BoardMapper;
+import org.zerock.mapper.FileMapper;
 import org.zerock.mapper.MemberMapper;
+import org.zerock.mapper.ReplyMapper;
 
 import lombok.Setter;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
@@ -38,6 +41,15 @@ public class MemberServiceimpl implements MemberService{
 	@Setter(onMethod_=@Autowired)
 	private PasswordEncoder encoder;
 	
+	@Setter(onMethod_=@Autowired)
+	private ReplyMapper rmap;
+	
+	@Setter(onMethod_=@Autowired)
+	private FileMapper fmap;
+	
+	@Setter(onMethod_=@Autowired)
+	private BoardMapper bmap;
+
 	@Autowired
 	private JavaMailSender javaMailSender;
 	
@@ -121,7 +133,22 @@ public class MemberServiceimpl implements MemberService{
 	public boolean delete(MemberVO mem) {
 		
 
-		map.deleteAuth(mem);
+	      rmap.deleteByUserid(mem);
+          
+	      
+	      rmap.deleteByBnoByUserid(mem);
+	            
+	            
+	      fmap.deleteByUserid(mem);
+	            
+	            
+	      bmap.deleteByUserid(mem);
+	            
+	            
+	      map.deleteAuth(mem);
+	      
+	      
+	      map.deleteAuth(mem);
 		
 		int cnt = map.delete(mem);
 		
