@@ -10,7 +10,7 @@ import lombok.extern.log4j.Log4j;
 @Controller
 @RequestMapping("/security")
 @Log4j
-public class SecurController {
+public class SecurePathController {
 
 	@GetMapping(value="/every", produces = "text/plain; charset=utf-8")
 	@ResponseBody

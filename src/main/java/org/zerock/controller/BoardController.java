@@ -1,6 +1,12 @@
 package org.zerock.controller;
 
+
 import java.util.List;
+
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -32,7 +38,7 @@ public class BoardController {
 	public void list(Criteria cri ,Model model) {
 		log.info("게시판" + cri);
 
-int total = service.getTotal(cri);
+		int total = service.getTotal(cri);
 		
 		// service getList() 실행 결과를
 		List<BoardVO> list = service.getList(cri);
@@ -42,16 +48,20 @@ int total = service.getTotal(cri);
 	}
 
 	@GetMapping("/write")
-	public String write() {
+	@PreAuthorize("isAuthenticated()")
+	public String write(@ModelAttribute("cri") Criteria cri) {
 		System.out.println("글쓰기");
 		return "board/write";
 	}
 
 	@PostMapping("/write")
-	public String write(BoardVO board, RedirectAttributes rttr) {
+	@PreAuthorize("isAuthenticated()")
+	public String write(BoardVO board,@RequestParam("file")MultipartFile file, RedirectAttributes rttr) {
 		log.info("write: " + board);
 		
-		service.write(board);
+		board.setFileName(file.getOriginalFilename());
+		
+		service.write(board, file);
 		
 		rttr.addFlashAttribute("result", board.getBno());
 		
@@ -60,10 +70,11 @@ int total = service.getTotal(cri);
 	}
 
 	@PostMapping("/modify")
-	public String modify(BoardVO board,@ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
+	public String modify(BoardVO board,@ModelAttribute("cri") Criteria cri,
+			@RequestParam("file") MultipartFile file, RedirectAttributes rttr) {
 		log.info("글 수정/삭제: " + board);
 		
-		if(service.modify(board)) {
+		if(service.modify(board,file)) {
 			rttr.addFlashAttribute("result", "success");
 		}
 		
@@ -98,9 +109,22 @@ int total = service.getTotal(cri);
 	}
 	
 	
-	@GetMapping({"/get","/modify"})
+	@GetMapping("/get")
 	public void get(@RequestParam("bno") long bno,@ModelAttribute("cri") Criteria cri, Model model) {
-		log.info("수정 삭제 작업");
+		log.info("게시글 보기");
+		
+		BoardVO vo = service.get(bno);
+		
 		model.addAttribute("board", service.get(bno));
+		service.views(bno);
+	}
+	
+	@GetMapping("/modify")
+	public void modify(@RequestParam("bno")long bno, @ModelAttribute("cri") Criteria cri, Model model) {
+		log.info("수정작업");
+		
+		BoardVO vo = service.get(bno);
+		
+		model.addAttribute("board",service.get(bno));
 	}
 }

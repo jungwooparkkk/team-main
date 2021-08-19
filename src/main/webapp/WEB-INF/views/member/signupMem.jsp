@@ -7,7 +7,14 @@
 <head>
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
 
-<title>Insert title here</title>
+<style>
+div.container {
+  border: 15px solid transparant;
+  margin: 110px; 
+}
+</style>
+
+<title>회원가입</title>
 <script>
 
 //주소검색 팝업 및 입력
@@ -30,6 +37,7 @@ $(function(){
 	var passwordConfirm = false;
 	var validNo = false;
 	var validMail = false;
+	var validNick = false;
 
 
 
@@ -53,13 +61,13 @@ $(function(){
 				url : "${appRoot}/member/checkdupMem",
 				data : data,
 				success : function (data) {
-					if (data == "success"){
-						console.log("사용 가능 아이디")
+					if (data[0] == "success"){
+						console.log("사용 가능 아이디");
 						validId = true;
 						messagePop.text("사용 가능한 아이디 입니다.");
 					}
-					else if (data == "exist") {
-						console.log("사용 불가 아이디")
+					else if (data[0] == "exist") {
+						console.log("사용 불가 아이디");
 						messagePop.text("이미 있는 아이디 입니다.")
 					}
 
@@ -97,13 +105,49 @@ $(function(){
 	});
 
 	function toggleEnableSubmit(){
-		console.log(passwordConfirm, validId, validMail, validNo)
-		if(passwordConfirm && validId && validMail && validNo){
+		console.log(passwordConfirm, validId, validMail, validNo, validNick)
+		if(passwordConfirm && validId && validMail && validNo && validNick){
 			$("#signup-btn").removeAttr("disabled");
 		}else{
 			$("#signup-btn").attr("disabled","disabled");
 		}
 	}
+	
+	//닉네임 중복 체크
+	
+	$("#nick-dupCheck-btn").click(function() {
+		var nickVal = $("#signup-input-nick").val(); 
+		
+		toggleEnableSubmit();
+		
+		if(nickVal == ""){
+			$("#nickname-message").text("닉네임을 입력해주세요.");
+		}else{
+			var data = {nickName : nickVal};
+			$.ajax({
+				type : "get",
+				url : "${appRoot}/member/checkNick",
+				data : data,
+				success : function(data) {
+					if(data[0] == "success"){
+						console.log("사용가능 닉네임")
+						$("#nickname-message").text("사용 가능한 닉네임입니다.");
+					}
+					else if(data[0] == "exist") {
+						console.log("사용불가 닉네임")
+						validNick = true;
+						$("#nickname-message").text("이미 사용중인 닉네임입니다.");
+					}
+					toggleEnableSubmit();
+				},
+				error : function() {
+					console.log("확인불가");
+				}
+			});
+		}
+	})
+	
+
 	
  	//이메일 양식 체크
 
@@ -165,29 +209,32 @@ $(function(){
 		<div class="row">	
 				<div class="col-md-6 col-7">
 					<form id="signup" method="post" action="${appRoot }/member/signupMem">
-						<div class="form-group-id">
+						<div class="form-group">
 							<label for="signup-inputid">아이디</label>
-							<input type="text" class="form-control" id="signup-inputid" name="userid">
+							<input required="required" type="text" class="form-control" id="signup-inputid" name="userid">
 							
 							<button class="btn btn-outline-secondary" type="button" id="id-dupCheck-btn">아이디 중복 확인</button>
 							<small id="id-message" class="form-text"></small>
 						</div>
 									
-						<div class="form-group-pw">
+						<div class="form-group">
 							<label for="signup-input-pw"> 비밀번호 </label>
-							<input type="password" class="form-control" id="signup-input-pw" minlength="8" name="userpw">
+							<input required="required" type="password" class="form-control" id="signup-input-pw" name="userpw">
 					
 							<label for="signup-input-pwCheck">비밀번호 확인</label>
-							<input type="password" class="form-control" id="signup-input-pwCheck">
+							<input required="required" type="password" class="form-control" id="signup-input-pwCheck">
 							<small id="password-message" class="form-text text-danger "></small>
 						</div>
 			
 						<div class="form-group">
 							<label for="signup-input-nick">닉네임</label>
 							<input type="text" class="form-control" id="signup-input-nick" name="nickName">
+							
+							<button class="btn btn-outline-secondary" type="button" id="nick-dupCheck-btn" name="nickname">중복 확인</button>
+							<small id="nickname-message" class="form-text text-danger"></small>
 						</div>
 						
-				 		 <div class="form-group-adress">
+				 		 <div class="form-group">
 							 <label for="signup-input-address"> 주소 </label><br>
 						 	 <input type="text" class="zip_code" id="zipNo" readonly>
 							 <button type="button" class="zip_code_btn" id="addr-input-btn" onclick="javascript:goPopup();">우편번호</button>
@@ -195,15 +242,17 @@ $(function(){
 							 <input type="text" class="address" id="address" readonly>
 							 <input type="text" class="addrDetail" id="addrDetail" readonly><br><br>
 							 <input name="address" type="hidden" id="fullAddressInput">
-					
+						</div>
+						
+						<div class="form-group">
 				 			<label for="signp-input-email"> 이메일 주소 </label><br>
-				   			<input type="email" class="serchBox" id="signup-input-email" placeholder="e-mail@gmail.com" name="email">
+				   			<input required="required" type="email" class="form-control" id="signup-input-email" placeholder="e-mail@gmail.com" name="email">
 							<small id="email-message" class="form-text"></small>
 						</div>
 			
 						<div class="form-group">
 							<label for="signup-input-phoneNum"> 연락처 </label>
-							<input type="text" class="form-control" id="signup-input-phoneNum" name="phoneNum">
+							<input required="required" type="text" class="form-control" id="signup-input-phoneNum" name="phoneNum">
 							<small id="phone-message" class="form-text"></small>
 						</div>
 			
