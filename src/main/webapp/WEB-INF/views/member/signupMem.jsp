@@ -104,8 +104,8 @@ $(function(){
 	});
 
 	function toggleEnableSubmit(){
-		console.log(passwordConfirm, validId, validMail, validNo, validNick)
-		if(passwordConfirm && validId && validMail && validNo && validNick){
+		console.log(validId, passwordConfirm,validNick, validMail, validNo)
+		if(validId && passwordConfirm && validNick&& validMail && validNo){
 			$("#signup-btn").removeAttr("disabled");
 		}else{
 			$("#signup-btn").attr("disabled","disabled");

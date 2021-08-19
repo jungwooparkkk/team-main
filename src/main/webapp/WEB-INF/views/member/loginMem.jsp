@@ -2,15 +2,20 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="tv" tagdir="/WEB-INF/tags/travel" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
+<style>
+div.container {
+  border: 15px solid transparant;
+  margin: 110px; 
+}
+</style>
 
-
-<title>로그인 화면</title>
+<title>로그인 </title>
 
 </head>
 
