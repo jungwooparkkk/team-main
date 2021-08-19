@@ -12,6 +12,7 @@ public class MemberVO {
 	private String email;
 	private String phoneNum;
 	private boolean enabled;
+	private String fileName;
 	
 	private List<AuthVO> authList;
 }
