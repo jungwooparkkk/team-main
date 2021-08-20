@@ -42,7 +42,7 @@
     	regdate regdate,
     	updatedate updateDate,
     	views views,
-    	good good,
+    	likes likes,
     
      FROM tbl_board
      
@@ -53,13 +53,13 @@
   </select>
 
 <insert id="write">
-  	INSERT INTO tbl_board (title, content, writer, views, good) 
-  	VALUES (#{title}, #{content}, #{writer}, #{views}, #{good})
+  	INSERT INTO tbl_board (title, content, writer, views, likes) 
+  	VALUES (#{title}, #{content}, #{writer}, #{views}, #{likes})
   </insert>
   
   <insert id="writeSelectKey" useGeneratedKeys="true" keyProperty="bno" keyColumn="bno">
-  	INSERT INTO tbl_board (title, content, writer, views, good)
-  	VALUES (#{title}, #{content}, #{writer}, #{views}, #{good})
+  	INSERT INTO tbl_board (title, content, writer, views, likes)
+  	VALUES (#{title}, #{content}, #{writer}, #{views}, #{likes})
   </insert>
   
 <select id="getListWithPaging" resultType="org.zerock.domain.BoardVO">
@@ -71,7 +71,7 @@
     	regdate,
     	updatedate,
     	views,
-    	good
+    	(SELECT IFNULL(SUM(l.lno), 0) FROM tbl_board_likes l WHERE l.bno = b.bno) likesCnt
      FROM tbl_board b 
      
   <include refid="criteria"></include>
@@ -99,7 +99,8 @@
   	 b.updatedate updateDate,
   	 b.views views,
   	 f.fileName fileName,
-  	 m.nickName writerName
+  	 m.nickName writerName,
+  	 (SELECT IFNULL(SUM(l.lno), 0) FROM tbl_board_likes l WHERE l.bno = b.bno) likesCnt
   	FROM tbl_board b LEFT JOIN tbl_board_file f ON b.bno = f.bno
   	                      JOIN tbl_member m ON b.writer = m.nickname
   	WHERE b.bno = #{bno} 

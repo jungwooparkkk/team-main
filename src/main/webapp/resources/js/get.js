@@ -202,7 +202,40 @@
 		}
 	});
 	
+	$('.likebtn').click(function(){
+		likesupdate(this);
+	});
 	
+	function likesupdate(elem){
+		// var root = getContextPath(),
+		var likeurl = "/likes/likesupdate";
+		// userid = $('#userid').val(),
+		var bno = $(elem).closest(".item").find(".list-num").text();
+		bno = bno ? bno : window.boardBno;
+		var count = $(elem).closest(".item").find('.likescheck').val();
+		var data = {"userid" : userid,
+				"bno" : bno,
+				"count" : count};
+		
+		console.log("button click");
+		
+	$.ajax({
+		url : appRoot + likeurl,
+		type : 'post',
+		contentType: 'application/json',
+		data : JSON.stringify(data),
+		success : function(result){
+			console.log("수정" + result.result);
+			location.reload();
+		}, error : function(result){
+			console.log(result)
+		}
+		
+		});
+	};
 
-	
+	function getContextPath() {
+	    var hostIndex = location.href.indexOf( location.host ) + location.host.length;
+	    return location.href.substring( hostIndex, location.href.indexOf('/', hostIndex + 1) );
+	} 
 })
