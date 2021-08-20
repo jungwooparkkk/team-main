@@ -22,7 +22,7 @@
 <!-- 		<security:intercept-url pattern="/member/loginMem" access="isAnonymous()" />
 		<security:intercept-url pattern="/member/signupMem" access="isAnonymous()" />  -->
 
- 		<security:form-login login-page="/member/loginMem" default-target-url="/member/signupMem"/>
+ 		<security:form-login login-page="/member/loginMem" default-target-url="/board/list"/>
  		<security:logout logout-success-url="/member/loginMem"/>
  		<security:csrf disabled="true"/>
  		<security:remember-me data-source-ref="dataSource"/>

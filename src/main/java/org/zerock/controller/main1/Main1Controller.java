@@ -1,4 +1,4 @@
-package org.zerock.controller.main;
+package org.zerock.controller.main1;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -6,18 +6,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 
 @Controller
-@RequestMapping("/board/*")
-
+@AllArgsConstructor
 @Log4j
-public class MainController {
+@RequestMapping("/main/*")
+public class Main1Controller {
 	
-	@GetMapping("/main")
+	@GetMapping("/list")
 	public void main() {
-		log.info("board/main method....");
+		log.info("main/list method.....");
 	}
 
-	// 새 리퀘스트 핸들러 메소드
 }

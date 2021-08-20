@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="bd" tagdir="/WEB-INF/tags/travel" %>
+<%@ taglib prefix="tv" tagdir="/WEB-INF/tags/travel" %>
 
 
 <!DOCTYPE html>
@@ -44,9 +44,10 @@ $(document).ready(function(){
 });
 
 </script>
+<tv:navbar></tv:navbar>
 <body>
 <div class="container">
-	<form role="form" action="${appRoot }/board/modify" method="post">
+	<form role="form" action="${appRoot }/board/modify" method="post" enctype="multipart/form-data">
 	
 	<input hidden name="bno" value="${board.bno }" />
 	<div class="form-group">

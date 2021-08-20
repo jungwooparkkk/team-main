@@ -41,7 +41,7 @@
 				</div>
 				<div class="form-group">
 					<label>작성자</label> <input class="form-control" name='writer'
-					value='<sec:authentication property="principal.username"/>' readonly="readonly">
+					value='<c:out value="${pinfo.member.nickName }"/>' readonly="readonly">
 					</div>					
 					
 			<!--  

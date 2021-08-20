@@ -37,14 +37,16 @@
   		  <sec:authorize access="isAuthenticated()">
 	  			<form action="${appRoot }/logout" method="post">
 	  			<input type="submit" class="dropdown-item" value="로그아웃">
-	  			<a href="${appRoot }/member/infoMem" class="dropdown-item" href="#">정보 수정</a>
+	  			<a href="${appRoot }/member/infoMem" class="dropdown-item" href="#">내정보</a>
+	  			<a href="${appRoot }/member/infoModify" class="dropdown-item" href="#">정보 수정</a>
+	  			<a href="${appRoot }/board/list?type=W&keyword=${pinfo.member.nickName}" class="dropdown-item" href="#">내 글 보기</a>
 	 			</form>
   		  </sec:authorize>
   		 
           
-          <a href="" class="dropdown-item" href="#">맛집</a>
-          <a href="${appRoot }/travel/area" class="dropdown-item" href="#">여행</a>
-          <a class="dropdown-item" href="/jaehyun/board/list">
+          <a href="${appRoot }/eatboard/list" class="dropdown-item" href="#">맛집</a>
+          <a href="${appRoot }/T_board/T_list" class="dropdown-item" href="#">여행</a>
+          <a class="dropdown-item" href="${appRoot }/board/list">
           <div class="dropdown-divider" ></div>자유 게시판</a>
         </div>
       </li>

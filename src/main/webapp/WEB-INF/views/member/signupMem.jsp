@@ -1,11 +1,19 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="tv" tagdir="/WEB-INF/tags/travel" %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
+
+<style>
+div.container {
+  border: 15px solid transparant;
+  margin: 110px; 
+}
+</style>
 
 <title>회원가입</title>
 <script>
@@ -98,8 +106,8 @@ $(function(){
 	});
 
 	function toggleEnableSubmit(){
-		console.log(passwordConfirm, validId, validMail, validNo, validNick)
-		if(passwordConfirm && validId && validMail && validNo && validNick){
+		console.log(validId, passwordConfirm,validNick, validMail, validNo)
+		if(validId && passwordConfirm && validNick&& validMail && validNo){
 			$("#signup-btn").removeAttr("disabled");
 		}else{
 			$("#signup-btn").attr("disabled","disabled");
@@ -109,10 +117,12 @@ $(function(){
 	//닉네임 중복 체크
 	
 	$("#nick-dupCheck-btn").click(function() {
-		var nickVal = $("signup-input-nick").val(); 
-	
+		var nickVal = $("#signup-input-nick").val(); 
+		
+		toggleEnableSubmit();
+		
 		if(nickVal == ""){
-			$("nickname-message").text("닉네임을 입력해주세요.");
+			$("#nickname-message").text("닉네임을 입력해주세요.");
 		}else{
 			var data = {nickName : nickVal};
 			$.ajax({
@@ -120,13 +130,13 @@ $(function(){
 				url : "${appRoot}/member/checkNick",
 				data : data,
 				success : function(data) {
-					if(data == "exist"){
+					if(data[0] == "success"){
 						console.log("사용가능 닉네임")
 						validNick = true;
 						$("#nickname-message").text("사용 가능한 닉네임입니다.");
 					}
-					else if(data == "success") {
-						console.log("사용불가 닉네임")
+					else if(data[0] == "exist") {
+						console.log("사용불가 닉네임")	
 						$("#nickname-message").text("이미 사용중인 닉네임입니다.");
 					}
 					toggleEnableSubmit();
@@ -189,6 +199,9 @@ $(function(){
 
 
 </head>
+
+<tv:navbar></tv:navbar>
+
 <body>
 <div class="container">
 	<c:if test="${not empty param.error }">

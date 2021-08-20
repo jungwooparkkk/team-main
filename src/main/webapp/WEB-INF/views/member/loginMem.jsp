@@ -3,15 +3,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="tv" tagdir="/WEB-INF/tags/travel" %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
 
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
 
+<style>
+div.container {
+  border: 15px solid transparant;
+  margin: 110px; 
+}
+</style>
 
 <title>로그인 화면</title>
-
 
 </head>
 
@@ -44,7 +51,7 @@
 			
 				<div class = "form-check">
 					<label class="form-check-label" for="checkbox">remember me</label>
-					<input name="remember-me" type="checkbox" class="form-check-input" id="checkbox">
+					<input name="remember-me" type="checkbox" class="form-check-label" id="checkbox">
 				</div>
 				
 			<div class="form-row">
@@ -54,6 +61,7 @@
 					<a class="btn btn-light" href="${appRoot }/member/findpw"> 비밀번호 찾기</a>	
 					<a class="btn btn-light" href="${appRoot }/member/signupMem">회원가입</a>
 				</div>
+
 			</div>
 		</div>
 			

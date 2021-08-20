@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="tv" tagdir="/WEB-INF/tags/travel" %>
 
 <!DOCTYPE html>
 <html>
@@ -8,8 +9,14 @@
 
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
 
-<title>Insert title here</title>
+<title>비밀번호 찾기</title>
 
+<style>
+div.container {
+  border: 15px solid transparant;
+  margin: 110px; 
+}
+</style>
 
 <script type="text/javascript">
 
@@ -53,29 +60,30 @@
 	
 </script>
 </head>
+
+<tv:navbar></tv:navbar>
+
 <body>
 
 
 
-
-	<div class="row justify-content-center">
-		<div class="col-md-6 col-7">
-		<form action="${appRoot }/member/findpw" method="get"></form>
-	  		<h2>비밀번호 찾기</h2>
-	 		 <div class="form-group">	
-	  			<p>비밀번호를 재설정 할 이메일 주소를 입력하세요.</p>
-				  	<div class="mb-3">
-				  		<form id="findpw" method="post" action="${appRoot }/member/findpw">
-						  <label for="find-pw-email" class="form-label">이메일</label>
-						  <input type="email" class="form-control" id="find-pw-email" name = "email" placeholder="Example input placeholder">	  
-				  		</form>
-					</div>
-				  <button type="submit" id="findmailBtn" class="btn btn-outline-primary" >비밀번호 재설정 이메일 보내기</button>
-		  	
-		  			
- 			</div>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-6 col-7">
+			<form action="${appRoot }/member/findpw" method="get"></form>
+		  		<h2>비밀번호 찾기</h2>
+		 		 <div class="form-group">	
+		  			<p>비밀번호를 재설정 할 이메일 주소를 입력하세요.</p>
+					  	<div class="mb-3">
+					  		<form id="findpw" method="post" action="${appRoot }/member/findpw">
+							  <label for="find-pw-email" class="form-label">이메일</label>
+							  <input type="email" class="form-control" id="find-pw-email" name = "email" placeholder="Example input placeholder">	  
+					  		</form>
+						</div>
+					  <button type="submit" id="findmailBtn" class="btn btn-outline-primary" >비밀번호 재설정 이메일 보내기</button>	  			
+	 			</div>
+			</div>
 		</div>
 	</div>
-
 </body>
 </html>

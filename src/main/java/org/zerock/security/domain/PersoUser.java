@@ -19,8 +19,8 @@ public class PersoUser extends User{
 	
 	public PersoUser(String username, String password, Collection<? extends GrantedAuthority> authorities ) {
 		super(username, password, authorities);
+
 	}
-	
 	public PersoUser(MemberVO mem) {
 		super(mem.getUserid(),mem.getUserpw(),mem.getAuthList().stream()
 				.map(auth -> new SimpleGrantedAuthority(auth.getAuth()))

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="org.zerock.mapper.travel.T_ReplyMapper">
+	
+	<select id="getList" resultType="org.zerock.domain.travel.T_ReplyVO">
+	SELECT 
+		r.rno rno,
+		r.bno bno,
+		r.reply reply,
+		r.replyer replyer,
+		r.replyDate replyDate,
+		r.updateDate updateDate,
+		m.nickName replyerName
+	FROM 
+	    travel_reply r JOIN tbl_member m ON r.replyer = m.userid
+	WHERE
+	    r.bno = #{bno}
+	ORDER BY r.rno ASC
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO travel_reply (bno, reply, replyer)
+		VALUES (#{bno}, #{reply}, #{replyer})
+	</insert>
+	
+	<insert id="insertSelectKey" useGeneratedKeys="true" keyProperty="rno" keyColumn="rno">
+		INSERT INTO travel_reply (bno, reply, replyer)
+		VALUES (#{bno}, #{reply}, #{replyer})
+	</insert>
+	
+	<select id="read" resultType="org.zerock.domain.travel.T_ReplyVO">
+	SELECT 
+		r.rno rno,
+		r.bno bno,
+		r.reply reply,
+		r.replyer replyer,
+		r.replyDate replyDate,
+		r.updateDate updateDate,
+		m.nickName replyerName
+	FROM 
+	    travel_reply r JOIN tbl_member m ON r.replyer = m.userid
+	WHERE
+		r.rno = #{rno}	
+	</select>	
+	
+	<delete id="delete">
+		delete from travel_reply where rno = #{rno}
+	</delete>
+	
+	<update id="update">
+		update travel_reply 
+		set
+		reply = #{reply},
+		replyer = #{replyer},
+		 updatedate = now()
+		  where rno = #{rno}			
+	</update>
+	
+	<select id="getListWithPaging" resultType="org.zerock.domain.travel.T_ReplyVO">
+		select rno, bno, reply, replyer, replyDate, updatedate
+		from
+		travel_reply
+		where
+		bno = #{bno}
+		order by rno ASC
+	</select>
+	
+	<select id="getCountByBno" resultType="int">
+		SELECT COUNT(*) FROM travel_reply WHERE bno = #{bno}
+	</select>
+	
+	<delete id="removeByBnoByUserid">
+		DELETE FROM travel_reply
+		WHERE bno IN (
+			SELECT bno FROM travel_board WHERE writer = #{userid}
+		)
+	</delete>
+
+	<delete id="removeByUserid">
+		DELETE FROM travel_reply
+		WHERE replyer = #{userid}
+	</delete>
+	
+	<delete id="deleteByBno">
+		DELETE FROM travel_reply
+		WHERE bno = #{bno}
+	</delete>
+</mapper>

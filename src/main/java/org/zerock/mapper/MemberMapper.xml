@@ -5,14 +5,14 @@
   <mapper namespace="org.zerock.mapper.MemberMapper">
   
   <insert id="insert">
-  	INSERT INTO tbl_member2
+  	INSERT INTO tbl_member
   	(userid, userpw, nickName,address, email,phoneNum)
   	VALUES
   	(#{userid},#{userpw},#{nickName},#{address},#{email},#{phoneNum})
   </insert>
   
   <insert id="insertAuth">
-  	INSERT INTO tbl_member_auth2
+  	INSERT INTO tbl_member_auth
   	(userid, auth)
   	VALUES
   	(#{userid},#{auth})
@@ -26,31 +26,34 @@
 			m.nickName nickName,
 			m.email email,
 			m.address address,
-			m.phoneNum phoneNumm,
+			m.phoneNum phoneNum,
+			m.fileName fileName,
 			a.auth auth
 		FROM
-			tbl_member2 m LEFT JOIN tbl_member_auth2 a ON m.userid = a.userid
+			tbl_member m LEFT JOIN tbl_member_auth a ON m.userid = a.userid
 		WHERE 
 			m.userid = #{userid}
 
   </select>
   
   <update id="update">
-  UPDATE tbl_member2
+  UPDATE tbl_member
   SET userpw = #{userpw},
   	  nickName = #{nickName},
+  	  email = #{email},
+  	  address = #{address},
   	  phoneNum = #{phoneNum}
   WHERE
   	userid = #{userid}
   </update>
   
   <delete id="delete">
-  DELETE FROM tbl_member2
+  DELETE FROM tbl_member
   WHERE userid=#{userid}
   </delete>
   
   <delete id="deleteAuth">
-  DELETE FROM tbl_member_auth2
+  DELETE FROM tbl_member_auth
   WHERE userid = #{userid}
   </delete>
 
@@ -64,7 +67,7 @@
 			m.address address,
 			m.phoneNum phoneNum
 		FROM
-			tbl_member2 m LEFT JOIN tbl_member_auth2 a ON m.userid = a.userid
+			tbl_member m LEFT JOIN tbl_member_auth a ON m.userid = a.userid
 		WHERE 
 			m.email = #{email}
   </select>
@@ -78,12 +81,18 @@
 			m.address address,
 			m.phoneNum phoneNum
 		FROM
-			tbl_member2 m LEFT JOIN tbl_member_auth2 a ON m.userid = a.userid
+			tbl_member m LEFT JOIN tbl_member_auth a ON m.userid = a.userid
 		WHERE 
 			m.nickName = #{nickName}
   </select>
   
-
+	  <update id = "upload">
+  UPDATE tbl_member
+  SET
+  	fileName = #{fileName}
+  WHERE
+    userid = #{userid}
+  </update>
 
   
   <resultMap type="org.zerock.domain.MemberVO" id= "memberM">
@@ -94,11 +103,15 @@
   	<result property="address" column="address"/>
   	<result property="phoneNum" column="phoneNum" />
   	<result property="enabled" column="enabled"/>
+  	<result property="fileName" column="fileName"/>
   	<collection property="authList" resultMap="authM"/>
   </resultMap>
   <resultMap type="org.zerock.domain.AuthVO" id="authM">
   	<result property="userid" column="userid"/>
   	<result property="auth" column="auth" />
   </resultMap>
-  
+    <resultMap type="org.zerock.domain.FileDTO" id="fileM">
+  	<result property="filename" column="filename"/>
+  	<result property="fileRealName" column="fileRealName"/>
+  </resultMap>
   </mapper>

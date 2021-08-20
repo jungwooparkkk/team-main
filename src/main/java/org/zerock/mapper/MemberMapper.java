@@ -1,8 +1,9 @@
 package org.zerock.mapper;
-//modi
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.zerock.domain.AuthVO;
+import org.zerock.domain.FileDTO;
 import org.zerock.domain.MemberVO;
 
 public interface MemberMapper {
@@ -23,7 +24,8 @@ public interface MemberMapper {
 	
 	public MemberVO dupNickcheck(String nickName);
 	
-	
+	public int upload(FileDTO file);
+
 
 	
 	

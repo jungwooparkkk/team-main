@@ -1,4 +1,4 @@
-package org.zerock.controller;
+package org.zerock.controller.travel;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import lombok.extern.log4j.Log4j;
 
 @Controller
-@RequestMapping("/security")
+@RequestMapping("/T_security")
 @Log4j
-public class SecurController {
+public class T_SecurController {
+
 	@GetMapping(value="/every", produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public String getEvery() {

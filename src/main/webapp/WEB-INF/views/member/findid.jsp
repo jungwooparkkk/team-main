@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="tv" tagdir="/WEB-INF/tags/travel" %>
 
 <!DOCTYPE html>
 <html>
@@ -8,8 +9,14 @@
 
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
 
-<title>Insert title here</title>
+<title>아이디 찾기</title>
 
+<style>
+div.container {
+  border: 15px solid transparant;
+  margin: 110px; 
+}
+</style>
 
 
 <script>
@@ -53,26 +60,30 @@
 </script>
 
 </head>
+
+<tv:navbar></tv:navbar>
+
+
 <body>
 
-
-	<div class="row justify-content-center">
-		<div class="col-md-6 col-7">
-	  		<h2>아이디 찾기</h2>
-	 		 <div class="form-group">
-	  			<p>회원가입 시 입력한 이메일 주소를 입력하세요.</p>
-				  	<div class="mb-3">
-				  		<form id="findid" method="get" action="${appRoot }/member/findid">
-						  <label for="find-pw-email" class="form-label">이메일</label>
-						  <input type="email" class="form-control" id="find-pw-email" name = "email" placeholder="email@gmail.com">
-				  		</form>
-					</div>	  
-				  <button type="submit" id="findmailBtn" class="btn btn-outline-primary">가입한 아이디 확인하기</button>
-		  			
- 			</div>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-6 col-7">
+		  		<h2>아이디 찾기</h2>
+		 		 <div class="form-group">
+		  			<p>회원가입 시 입력한 이메일 주소를 입력하세요.</p>
+					  	<div class="mb-3">
+					  		<form id="findid" method="get" action="${appRoot }/member/findid">
+							  <label for="find-pw-email" class="form-label">이메일</label>
+							  <input type="email" class="form-control" id="find-pw-email" name = "email" placeholder="email@gmail.com">
+					  		</form>
+						</div>	  
+					  <button type="submit" id="findmailBtn" class="btn btn-outline-primary">가입한 아이디 확인하기</button>
+			  			
+	 			</div>
+			</div>
 		</div>
 	</div>
-	
 
 </body>
 </html>

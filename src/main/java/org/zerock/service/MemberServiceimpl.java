@@ -1,14 +1,14 @@
 package org.zerock.service;
 
 
+import java.io.File;
+import java.io.InputStream;
+import java.nio.file.Path;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-//import javax.mail.MessagingException;
-//import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailSender;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 //import org.springframework.mail.javamail.JavaMailSender;
@@ -16,11 +16,22 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import org.zerock.domain.AuthVO;
+import org.zerock.domain.FileDTO;
 import org.zerock.domain.MemberVO;
+import org.zerock.mapper.BoardMapper;
+import org.zerock.mapper.FileMapper;
 import org.zerock.mapper.MemberMapper;
+import org.zerock.mapper.ReplyMapper;
 
 import lombok.Setter;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.profiles.ProfileFile;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 @Service
 public class MemberServiceimpl implements MemberService{
@@ -30,8 +41,42 @@ public class MemberServiceimpl implements MemberService{
 	@Setter(onMethod_=@Autowired)
 	private PasswordEncoder encoder;
 	
+	@Setter(onMethod_=@Autowired)
+	private ReplyMapper rmap;
+	
+	@Setter(onMethod_=@Autowired)
+	private FileMapper fmap;
+	
+	@Setter(onMethod_=@Autowired)
+	private BoardMapper bmap;
+
 	@Autowired
 	private JavaMailSender javaMailSender;
+	
+	private String bucketName;
+	private String profileName;
+	private S3Client s3;
+	
+	public MemberServiceimpl() {
+		this.bucketName ="ca-myuniq";
+		this.profileName ="profileImage";
+		
+		Path contentLocation = new File(System.getProperty("user.home") + "/.aws/credentials").toPath();
+		ProfileFile pf = ProfileFile.builder()
+				.content(contentLocation)
+				.type(ProfileFile.Type.CREDENTIALS)
+				.build();
+		ProfileCredentialsProvider pcp = ProfileCredentialsProvider.builder()
+				.profileFile(pf)
+				.profileName(profileName)
+				.build();
+		
+		this.s3 = S3Client.builder()
+				.credentialsProvider(pcp)
+				.build();
+	}
+	
+
 	
 	
 	@Override
@@ -54,11 +99,6 @@ public class MemberServiceimpl implements MemberService{
 		return map.read(name);
 	}
 	
-	@Override
-	public void modify(MemberVO user, String string, String tempPw) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public boolean modify(MemberVO mem, String exPassword) {
@@ -93,7 +133,22 @@ public class MemberServiceimpl implements MemberService{
 	public boolean delete(MemberVO mem) {
 		
 
-		map.deleteAuth(mem);
+	      rmap.deleteByUserid(mem);
+          
+	      
+	      rmap.deleteByBnoByUserid(mem);
+	            
+	            
+	      fmap.deleteByUserid(mem);
+	            
+	            
+	      bmap.deleteByUserid(mem);
+	            
+	            
+	      map.deleteAuth(mem);
+	      
+	      
+	      map.deleteAuth(mem);
 		
 		int cnt = map.delete(mem);
 		
@@ -135,6 +190,35 @@ public class MemberServiceimpl implements MemberService{
 		return map.dupNickcheck(nickName);
 	}
 
+	@Override
+	public boolean upload(String userid, MultipartFile mfile) {
+		
+		// 회원 테이블에 파일명 추가 
+		FileDTO file = new FileDTO();
+		file.setFileName(mfile.getOriginalFilename());
+		file.setUserid(userid);
+		
+		map.upload(file);
+		
+		// s3 upload
+		try (InputStream is = mfile.getInputStream()) {
+			
+			PutObjectRequest objectRequest = PutObjectRequest.builder()
+					.bucket(bucketName)
+					.key(userid +"/"+ mfile.getOriginalFilename())
+					.contentType(mfile.getContentType())
+					.acl(ObjectCannedACL.PUBLIC_READ)
+					.build();
+			
+			s3.putObject(objectRequest, 
+					RequestBody.fromInputStream(is, mfile.getSize()));
+			
+		} catch(Exception e) {
+			throw new RuntimeException(e);
+		}
+		
+		return false;
+	}
 
 	
 }
