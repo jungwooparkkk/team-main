@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
     
 <!doctype html>
 <html lang="en">
@@ -69,9 +72,9 @@
   		  </sec:authorize>
   		 
           
-          <a href="" class="dropdown-item" href="#">맛집</a>
-          <a href="${appRoot }/travel/area" class="dropdown-item" href="#">여행</a>
-          <a class="dropdown-item" href="/jaehyun/board/list">
+          <a href="${appRoot }/eatboard/list" class="dropdown-item" href="#">맛집</a>
+          <a href="${appRoot }/T_board/T_list" class="dropdown-item" href="#">여행</a>
+          <a class="dropdown-item" href="${appRoot }/board/list">
           <div class="dropdown-divider" ></div>자유 게시판</a>
         </div>
       </li>
@@ -96,11 +99,7 @@
       </ol>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img"
-            aria-label=" :  " preserveAspectRatio="xMidYMid slice" focusable="false">
-            <title> </title>
-            <rect width="100%" height="100%" fill="#777" /><text x="50%" y="50%" fill="#777" dy=".3em"> </text>
-          </svg>
+     	<a href="${appRoot }/eatboard/list" ><img src="${appRoot }/resources/img/food.jpg" width="100%" height="100%"></a>
 
           <div class="container">
             <div class="carousel-caption">
@@ -111,11 +110,7 @@
           </div>
         </div>
         <div class="carousel-item">
-          <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img"
-            aria-label=" :  " preserveAspectRatio="xMidYMid slice" focusable="false">
-            <title> </title>
-            <rect width="100%" height="100%" fill="#777" /><text x="50%" y="50%" fill="#777" dy=".3em"> </text>
-          </svg>
+           <img src = "${appRoot }/resources/img/travel.jpg"  width="100%" height="100%">
 
           <div class="container">
             <div class="carousel-caption">
@@ -126,11 +121,7 @@
           </div>
         </div>
         <div class="carousel-item">
-          <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img"
-            aria-label=" :  " preserveAspectRatio="xMidYMid slice" focusable="false">
-            <title> </title>
-            <rect width="100%" height="100%" fill="#777" /><text x="50%" y="50%" fill="#777" dy=".3em"> </text>
-          </svg>
+           <img src = "${appRoot }/resources/img/food.jpg"  width="100%" height="100%">
 
           <div class="container">
             <div class="carousel-caption">
@@ -190,7 +181,7 @@
           </svg>
 
           <h2>자유게시판</h2>
-          <p>링크걸기</p>
+          <a p href="${appRoot }/board/list">링크걸기</p></a>
 
         </div><!-- /.col-lg-4 -->
       </div><!-- /.row -->

@@ -1,7 +1,7 @@
 package org.zerock.mapper.travel;
 
 import org.zerock.domain.travel.T_FileVO;
-import org.zerock.domain.travel.MemberVO;
+import org.zerock.domain.MemberVO;
 
 public interface T_FileMapper {
 

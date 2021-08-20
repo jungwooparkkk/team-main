@@ -35,9 +35,9 @@ public class AppListener implements ServletContextListener {
 
     	String bucketUrl = "https://choongang-jaehyun2.s3.ap-northeast-2.amazonaws.com/";
 
-    	String bucketUrl = "https://choongang-taewon.s3.ap-northeast-2.amazonaws.com/";
+    	String bucketUrl2 = "https://choongang-taewon.s3.ap-northeast-2.amazonaws.com/";
 
-    	String bucketUrl = "https://choongang-jwpark1.s3.ap-northeast-2.amazonaws.com/";
+    	String bucketUrl3 = "https://choongang-jwpark1.s3.ap-northeast-2.amazonaws.com/";
 
 
     	application.setAttribute("imgRoot", bucketUrl);

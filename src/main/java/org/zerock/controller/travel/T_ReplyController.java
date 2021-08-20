@@ -20,7 +20,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @RestController
-@RequestMapping("/replies")
+@RequestMapping("/t_replies")
 @Log4j
 @AllArgsConstructor
 public class T_ReplyController {
