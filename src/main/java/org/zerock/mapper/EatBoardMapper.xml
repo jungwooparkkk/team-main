@@ -18,12 +18,22 @@
 		e.writer writer,
 		e.regdate regdate,
 		e.updatedate updatedate,
-		e.likes likes,
 		e.views views,
-		f.fileName fileName
-		count(r.eatrno) replyCnt
-	FROM eatBoard e LEFT JOIN eatBoard_file f ON e.eatbno = f.eatbno
-					LEFT JOIN eat_reply r ON e.eatbno = r.eatbno
+		f.fileName fileName,
+		m.nickName writerName,
+     --	count(r.eatrno) replyCnt,
+     --	sum(l.eatlno) likesCnt
+     
+	-- count reply
+       (SELECT COUNT(*) FROM eat_reply r WHERE r.eatbno = e.eatbno) replyCnt,
+    
+    -- sum likes
+       (SELECT IFNULL(SUM(l.eatlno), 0) FROM eatlikes l WHERE l.eatbno = e.eatbno) likesCnt
+     FROM eatBoard e 
+                -- LEFT JOIN eat_reply r ON e.eatbno = r.eatbno
+     				INNER JOIN tbl_member m ON e.writer = m.userid
+     				LEFT JOIN eatBoard_file f ON e.eatbno = f.eatbno
+     			--	LEFT JOIN eatlikes l ON e.eatbno = l.eatbno
 	where e.eatbno > 0 order by e.eatbno DESC
      
     ]]>
@@ -46,6 +56,9 @@
 					<when test='type == "A"'>
 						e.address LIKE CONCAT('%', #{keyword}, '%')
 					</when>
+					<when test='type == "K"'>
+						e.kategorie LIKE CONCAT('%', #{keyword}, '%')
+					</when>
 				</choose>
 			</foreach>
 		</where>
@@ -53,9 +66,10 @@
 	
 
 	<select id="getTotalCount" resultType="int">
-		SELECT COUNT(*) FROM eatBoard e JOIN tbl_member2 m ON e.writer = m.userid
+		SELECT COUNT(*) FROM eatBoard e JOIN tbl_member m ON e.writer = m.userid
 		<include refid="criteria"></include>
 	</select>
+
 
 <select id="getListWithPaging" resultType="org.zerock.domain.EatBoardVO">
     SELECT 
@@ -67,14 +81,23 @@
     	e.writer writer,
     	e.regdate regdate,
     	e.updatedate updatedate,
-    	e.likes likes,
     	e.views views,
     	m.nickName writerName,
     	f.fileName fileName,
-    	count(r.eatrno) replyCnt
-     FROM eatBoard e LEFT JOIN eat_reply r ON e.eatbno = r.eatbno
-     				INNER JOIN tbl_member2 m ON e.writer = m.userid
+     --	count(r.eatrno) replyCnt,
+     --	sum(l.eatlno) likesCnt
+     
+	-- count reply
+       (SELECT COUNT(*) FROM eat_reply r WHERE r.eatbno = e.eatbno) replyCnt,
+    
+    -- sum likes
+       (SELECT IFNULL(SUM(l.eatlno), 0) FROM eatlikes l WHERE l.eatbno = e.eatbno) likesCnt
+     FROM eatBoard e 
+                -- LEFT JOIN eat_reply r ON e.eatbno = r.eatbno
+     				INNER JOIN tbl_member m ON e.writer = m.userid
      				LEFT JOIN eatBoard_file f ON e.eatbno = f.eatbno
+     			--	LEFT JOIN eatlikes l ON e.eatbno = l.eatbno
+     				
      				
      			
      
@@ -108,14 +131,18 @@
 			e.writer writer,
 			e.regdate regdate,
 			e.updatedate updatedate,
-			e.likes likes,
 			e.views views,
 			f.fileName fileName,
 			m.nickName writerName,
-			count(r.eatrno) replyCnt
+	-- count reply
+       (SELECT COUNT(*) FROM eat_reply r WHERE r.eatbno = e.eatbno) replyCnt,
+    
+    -- sum likes
+       (SELECT IFNULL(SUM(l.eatlno), 0) FROM eatlikes l WHERE l.eatbno = e.eatbno) likesCnt
 		FROM eatBoard e LEFT JOIN eatBoard_file f ON e.eatbno = f.eatbno
-						 JOIN tbl_member2 m ON e.writer = m.userid
-						 LEFT JOIN eat_reply r ON e.eatbno = r.eatbno
+						 JOIN tbl_member m ON e.writer = m.userid
+						 -- LEFT JOIN eat_reply r ON e.eatbno = r.eatbno
+						 -- LEFT JOIN eatlikes l ON e.eatbno = l.eatbno
 		WHERE e.eatbno = #{eatbno}
 	</select>
 
