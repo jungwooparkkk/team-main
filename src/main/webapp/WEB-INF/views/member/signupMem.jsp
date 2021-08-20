@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="tv" tagdir="/WEB-INF/tags/travel" %>
 
 <!DOCTYPE html>
 <html>
@@ -105,8 +106,8 @@ $(function(){
 	});
 
 	function toggleEnableSubmit(){
-		console.log(passwordConfirm, validId, validMail, validNo, validNick)
-		if(passwordConfirm && validId && validMail && validNo && validNick){
+		console.log(validId, passwordConfirm,validNick, validMail, validNo)
+		if(validId && passwordConfirm && validNick&& validMail && validNo){
 			$("#signup-btn").removeAttr("disabled");
 		}else{
 			$("#signup-btn").attr("disabled","disabled");
@@ -131,11 +132,11 @@ $(function(){
 				success : function(data) {
 					if(data[0] == "success"){
 						console.log("사용가능 닉네임")
+						validNick = true;
 						$("#nickname-message").text("사용 가능한 닉네임입니다.");
 					}
 					else if(data[0] == "exist") {
-						console.log("사용불가 닉네임")
-						validNick = true;
+						console.log("사용불가 닉네임")	
 						$("#nickname-message").text("이미 사용중인 닉네임입니다.");
 					}
 					toggleEnableSubmit();
@@ -198,6 +199,9 @@ $(function(){
 
 
 </head>
+
+<tv:navbar></tv:navbar>
+
 <body>
 <div class="container">
 	<c:if test="${not empty param.error }">

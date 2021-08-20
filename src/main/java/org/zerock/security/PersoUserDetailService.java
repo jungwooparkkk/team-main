@@ -6,8 +6,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.zerock.domain.MemberVO;
 import org.zerock.mapper.MemberMapper;
-
-
 import org.zerock.security.domain.PersoUser;
 
 import lombok.Setter;

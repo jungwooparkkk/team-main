@@ -24,25 +24,30 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			
-
-
-			<!-- mail -->
 		</dependencies>
 	</dependencyManagement>
 
-	<dependencies>
-		<!-- mail -->
+	<dependencies>			
+
+	<!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context-support</artifactId>
-			<version>${org.springframework-version}</version>
+		    <groupId>com.sun.mail</groupId>
+		    <artifactId>javax.mail</artifactId>
+		    <version>1.6.2</version>
 		</dependency>
+		
 		<dependency>
-			<groupId>com.sun.mail</groupId>
-			<artifactId>javax.mail</artifactId>
-			<version>1.5.6</version>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context-support</artifactId>
+		    <version>${org.springframework-version}</version>
 		</dependency>
+
+		 <dependency>
+		 	<groupId>commons-fileupload</groupId>
+		 	<artifactId>commons-fileupload</artifactId>
+		 	<version>1.3.1</version>
+		 </dependency>
+		
 		<!-- spring security -->
 		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
 		<dependency>

@@ -23,7 +23,6 @@ public class PersoUser extends User{
 		super(username, password, authorities);
 
 	}
-	
 	public PersoUser(MemberVO mem) {
 		super(mem.getUserid(),mem.getUserpw(),mem.getAuthList().stream()
 				.map(auth -> new SimpleGrantedAuthority(auth.getAuth()))
