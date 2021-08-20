@@ -67,7 +67,7 @@
      FROM travel_board t 
      LEFT JOIN travel_reply r
      ON t.bno = r.bno
-	 INNER JOIN tbl_member2 m
+	 INNER JOIN tbl_member m
      ON t.writer = m.userid 
 	 INNER JOIN travel_board_file f
      ON t.bno = f.bno
@@ -81,7 +81,7 @@
   
   <select id="getTotalCount" resultType="int">
   SELECT COUNT(*) FROM travel_board t LEFT JOIN travel_reply r ON t.bno = r.bno
-                     INNER JOIN tbl_member2 m ON t.writer = m.userid 
+                     INNER JOIN tbl_member m ON t.writer = m.userid 
   
   <include refid="T_criteria"></include>
   </select>
@@ -111,7 +111,7 @@
   	 f.fileName fileName,
   	 m.nickName writerName
   	FROM travel_board t LEFT JOIN travel_board_file f ON t.bno = f.bno
-  	                      JOIN tbl_member2 m ON t.writer = m.userid
+  	                      JOIN tbl_member m ON t.writer = m.userid
   	WHERE t.bno = #{bno}
   </select>
   

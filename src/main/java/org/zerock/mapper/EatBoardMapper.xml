@@ -53,7 +53,7 @@
 	
 
 	<select id="getTotalCount" resultType="int">
-		SELECT COUNT(*) FROM eatBoard e JOIN tbl_member2 m ON e.writer = m.userid
+		SELECT COUNT(*) FROM eatBoard e JOIN tbl_member m ON e.writer = m.userid
 		<include refid="criteria"></include>
 	</select>
 
@@ -73,7 +73,7 @@
     	f.fileName fileName,
     	count(r.eatrno) replyCnt
      FROM eatBoard e LEFT JOIN eat_reply r ON e.eatbno = r.eatbno
-     				INNER JOIN tbl_member2 m ON e.writer = m.userid
+     				INNER JOIN tbl_member m ON e.writer = m.userid
      				LEFT JOIN eatBoard_file f ON e.eatbno = f.eatbno
      				
      			
@@ -114,7 +114,7 @@
 			m.nickName writerName,
 			count(r.eatrno) replyCnt
 		FROM eatBoard e LEFT JOIN eatBoard_file f ON e.eatbno = f.eatbno
-						 JOIN tbl_member2 m ON e.writer = m.userid
+						 JOIN tbl_member m ON e.writer = m.userid
 						 LEFT JOIN eat_reply r ON e.eatbno = r.eatbno
 		WHERE e.eatbno = #{eatbno}
 	</select>
