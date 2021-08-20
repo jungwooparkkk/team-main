@@ -72,14 +72,14 @@
 		SELECT COUNT(*) FROM tbl_reply WHERE bno = #{bno}
 	</select>
 	
-	<delete id="removeByBnoByUserid">
+	<delete id="deleteByBnoByUserid">
 		DELETE FROM tbl_reply
 		WHERE bno IN (
 			SELECT bno FROM tbl_board WHERE writer = #{userid}
 		)
 	</delete>
 
-	<delete id="removeByUserid">
+	<delete id="deleteByUserid">
 		DELETE FROM tbl_reply
 		WHERE replyer = #{userid}
 	</delete>

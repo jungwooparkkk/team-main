@@ -119,7 +119,7 @@
 	where bno = #{bno}
 </update>
 
-<delete id="removeByUserid">
+<delete id="deleteByUserid">
   DELETE FROM tbl_board
   WHERE writer = #{userid}
   </delete>
