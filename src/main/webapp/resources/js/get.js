@@ -8,7 +8,7 @@
 			url: appRoot + "/replies/" + rno,
 			success: function (reply) {
 				$("#reply-modify-rno").val(reply.rno);
-				$("#reply-modify-writer").val(reply.replyerName);
+				$("#reply-modify-writer").val(reply.replyer);
 				$("#reply-modify-reply").text(reply.reply);
 
 				// 댓글 작성자와 로그인 유저가 같지 않으면 
@@ -51,8 +51,8 @@
 							(reply.replyer == userid
 								?
 									`
-									<button id="reply-delete-btn1" data-toggle='modal' data-target='#deleteModal' style="float:right">삭제</button>
-									<button id="reply-modify-btn1" data-toggle='modal' data-target='#modifyModal' style="float:right">수정</button>
+									<button id="reply-delete-btn2" data-toggle='modal' data-target='#deleteModal' style="float:right">삭제</button>
+									<button id="reply-modify-btn2" data-toggle='modal' data-target='#modifyModal' style="float:right">수정</button>
 									`
 								: ``
 							)
