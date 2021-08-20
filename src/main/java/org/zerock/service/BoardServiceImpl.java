@@ -14,6 +14,7 @@ import org.zerock.domain.Criteria;
 import org.zerock.domain.FileVO;
 import org.zerock.mapper.BoardMapper;
 import org.zerock.mapper.FileMapper;
+import org.zerock.mapper.LikesMapper;
 import org.zerock.mapper.ReplyMapper;
 
 import lombok.AllArgsConstructor;
@@ -44,6 +45,9 @@ public class BoardServiceImpl implements BoardService {
 
 	@Setter (onMethod_ = @Autowired)
 	private FileMapper fileMapper;
+	
+	@Setter (onMethod_ = @Autowired)
+	private LikesMapper likesMapper;
 	
 	public BoardServiceImpl() {
 		this.bucketName = "choongang-jaehyun2";
@@ -184,6 +188,9 @@ public class BoardServiceImpl implements BoardService {
 		
 	}
 	
-
+	@Override
+	public Long getLikeClicked(String userid, long bno) {
+		return likesMapper.likeClicked(userid, bno);
+	}
 }
 

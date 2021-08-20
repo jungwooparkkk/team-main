@@ -1,12 +1,8 @@
 package org.zerock.controller;
 
 
+import java.security.Principal;
 import java.util.List;
-
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -110,12 +106,18 @@ public class BoardController {
 	
 	
 	@GetMapping("/get")
-	public void get(@RequestParam("bno") long bno,@ModelAttribute("cri") Criteria cri, Model model) {
+	public void get(@RequestParam("bno") long bno,@ModelAttribute("cri") Criteria cri, Model model, Principal principal) {
 		log.info("게시글 보기");
 		
 		BoardVO vo = service.get(bno);
 		
-		model.addAttribute("board", service.get(bno));
+		if (principal != null) {
+			Long likeClicked = service.getLikeClicked(principal.getName(), vo.getBno());
+			Long one = 1L;
+			vo.setLikeClicked(one.equals(likeClicked)); 
+		}
+		
+		model.addAttribute("board", vo);
 		service.views(bno);
 	}
 	

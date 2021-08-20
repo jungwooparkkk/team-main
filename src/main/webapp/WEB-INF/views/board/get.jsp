@@ -76,14 +76,25 @@ var userid = "${pinfo.member.userid}";
 						<input class="form-control" name='views'
 					value='<c:out value="${board.views }"/>'readonly="readonly">
 					</div>
+					<div class="icon-view">				
 					<c:choose>
-						<c:when test="${pinfo.member.userid ne null }">
-							<a href='javascript: like_func();'><i class="far fa-heart" style="font-size:16px;color:red" id='like_icon'></i></a>
+						<c:when test="${!board.likeClicked}">
+						<span class="likebtn">
+							<i type="button" class="far fa-heart"></i>
+						</span>
+							<input type="hidden" class="likecheck" value="${lno }">
+						</c:when>					
+						<c:when test="${board.likeClicked}">
+						<span class="likebtn">
+							<i type="button" class="fas fa-heart"></i>
+						</span>
+							<input type="hidden" class="likecheck" value="${lno }">
 						</c:when>
 						<c:otherwise>
-							<a href= 'javascript: login_need();'><i class="far fa-heart" style="font-size:16px;color:red"></i></a>
+							0도 아니고 1도 아님.
 						</c:otherwise>
-					</c:choose>
+					</c:choose> ${board.likesCnt }
+				</div>
 			</div>
 			</div>		
 				<div class="container">
