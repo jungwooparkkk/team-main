@@ -28,5 +28,4 @@ public interface EatBoardMapper {
 	public void removeByUserid(MemberVO vo);
 	
 	public int views(Long eatbno);
-
 }

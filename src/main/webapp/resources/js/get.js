@@ -182,27 +182,60 @@
             replyer: replyer
          }
 
-         $.ajax({
-            type: "delete",
-            url: appRoot + "/replies/" + rno,
-            data : JSON.stringify(data),
-            contentType : "application/json",
-            success: function () {
-               // modal 닫고,
-               $("#deleteModal").modal("hide");
-               // 댓글 리스트 다시 얻어오고,
-               getReplyList();
-               // alert 띄우고
-               $("#alert1").text("댓글 삭제하였습니다.").addClass("show");
-            },
-            error: function() {
-               console.log("삭제 실패");
-            }
-         })
-      }
-   });
-   
-   
+			$.ajax({
+				type: "delete",
+				url: appRoot + "/replies/" + rno,
+				data : JSON.stringify(data),
+				contentType : "application/json",
+				success: function () {
+					// modal 닫고,
+					$("#deleteModal").modal("hide");
+					// 댓글 리스트 다시 얻어오고,
+					getReplyList();
+					// alert 띄우고
+					$("#alert1").text("댓글 삭제하였습니다.").addClass("show");
+				},
+				error: function() {
+					console.log("삭제 실패");
+				}
+			})
+		}
+	});
+	
+	$('.likebtn').click(function(){
+		likesupdate(this);
+	});
+	
+	function likesupdate(elem){
+		// var root = getContextPath(),
+		var likeurl = "/likes/likesupdate";
+		// userid = $('#userid').val(),
+		var bno = $(elem).closest(".item").find(".list-num").text();
+		bno = bno ? bno : window.boardBno;
+		var count = $(elem).closest(".item").find('.likescheck').val();
+		var data = {"userid" : userid,
+				"bno" : bno,
+				"count" : count};
+		
+		console.log("button click");
+		
+	$.ajax({
+		url : appRoot + likeurl,
+		type : 'post',
+		contentType: 'application/json',
+		data : JSON.stringify(data),
+		success : function(result){
+			console.log("수정" + result.result);
+			location.reload();
+		}, error : function(result){
+			console.log(result)
+		}
+		
+		});
+	};
 
-   
+	function getContextPath() {
+	    var hostIndex = location.href.indexOf( location.host ) + location.host.length;
+	    return location.href.substring( hostIndex, location.href.indexOf('/', hostIndex + 1) );
+	} 
 })

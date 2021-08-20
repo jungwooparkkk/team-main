@@ -1,5 +1,6 @@
 package org.zerock.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,6 +17,7 @@ import org.zerock.domain.Criteria;
 import org.zerock.domain.EatBoardVO;
 import org.zerock.domain.eatpageDTO;
 import org.zerock.service.EatBoardService;
+import org.zerock.service.EatLikesService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -27,9 +29,10 @@ import lombok.extern.log4j.Log4j;
 public class EatboardController {
 	
 	public EatBoardService service;
+	public EatLikesService lservice;
 	
 	@GetMapping("/list")
-	public void list(@ModelAttribute("cri") Criteria cri, Model model, @ModelAttribute("vo") EatBoardVO vo) {
+	public void list(@ModelAttribute("cri") Criteria cri, Model model, Principal principal) {
 		log.info("list");
 		
 		int total = service.getTotal(cri);
@@ -38,6 +41,24 @@ public class EatboardController {
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pageMaker", new eatpageDTO(cri, total));
+		
+		log.info(principal);
+		//좋아요
+		if (principal != null) {
+			List<Long> likesEatList = lservice.getLikeList(principal.getName());
+			
+			log.info(likesEatList);
+			
+			for (EatBoardVO evo : list) {
+				if (likesEatList.contains(evo.getEatbno())) {
+					log.info(evo);
+					evo.setLikeClicked(true);
+				}
+			}
+		}
+		
+		
+		
 	}
 	
 	@GetMapping("/register")
@@ -66,13 +87,25 @@ public class EatboardController {
 	}
 	
 	@GetMapping({"/get", "/modify"})
-	public void get(@RequestParam("eatbno") Long eatbno, Model model, @ModelAttribute("cri") Criteria cri) {
+	public void get(@RequestParam("eatbno") Long eatbno, Model model, 
+			@ModelAttribute("cri") Criteria cri, Principal principal) {
 		log.info("/get or /modify");
 		EatBoardVO vo = service.get(eatbno);
+		
+		//좋아요
+		if (principal != null) {
+			Long likeClicked = lservice.getLikeClicked(principal.getName(), vo.getEatbno());
+			Long one = 1L;
+			if (one.equals(likeClicked)) {
+				vo.setLikeClicked(true);
+			}
+		}
+		
 		
 		model.addAttribute("board", vo);
 		
 		service.views(eatbno);
+
 	}
 	
 
@@ -119,6 +152,9 @@ public class EatboardController {
 		
 		return "redirect:/eatboard/list";
 	}
+	
+	
+	
 }
 
 

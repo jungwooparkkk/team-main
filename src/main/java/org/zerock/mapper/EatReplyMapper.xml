@@ -65,7 +65,7 @@ WHERE replyer = #{userid}
 		eat_reply r JOIN tbl_member m ON r.replyer = m.userid
 	WHERE
 		r.eatbno = #{eatbno}
-	ORDER BY r.eatrno ASC
+	ORDER BY r.eatrno DESC
 </select>
 
 <select id="getCountByBno" resultType="int">

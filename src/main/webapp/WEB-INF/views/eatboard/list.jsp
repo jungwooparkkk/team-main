@@ -2,15 +2,31 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="bd" tagdir="/WEB-INF/tags/board"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="bd" tagdir="/WEB-INF/tags/travel" %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp"%>
 <link rel="stylesheet" href="${appRoot }/resources/css/eatboard.css" />
-<title>Insert title here</title>
 
+<!-- <script>
+var appRoot = '${appRoot}';
+
+<sec:authorize access="isAuthenticated()" >
+var userid = '<sec:authentication property="principal.username" />';
+</sec:authorize> -->
+
+<script>
+   var appRoot = "${appRoot}";
+   var userid = "${pinfo.member.userid}";
+</script>
+
+
+</script>
+<script src="${appRoot }/resources/js/eatget.js"></script>
+<title>맛집 리스트</title>
 <script>
 	$(document).ready(function() {
 		$("#list-pagenation1 a").click(function(e) {
@@ -32,6 +48,7 @@
 </head>
 <body>
 	<bd:navbar />
+
 	<div class="container eat-board">
 		<h1>글 목록</h1>
 
@@ -51,21 +68,21 @@
 		<div class="eat-board-list">
 			<ul class="clearfix">
 				<c:forEach items="${list }" var="board">
-					<li class="item"><c:url value="/eatboard/get" var="getUrl">
+					<li class="item"><c:url value="/eatboard/get" var="eatgetUrl">
 							<c:param name="eatbno" value="${board.eatbno }" />
 							<c:param name="pageNum" value="${pageMaker.cri.pageNum }" />
 							<c:param name="amount" value="${pageMaker.cri.amount }" />
 							<c:param name="type" value="${pageMaker.cri.type }" />
 							<c:param name="keyword" value="${pageMaker.cri.keyword }" />
 						</c:url>
-						<a class="img" href="${getUrl }">
+						<a class="img" href="${eatgetUrl }">
 							<img src="${imgRoot}${board.eatbno }/${board.fileName}">
 						</a>
-							<a class="item-title" href="${getUrl }">
+							<a class="item-title" href="${eatgetUrl }">
 							<span class="list-num">${board.eatbno }</span>
 							<span class="title">${board.title }</span>
 							</a>
-						<a class="item-content" href="${getUrl }">
+						<a class="item-content" href="${eatgetUrl }">
 						<div class="address">${board.address }</div>
 						<div class="kategorie">${board.kategorie }</div>
 						<div class="content">${board.content }</div>
@@ -78,9 +95,29 @@
 							<div class="view">
 								<i class="far fa-eye"></i>&nbsp;${board.views }
 							</div>
-							<div class="like">
-								<i class="far fa-heart"></i>&nbsp;${board.likes }
-							</div>
+							<%-- <button class="like _like" id="like-button1" data-operation="like">
+								<i id="like-icon1" class="far fa-heart"></i>&nbsp;<span id="like-cnt1">${board.likesCnt }</span>	
+							</button> --%>
+							
+							
+					<c:choose>
+						<c:when test="${!board.likeClicked}">
+						<span class="likebtn">
+							<i type="button" class="far fa-heart"></i>
+						</span>
+							<input type="hidden" class="likecheck" value="${eatlno }">
+						</c:when>					
+						<c:when test="${board.likeClicked}">
+						<span class="likebtn">
+							<i type="button" class="fas fa-heart"></i>
+						</span>
+							<input type="hidden" class="likecheck" value="${eatlno }">
+						</c:when>
+						<c:otherwise>
+							0도 아니고 1도 아님.
+						</c:otherwise>
+					</c:choose> ${board.likesCnt }
+							
 						</div>
 						<div class="date">
 							<fmt:formatDate pattern="yyyy-MM-dd" value="${board.regdate }" />

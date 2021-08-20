@@ -91,7 +91,7 @@ $(document).ready(function() {
 						<fmt:formatDate pattern="yyyy-MM-dd" value="${board.regdate }"/>
 					</td>
 					<td style=text-align:center>${board.views }</td>
-					<td style=text-align:center>${board.good }</td>
+					<td style=text-align:center>${board.likesCnt }</td>
 				</tr>
 			</c:forEach>			
 		</tbody>

@@ -193,10 +193,7 @@ public class EatBoardServiceImpl implements EatBoardService {
 		return mapper.getTotalCount(cri);
 	}
 
-
 	 @Override 
 	 public int views(Long eatbno) { 
 		 return mapper.views(eatbno); }
-
-	
 }
