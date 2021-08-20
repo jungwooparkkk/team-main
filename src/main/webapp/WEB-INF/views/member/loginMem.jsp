@@ -10,7 +10,6 @@
 <head>
 
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
-
 <style>
 div.container {
   border: 15px solid transparant;
@@ -18,7 +17,7 @@ div.container {
 }
 </style>
 
-<title>로그인 화면</title>
+<title>로그인 </title>
 
 </head>
 
@@ -61,7 +60,6 @@ div.container {
 					<a class="btn btn-light" href="${appRoot }/member/findpw"> 비밀번호 찾기</a>	
 					<a class="btn btn-light" href="${appRoot }/member/signupMem">회원가입</a>
 				</div>
-
 			</div>
 		</div>
 			
