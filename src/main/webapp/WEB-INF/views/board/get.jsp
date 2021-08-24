@@ -83,13 +83,13 @@ var userid = "${pinfo.member.userid}";
 					<c:choose>
 						<c:when test="${!board.likeClicked}">
 						<span class="likebtn">
-							<i type="button" class="far fa-heart"></i>
+							<i type="button" class="far fa-heart" style="color:red;"></i>
 						</span>
 							<input type="hidden" class="likecheck" value="${lno }">
 						</c:when>					
 						<c:when test="${board.likeClicked}">
 						<span class="likebtn">
-							<i type="button" class="fas fa-heart"></i>
+							<i type="button" class="fas fa-heart" style="color:red;"></i>
 						</span>
 							<input type="hidden" class="likecheck" value="${lno }">
 						</c:when>

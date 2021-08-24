@@ -129,4 +129,9 @@ public class BoardController {
 		
 		model.addAttribute("board",service.get(bno));
 	}
+	
+	@GetMapping("/favicon.ico")
+	   public String favcon() {
+	      return "forward:/resources/favicon.ico";
+	   }
 }
