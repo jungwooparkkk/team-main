@@ -48,7 +48,7 @@ public class T_BoardServiceImpl implements T_BoardService {
 	public T_FileMapper fileMapper;
 	
 	public T_BoardServiceImpl() {
-		this.bucketName = "choongang-taewon";
+		this.bucketName = "choongang-jaehyun2";
 		this.profileName = "spring1";
 		
 		/*  
