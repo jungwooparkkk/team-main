@@ -47,8 +47,8 @@ public class EatBoardServiceImpl implements EatBoardService {
 	public EatFileMapper fileMapper;
 	
 	public EatBoardServiceImpl() {
-		this.bucketName = "choongang-jwpark1";
-		this.profileName = "spring2";
+		this.bucketName = "choongang-jaehyun2";
+		this.profileName = "spring1";
 		
 		/*  
 		 * create
