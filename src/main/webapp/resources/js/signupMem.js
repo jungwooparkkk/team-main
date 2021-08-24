@@ -130,9 +130,10 @@ $(function(){
 	
 
 	
- 	//이메일 양식 체크
+ 	//이메일 양식 체크 -
 
-	$("#signup-input-email").keyup(function(){
+	$("#signup-input-email").keyup(function(e){
+		e.preventDefault();
 		var email = $("#signup-input-email").val();
 		var regmail = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/;
 		validMail = false;
@@ -145,7 +146,7 @@ $(function(){
 		}else{
 			var data = {email : email};
 			$.ajax({
-				type : "get",
+				type : "post",
 				url : appRoot+"/member/checkMail",
 				data : data,
 				success : function(data){
