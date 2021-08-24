@@ -134,7 +134,7 @@ public class T_BoardController {
 	
 	@PostMapping("/T_remove")
 	@PreAuthorize("principal.username == #writer")
-	public String remove(@RequestParam("T_bno") Long bno, String writer,
+	public String remove(@RequestParam("bno") Long bno, String writer,
 			RedirectAttributes rttr,
 			T_Criteria cri) {
 		log.info("remove..." + bno);
