@@ -41,7 +41,7 @@
 <body>
 	<bd:navbar></bd:navbar>
 	<div class="container t-board">
-		<h1>글 목록</h1>
+		<h1>여행 게시판</h1>
 
 		<c:url value="/T_board/T_register" var="registerUrl">
 			<c:if test="${not empty cri.pageNum }">
