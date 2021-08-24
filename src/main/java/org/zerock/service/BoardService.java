@@ -26,6 +26,8 @@ public interface BoardService {
 
 	public void write(BoardVO board);
 
+	public Long getLikeClicked(String userid, long bno);
+
 	
 
 }

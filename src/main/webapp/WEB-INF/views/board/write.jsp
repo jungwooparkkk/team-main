@@ -7,6 +7,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel="shortcut icon" href="${appRoot }/resources/favicon.ico">
+  <link rel="icon" href="${appRoot }/resources/favicon.ico">
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
 <title>자유 게시판 글쓰기</title>
 </head>

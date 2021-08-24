@@ -38,12 +38,23 @@
 	    	t.regdate regdate,
 	    	t.updateDate updateDate,
 	    	t.views views,
-	    	f.fileName fileName
-	     FROM travel_board t
-	     LEFT JOIN travel_board_file f 
-	     ON t.bno = f.bno
-		 WHERE t.bno > 0 
-		 ORDER BY t.bno DESC
+	    	f.fileName fileName,
+	        m.nickName writerName,
+       --	count(r.rno) replyCnt,
+       --	sum(l.lno) likesCnt
+     
+	   -- count reply
+          (SELECT COUNT(*) FROM travel_reply r WHERE r.bno = t.bno) replyCnt,
+    
+       -- sum likes
+          (SELECT IFNULL(SUM(l.lno), 0) FROM travel_likes l WHERE l.bno = t.bno) likesCnt
+           FROM travel_board t 
+                -- LEFT JOIN travel_reply r ON t.bno = r.bno
+     				INNER JOIN tbl_member m ON t.writer = m.userid
+     				LEFT JOIN travel_board_file f ON t.bno = f.bno
+     			--	LEFT JOIN travel_likes l ON t.bno = l.bno
+	where t.bno > 0 order by t.bno DESC
+     
      
     ]]>
     
@@ -63,14 +74,20 @@
 		t.views views,
         m.nickName writerName,
         f.fileName fileName,
-    	count(r.rno) replyCnt 
+    	--	count(r.rno) replyCnt,
+        --	sum(l.lno) likesCnt
+     
+	-- count reply
+       (SELECT COUNT(*) FROM travel_reply r WHERE r.bno = t.bno) replyCnt,
+    
+    -- sum likes
+       (SELECT IFNULL(SUM(l.lno), 0) FROM travel_likes l WHERE l.bno = t.bno) likesCnt
      FROM travel_board t 
-     LEFT JOIN travel_reply r
-     ON t.bno = r.bno
-	 INNER JOIN tbl_member2 m
-     ON t.writer = m.userid 
-	 INNER JOIN travel_board_file f
-     ON t.bno = f.bno
+                -- LEFT JOIN travel_reply r ON t.bno = r.bno
+     				INNER JOIN tbl_member m ON t.writer = m.userid
+     				LEFT JOIN travel_board_file f ON t.bno = f.bno
+     			--	LEFT JOIN travel_likes l ON t.bno = l.bno
+     				
 
 	<include refid="T_criteria"></include>
 	 GROUP BY t.bno
@@ -81,7 +98,7 @@
   
   <select id="getTotalCount" resultType="int">
   SELECT COUNT(*) FROM travel_board t LEFT JOIN travel_reply r ON t.bno = r.bno
-                     INNER JOIN tbl_member2 m ON t.writer = m.userid 
+                     INNER JOIN tbl_member m ON t.writer = m.userid 
   
   <include refid="T_criteria"></include>
   </select>
@@ -109,10 +126,15 @@
   	 t.updatedate updateDate,
 	 t.views views,
   	 f.fileName fileName,
-  	 m.nickName writerName
-  	FROM travel_board t LEFT JOIN travel_board_file f ON t.bno = f.bno
-  	                      JOIN tbl_member2 m ON t.writer = m.userid
-  	WHERE t.bno = #{bno}
+  	 m.nickName writerName,
+  	-- count reply
+       (SELECT COUNT(*) FROM travel_reply r WHERE r.bno = t.bno) replyCnt,
+    
+    -- sum likes
+       (SELECT IFNULL(SUM(l.lno), 0) FROM travel_likes l WHERE l.bno = t.bno) likesCnt
+		FROM travel_board t LEFT JOIN travel_board_file f ON t.bno = f.bno
+						 JOIN tbl_member m ON t.writer = m.userid
+		WHERE t.bno = #{bno}
   </select>
   
   <delete id="delete">

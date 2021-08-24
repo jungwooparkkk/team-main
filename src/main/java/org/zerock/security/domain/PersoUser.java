@@ -11,6 +11,8 @@ import org.zerock.domain.MemberVO;
 import lombok.Getter;
 import lombok.Setter;
 
+
+
 public class PersoUser extends User{
 	
 	@Getter

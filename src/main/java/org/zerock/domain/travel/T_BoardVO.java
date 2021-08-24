@@ -17,6 +17,11 @@ public class T_BoardVO {
 	
 	private int replyCnt;
 	
+	
+	private boolean likeClicked;
+	
+	private int likesCnt;
+	
 	private String fileName;
 	private String writerName;
 
