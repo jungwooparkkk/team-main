@@ -19,6 +19,7 @@
                  .find("#reply-delete-btn1")
                  .hide();
                  
+                 
                
             } else {
                $("#reply-modify-btn1")                 
