@@ -159,7 +159,7 @@ public class MembersControllers {
 		}
 	}
 	
-	@GetMapping("/newpassword")
+	@PostMapping("/newpassword")
 	@ResponseBody
 	public ResponseEntity<String[]> newpassword(HttpSession session, String email){
 		log.info("check signed email method");

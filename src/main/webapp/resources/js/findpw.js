@@ -1,7 +1,8 @@
 
 	//이메일 정보매칭해서 비밀번호 재설정하기
 	$(function() {
-		 $("#findmailBtn").click(function() {
+		 $("#findmailBtn").click(function(e) {
+		 	e.preventDefault();
 			var emailVal = $("#find-pw-email").val();
 			var regmail = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/;
 			var validMail = false;
