@@ -47,7 +47,7 @@ public class EatBoardServiceImpl implements EatBoardService {
 	public EatFileMapper fileMapper;
 	
 	public EatBoardServiceImpl() {
-		this.bucketName = "choongang-jwpark1";
+		this.bucketName = "choongang-jaehyun2";
 		this.profileName = "spring1";
 		
 		/*  
@@ -193,10 +193,7 @@ public class EatBoardServiceImpl implements EatBoardService {
 		return mapper.getTotalCount(cri);
 	}
 
-
 	 @Override 
 	 public int views(Long eatbno) { 
 		 return mapper.views(eatbno); }
-
-	
 }

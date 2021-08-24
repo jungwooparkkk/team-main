@@ -1,0 +1,58 @@
+.container {
+  border: 15px 15px solid gray;
+  margin : 100px;
+  float:center;
+	
+}
+
+.col-md-6 col-7{
+	width : 330px;  
+	height: 493px;
+}
+
+.btn-secondary {
+  	float: center;
+	background-color: #ff792a;
+	border: 1px solid #ff792a;
+	padding: 6px 12px;
+	
+}
+
+.btn-secondary:hover {
+  background-color: #f59a64;
+  border: 1px solid #f59a64;
+  padding: 6px 12px;
+  float:center;
+}
+
+ form.line {
+
+	margin : 15px 75px;
+	padding : 20px;
+	border : 10px 10px;
+}
+
+
+#imgBasic{ 
+ width : 120px;
+ height: 120px;
+ border-radius: 70%;
+}
+
+.loginLogo{
+ width : 150px;
+ height: 150px;
+ border-radius: 70%;
+ display: block; 
+ margin: 15px auto;
+ float : center;
+}
+
+.btn btn-light {
+	 margin: 0px;
+	 float : center;
+}
+
+*:focus {
+    outline: none;
+}

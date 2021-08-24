@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--좋아요  -->
+<mapper namespace="org.zerock.mapper.EatLikesMapper">
+
+	<select id="likescount" resultType="int">
+		SELECT count(eatlno) 
+		FROM eatlikes 
+		WHERE userid = #{userid} 
+			and eatbno=#{eatbno}
+	</select>
+	
+	<insert id="likesinsert">
+		INSERT INTO eatlikes(userid, eatbno, eatlno)
+		VALUES (#{userid}, #{eatbno}, 1)
+	</insert>
+	
+	<select id="likesgetinfo" resultType="org.zerock.domain.EatLikesVO">
+		SELECT eatlno 
+		FROM eatlikes 
+		WHERE userid = #{userid} 
+			and eatbno=#{eatbno}
+	</select>
+	
+	<update id="likesupdate">
+		UPDATE eatlikes
+		SET  eatlno = IF(eatlno = 0, 1, 0)
+		WHERE userid=#{userid} and eatbno=#{eatbno}
+	</update>
+	
+	
+	<select id="likeList" resultType="long">
+		SELECT eatbno
+		FROM eatlikes
+		WHERE userid = #{userid}
+		   AND eatlno = 1
+	
+	</select>
+	
+	<select id="likeClicked" resultType="long">
+	SELECT eatlno
+	FROM eatlikes
+	WHERE userid = #{userid}
+	AND eatbno = #{eatbno}
+	</select>
+</mapper>

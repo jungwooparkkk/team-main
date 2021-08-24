@@ -2,9 +2,7 @@ package org.zerock.mapper.travel;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-import org.zerock.domain.travel.MemberVO;
-import org.zerock.domain.travel.T_Criteria;
+import org.zerock.domain.MemberVO;
 import org.zerock.domain.travel.T_ReplyVO;
 
 public interface T_ReplyMapper {

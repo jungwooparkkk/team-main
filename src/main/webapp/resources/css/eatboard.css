@@ -103,6 +103,8 @@
 }
 .eat-board-list .item .item-info .like {
 	display: inline-block;
+	border: 0; 
+	background-color: transparent;
 }
 .eat-board-list .item .date {
 	text-align: right;
