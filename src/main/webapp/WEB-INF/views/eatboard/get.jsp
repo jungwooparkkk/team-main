@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="bd" tagdir="/WEB-INF/tags/travel" %>
+<%@ taglib prefix="bd" tagdir="/WEB-INF/tags/travel"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
@@ -99,7 +99,7 @@
 					</c:url>
 					<div class="btn-wrap">
 						<c:if test="${pinfo.member.userid eq board.writer }">
-							<a class="btn btn-secondary btn-border" href="${eatmodifyUrl }">수정/삭제</a>
+							<a class="btn btn-secondary btn-border" href="${eatmodifyurl }">수정/삭제</a>
 						</c:if>
 						<c:url value="/eatboard/list" var="listUrl">
 							<c:param name="pageNum" value="${cri.pageNum }"></c:param>
