@@ -18,7 +18,11 @@ public class BoardVO {
 	private Date updateDate;
 	
 	private int views;
-	private int good;
+	private int likes;
+	
+	private boolean likeClicked;
+	
+	private int likesCnt;
 	
 	private String fileName;	
 	

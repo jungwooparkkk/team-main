@@ -2,6 +2,8 @@
  * 
  */ 
  $(function() {
+ 	var appRoot = window.appRoot ? window.appRoot : '';
+    var boardBno = window.boardBno ? window.boardBno : 0;
 	function showModifyModal(eatrno) {
 		$.ajax({
 			type: "get",
@@ -35,7 +37,7 @@
 			}
 		})
 	}
-	
+	/*댓글 출력*/
 	function showReplyList(list) {
 		var container = $("#reply-list-container").empty();
 		
@@ -78,6 +80,7 @@
 	
 	/* 댓글 목록 가져오기 */
 	function getReplyList() {
+	var boardBno = window.boardBno ? window.boardBno : 0;
 		$.ajax({
 			type: "get",
 			url: appRoot + "/eatreplies/pages/" + boardBno,
@@ -94,7 +97,8 @@
 	getReplyList();
 	
 	/* 댓글 입력 버튼 처리 */
-	$("#reply-insert-btn1").click(function() {
+	$("#reply-insert-btn1").click(function(e) {
+		e.preventDefault();
 		var eatbno = $("#reply-eatbno-input1").val();
 		var replyer = $("#reply-replyer-input1").val();
 		var reply = $("#reply-reply-textarea1").val();
@@ -113,12 +117,12 @@
 			success: function() {
 				console.log("입력 성공");
 				// 모달창 닫고
-				$("#reply-insert-modal").modal("hide");
+				//$("#reply-insert-modal").modal("hide");
 				// 댓글리스트 가져오고
 				getReplyList();
 				
 				// 안내 메세지 보여주기
-				$("#alert1").text("새 댓글 입력하였습니다.").addClass("show");
+				//$("#alert1").text("새 댓글 입력하였습니다.").addClass("show");
 			},
 			error: function() {
 				console.log("입력 실패");
@@ -193,4 +197,43 @@
 			})
 		}
 	});
+	
+
+	$('.likebtn').click(function(){
+		likesupdate(this);
+	});
+	
+	function likesupdate(elem){
+		// var root = getContextPath(),
+		var likeurl = "/eatlikes/likesupdate";
+		// userid = $('#userid').val(),
+		var eatbno = $(elem).closest(".item").find(".list-num").text();
+		eatbno = eatbno ? eatbno : window.boardBno;
+		var count = $(elem).closest(".item").find('.likescheck').val();
+		var data = {"userid" : userid,
+				"eatbno" : eatbno,
+				"count" : count};
+		
+		console.log("button click");
+		
+	$.ajax({
+		url : appRoot + likeurl,
+		type : 'post',
+		contentType: 'application/json',
+		data : JSON.stringify(data),
+		success : function(result){
+			console.log("수정" + result.result);
+			location.reload();
+		}, error : function(result){
+			console.log(result)
+		}
+		
+		});
+	};
+	
+	function getContextPath() {
+	    var hostIndex = location.href.indexOf( location.host ) + location.host.length;
+	    return location.href.substring( hostIndex, location.href.indexOf('/', hostIndex + 1) );
+	} 
+	
 })

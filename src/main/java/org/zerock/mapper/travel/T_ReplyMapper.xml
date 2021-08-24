@@ -15,7 +15,7 @@
 		r.updateDate updateDate,
 		m.nickName replyerName
 	FROM 
-	    travel_reply r JOIN tbl_member2 m ON r.replyer = m.userid
+	    travel_reply r JOIN tbl_member m ON r.replyer = m.userid
 	WHERE
 	    r.bno = #{bno}
 	ORDER BY r.rno ASC
@@ -41,7 +41,7 @@
 		r.updateDate updateDate,
 		m.nickName replyerName
 	FROM 
-	    travel_reply r JOIN tbl_member2 m ON r.replyer = m.userid
+	    travel_reply r JOIN tbl_member m ON r.replyer = m.userid
 	WHERE
 		r.rno = #{rno}	
 	</select>	

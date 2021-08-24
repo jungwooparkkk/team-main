@@ -16,7 +16,7 @@
 		WHERE bno = #{bno}
 </delete>
 
-<delete id="removeByUserid">
+<delete id="deleteByUserid">
 		DELETE FROM 
 			tbl_board_file
 		WHERE 

@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri ="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="bd" tagdir="/WEB-INF/tags/board" %>
+<%@ taglib prefix="bd" tagdir="/WEB-INF/tags/travel" %>
 <%
 	request.setCharacterEncoding("utf-8");
 %>
@@ -12,6 +12,11 @@
 <head>
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp"%>
 <link rel="stylesheet" href="${appRoot }/resources/css/T_board.css" />
+<script>
+	var appRoot = "${appRoot}";
+	var userid = "${pinfo.member.userid}";
+</script>
+<script src="/controller/resources/js/T_get.js"></script>
 <title>Insert title here</title>
 
 <script>
@@ -34,7 +39,7 @@
 </script>
 </head>
 <body>
-	<bd:navbar />
+	<bd:navbar></bd:navbar>
 	<div class="container t-board">
 		<h1>글 목록</h1>
 
@@ -81,9 +86,24 @@
 							<div class="view">
 								<i class="far fa-eye"></i>&nbsp;${board.views }
 							</div>
-							<div class="like">
-								<i class="far fa-heart"></i>
-							</div>
+							<c:choose>
+						<c:when test="${!board.likeClicked}">
+						<span class="likebtn">
+							<i type="button" class="far fa-heart"></i>
+						</span>
+							<input type="hidden" class="likecheck" value="${lno }">
+						</c:when>					
+						<c:when test="${board.likeClicked}">
+						<span class="likebtn">
+							<i type="button" class="fas fa-heart"></i>
+						</span>
+							<input type="hidden" class="likecheck" value="${lno }">
+						</c:when>
+						<c:otherwise>
+							0도 아니고 1도 아님.
+						</c:otherwise>
+					</c:choose> ${board.likesCnt }
+					
 						</div>
 						<div class="date">
 							<fmt:formatDate pattern="yyyy-MM-dd" value="${board.regdate }" />

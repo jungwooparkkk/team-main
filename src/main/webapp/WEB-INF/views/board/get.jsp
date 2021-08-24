@@ -7,15 +7,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+  <link rel="shortcut icon" href="${appRoot }/resources/favicon.ico">
+  <link rel="icon" href="${appRoot }/resources/favicon.ico">
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
 
-<title>자유 게시판 글 정보</title>
+<title>${board.title }</title>
+
 <script>
 var appRoot = "${appRoot}";
 var boardBno = "${board.bno}";
 var userid = "${pinfo.member.userid}";
 </script>
+
 <script src="${appRoot }/resources/js/get.js"></script>
 
 </head>
@@ -76,14 +79,25 @@ var userid = "${pinfo.member.userid}";
 						<input class="form-control" name='views'
 					value='<c:out value="${board.views }"/>'readonly="readonly">
 					</div>
+					<div class="icon-view">				
 					<c:choose>
-						<c:when test="${pinfo.member.userid ne null }">
-							<a href='javascript: like_func();'><i class="far fa-heart" style="font-size:16px;color:red" id='like_icon'></i></a>
+						<c:when test="${!board.likeClicked}">
+						<span class="likebtn">
+							<i type="button" class="far fa-heart" style="color:red;"></i>
+						</span>
+							<input type="hidden" class="likecheck" value="${lno }">
+						</c:when>					
+						<c:when test="${board.likeClicked}">
+						<span class="likebtn">
+							<i type="button" class="fas fa-heart" style="color:red;"></i>
+						</span>
+							<input type="hidden" class="likecheck" value="${lno }">
 						</c:when>
 						<c:otherwise>
-							<a href= 'javascript: login_need();'><i class="far fa-heart" style="font-size:16px;color:red"></i></a>
+							0도 아니고 1도 아님.
 						</c:otherwise>
-					</c:choose>
+					</c:choose> ${board.likesCnt }
+				</div>
 			</div>
 			</div>		
 				<div class="container">

@@ -7,7 +7,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+  <link rel="shortcut icon" href="${appRoot }/resources/favicon.ico">
+  <link rel="icon" href="${appRoot }/resources/favicon.ico">
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
 
 <title>자유 게시판</title>
@@ -91,7 +92,7 @@ $(document).ready(function() {
 						<fmt:formatDate pattern="yyyy-MM-dd" value="${board.regdate }"/>
 					</td>
 					<td style=text-align:center>${board.views }</td>
-					<td style=text-align:center>${board.good }</td>
+					<td style=text-align:center>${board.likesCnt }</td>
 				</tr>
 			</c:forEach>			
 		</tbody>

@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
     
 <!doctype html>
 <html lang="en">
@@ -43,8 +46,8 @@
 
   <!-- Custom styles for this template -->
   <link href="${appRoot }/resources/css/carousel.css" rel="stylesheet">
-  <nav class="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
-    <a class="navbar-brand" href="#">LOGO</a>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+    <a class="navbar-brand" href="#"><img src="${appRoot }/resources/img/logo.jpg"width="40" height="30""></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -69,9 +72,9 @@
   		  </sec:authorize>
   		 
           
-          <a href="" class="dropdown-item" href="#">맛집</a>
-          <a href="${appRoot }/travel/area" class="dropdown-item" href="#">여행</a>
-          <a class="dropdown-item" href="/jaehyun/board/list">
+          <a href="${appRoot }/eatboard/list" class="dropdown-item" href="#">맛집</a>
+          <a href="${appRoot }/T_board/T_list" class="dropdown-item" href="#">여행</a>
+          <a class="dropdown-item" href="${appRoot }/board/list">
           <div class="dropdown-divider" ></div>자유 게시판</a>
         </div>
       </li>
@@ -96,47 +99,33 @@
       </ol>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img"
-            aria-label=" :  " preserveAspectRatio="xMidYMid slice" focusable="false">
-            <title> </title>
-            <rect width="100%" height="100%" fill="#777" /><text x="50%" y="50%" fill="#777" dy=".3em"> </text>
-          </svg>
+     	<a href="${appRoot }/eatboard/list" ><img src="${appRoot }/resources/img/food.jpg" width="100%" height="100%"></a>
 
           <div class="container">
             <div class="carousel-caption">
               <h1>맛집</h1>
-              <p>맛있겠다</p>
-
+             
             </div>
           </div>
         </div>
         <div class="carousel-item">
-          <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img"
-            aria-label=" :  " preserveAspectRatio="xMidYMid slice" focusable="false">
-            <title> </title>
-            <rect width="100%" height="100%" fill="#777" /><text x="50%" y="50%" fill="#777" dy=".3em"> </text>
-          </svg>
+          <a href="${appRoot }/T_board/T_list" > <img src = "${appRoot }/resources/img/travel.jpg"  width="100%" height="100%">
 
           <div class="container">
             <div class="carousel-caption">
               <h1>여행</h1>
-              <p>가고싶다</p>
+              
 
             </div>
           </div>
         </div>
         <div class="carousel-item">
-          <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img"
-            aria-label=" :  " preserveAspectRatio="xMidYMid slice" focusable="false">
-            <title> </title>
-            <rect width="100%" height="100%" fill="#777" /><text x="50%" y="50%" fill="#777" dy=".3em"> </text>
-          </svg>
+          <a href="${appRoot }/board/list" > <img src = "${appRoot }/resources/img/food.jpg"  width="100%" height="100%">
 
           <div class="container">
             <div class="carousel-caption">
-              <h1>여행,맛집</h1>
-              <p>냠냠</p>
-
+              <h1>자유게시판</h1>
+             
             </div>
           </div>
         </div>
@@ -150,7 +139,12 @@
         <span class="sr-only">Next</span>
       </a>
     </div>
-
+	
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 
     <!-- Marketing messaging and featurettes
   ================================================== -->
@@ -161,40 +155,39 @@
       <!-- Three columns of text below the carousel -->
       <div class="row">
         <div class="col-lg-4">
-          <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg"
-            role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#777" /><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+        <a href="${appRoot }/eatboard/list" ><img src="${appRoot }/resources/img/fboard.jpg"width="140" height="140""></a>
+            <rect width="100%" height="100%" fill="#777" /><text x="50%" y="50%" fill="#777" dy=".3em"></text>
           </svg>
 
           <h2>맛집게시판</h2>
-          <p>링크걸기</p>
+         
 
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-          <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg"
-            role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#777" /><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+         <a href="${appRoot }/T_board/T_list" ><img src="${appRoot }/resources/img/tboard.jpg"width="140" height="140""></a>
+            <rect width="100%" height="100%" fill="#777" /><text x="50%" y="50%" fill="#777" dy=".3em"></text>
           </svg>
 
           <h2>여행게시판</h2>
-          <p>링크걸기</p>
-
+       
+<!-- width="140" height="140" -->
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-          <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg"
-            role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#777" /><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-          </svg>
+         
+          <a href="${appRoot }/board/list" ><img src="${appRoot }/resources/img/board.jpg"width="140" height="140""></a>
 
           <h2>자유게시판</h2>
-          <p>링크걸기</p>
+          
 
         </div><!-- /.col-lg-4 -->
       </div><!-- /.row -->
-
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
       <section class="page-section" id="contact">
         <div class="container">
           <div class="text-center">
@@ -264,7 +257,7 @@
       <!-- FOOTER -->
       <footer class="container">
         <p class="float-right"><a href="#">위로</a></p>
-        <p> <a href="#">용산구</a> &middot; <a href="#">이태원</a></p>
+        
       </footer>
   </main>
 

@@ -5,34 +5,7 @@
   
 <mapper namespace="org.zerock.mapper.BoardMapper">
 
- <update id="likecheck" parameterType="HashMap">
-    UPDATE tbl_board_good
-    SET goodcheck = goodcheck + 1 
-    WHERE userid=#{userid} AND bno=#{bno}
-  </update>
-  
-  <update id="likecheckcancel" parameterType="HashMap">
-    UPDATE tbl_board_good
-    SET goodcheck = 0
-    WHERE userid=#{userid} AND bno=#{bno}
-  </update>
-  
-  <select id="countbyLike" resultType="int" parameterType="HashMap">
-   SELECT COUNT(goodno) as cnt
-   FROM tbl_board_good
-   WHERE bno=#{bno} AND userid=#{userid}
-</select>
-
-<insert id="create" parameterType="HashMap">
-   INSERT INTO tbl_board_good(goodno, bno, userid, goodcheck) 
-   VALUES ((SELECT NVL(MAX(goodno), 0) + 1 as goodno FROM tbl_board_good),
-                #{bno}, #{userid}, 0)
-</insert>
-
-
-
-
-
+ 
 <sql id="criteria">
      <where>
 	     <foreach item="type" separator="OR" collection="typeArr">
@@ -69,7 +42,7 @@
     	regdate regdate,
     	updatedate updateDate,
     	views views,
-    	good good,
+    	likes likes,
     
      FROM tbl_board
      
@@ -80,13 +53,13 @@
   </select>
 
 <insert id="write">
-  	INSERT INTO tbl_board (title, content, writer, views, good) 
-  	VALUES (#{title}, #{content}, #{writer}, #{views}, #{good})
+  	INSERT INTO tbl_board (title, content, writer, views, likes) 
+  	VALUES (#{title}, #{content}, #{writer}, #{views}, #{likes})
   </insert>
   
   <insert id="writeSelectKey" useGeneratedKeys="true" keyProperty="bno" keyColumn="bno">
-  	INSERT INTO tbl_board (title, content, writer, views, good)
-  	VALUES (#{title}, #{content}, #{writer}, #{views}, #{good})
+  	INSERT INTO tbl_board (title, content, writer, views, likes)
+  	VALUES (#{title}, #{content}, #{writer}, #{views}, #{likes})
   </insert>
   
 <select id="getListWithPaging" resultType="org.zerock.domain.BoardVO">
@@ -98,7 +71,7 @@
     	regdate,
     	updatedate,
     	views,
-    	good
+    	(SELECT IFNULL(SUM(l.lno), 0) FROM tbl_board_likes l WHERE l.bno = b.bno) likesCnt
      FROM tbl_board b 
      
   <include refid="criteria"></include>
@@ -126,9 +99,10 @@
   	 b.updatedate updateDate,
   	 b.views views,
   	 f.fileName fileName,
-  	 m.nickName writerName
+  	 m.nickName writerName,
+  	 (SELECT IFNULL(SUM(l.lno), 0) FROM tbl_board_likes l WHERE l.bno = b.bno) likesCnt
   	FROM tbl_board b LEFT JOIN tbl_board_file f ON b.bno = f.bno
-  	                      JOIN tbl_member2 m ON b.writer = m.nickname
+  	                      JOIN tbl_member m ON b.writer = m.nickname
   	WHERE b.bno = #{bno} 
 </select>
 
@@ -146,7 +120,7 @@
 	where bno = #{bno}
 </update>
 
-<delete id="removeByUserid">
+<delete id="deleteByUserid">
   DELETE FROM tbl_board
   WHERE writer = #{userid}
   </delete>
