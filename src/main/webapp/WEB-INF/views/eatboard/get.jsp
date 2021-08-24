@@ -64,6 +64,7 @@
 						</c:otherwise>
 					</c:choose> ${board.likesCnt }
 				</div>
+				</div>
 				<form>
 					<div class="form-group">
 						<label for="input1">제목</label> <input readonly="readonly"
