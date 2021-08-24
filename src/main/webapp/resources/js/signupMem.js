@@ -130,7 +130,7 @@ $(function(){
 	
 
 	
- 	//이메일 양식 체크
+ 	//이메일 양식 체크 -
 
 	$("#signup-input-email").keyup(function(e){
 		e.preventDefault();
