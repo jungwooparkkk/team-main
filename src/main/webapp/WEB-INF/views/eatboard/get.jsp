@@ -46,24 +46,24 @@
 					</div>
 					<div class="icon-view">
 						<i class="far fa-eye"></i>&nbsp;${board.views }
-					<c:choose>
-						<c:when test="${!board.likeClicked}">
-						<span class="likebtn">
-							<i type="button" class="far fa-heart"></i>
-						</span>
-							<input type="hidden" class="likecheck" value="${eatlno }">
-						</c:when>					
-						<c:when test="${board.likeClicked}">
-						<span class="likebtn">
-							<i type="button" class="fas fa-heart"></i>
-						</span>
-							<input type="hidden" class="likecheck" value="${eatlno }">
-						</c:when>
-						<c:otherwise>
-							0도 아니고 1도 아님.
-						</c:otherwise>
-					</c:choose> ${board.likesCnt }
-				</div>
+						<c:choose>
+							<c:when test="${!board.likeClicked}">
+							<span class="likebtn">
+								<i type="button" class="far fa-heart"></i>
+							</span>
+								<input type="hidden" class="likecheck" value="${eatlno }">
+							</c:when>					
+							<c:when test="${board.likeClicked}">
+							<span class="likebtn">
+								<i type="button" class="fas fa-heart"></i>
+							</span>
+								<input type="hidden" class="likecheck" value="${eatlno }">
+							</c:when>
+							<c:otherwise>
+								0도 아니고 1도 아님.
+							</c:otherwise>
+						</c:choose> ${board.likesCnt }
+					</div>
 				</div>
 				<form>
 					<div class="form-group">
