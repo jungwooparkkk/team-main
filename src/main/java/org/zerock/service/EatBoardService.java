@@ -25,4 +25,5 @@ public interface EatBoardService {
 	public boolean modify(EatBoardVO board, MultipartFile file);
 
 	public int views(Long eatbno);
+
 }

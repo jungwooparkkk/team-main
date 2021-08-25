@@ -38,6 +38,8 @@ public class AppListener implements ServletContextListener {
 
 
 
+    	//셋중에하나만 남기기
+
     	
 
     	// aws s3 profile file 주소
