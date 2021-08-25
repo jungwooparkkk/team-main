@@ -44,10 +44,9 @@ var appRoot = '${appRoot}';
 	  			    	  src="${profile }${members.userid }/${members.fileName }"
 				    	  </c:if>
 				    	  
-				    	  >  d
+				    	  >  
 			
-				
-				<!-- 	<input type="file" id="photo-upload" class="changePhoto" accept="img/*"> -->
+		-->
 				
 					<input type="file" hidden class="btn btn-light" id="profile-file" name="file">
 					<button id="change-file-btn" type="button" class="btn btn-light" name="change-file-btn">사진 변경</button>
