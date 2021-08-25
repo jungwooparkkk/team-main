@@ -48,7 +48,7 @@ public class EatBoardServiceImpl implements EatBoardService {
 	
 	public EatBoardServiceImpl() {
 		this.bucketName = "choongang-jaehyun2";
-		this.profileName = "spring1";
+		this.profileName = "team1";
 		
 		/*  
 		 * create

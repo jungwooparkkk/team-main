@@ -49,7 +49,7 @@ public class T_BoardServiceImpl implements T_BoardService {
 	
 	public T_BoardServiceImpl() {
 		this.bucketName = "choongang-jaehyun2";
-		this.profileName = "spring1";
+		this.profileName = "team1";
 		
 		/*  
 		 * create
