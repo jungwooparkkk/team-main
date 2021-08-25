@@ -171,12 +171,17 @@ public class MembersControllers {
 			return new ResponseEntity<> (new String[] {"exist", mem.getUserid()} ,HttpStatus.OK);
 		}
 	}
+	@GetMapping("/findid")
+	public void findid() {
+		
+	}
 	
-
+	@GetMapping("/findpw")
+	public void findpw() {
+		
+	}
 	
-
-	
-	@RequestMapping(value="/findpw",method= {RequestMethod.GET,RequestMethod.POST})
+	@PostMapping("/findpw")
 	public String findpw(HttpSession session, @RequestParam String email) {
 
 		MemberVO user = service.check(email);
