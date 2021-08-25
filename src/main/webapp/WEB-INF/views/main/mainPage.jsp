@@ -99,7 +99,7 @@
       </ol>
       <div class="carousel-inner">
         <div class="carousel-item active">
-     	<a href="${appRoot }/eatboard/list" ><img src="${appRoot }/resources/img/food.jpg" width="100%" height="100%"></a>
+     	<a href="${appRoot }/eatboard/list" ><img src="${appRoot }/resources/img/coffe.jpg" width="100%" height="100%"></a>
 
           <div class="container">
             <div class="carousel-caption">
@@ -109,7 +109,7 @@
           </div>
         </div>
         <div class="carousel-item">
-          <a href="${appRoot }/T_board/T_list" > <img src = "${appRoot }/resources/img/travel.jpg"  width="100%" height="100%">
+          <a href="${appRoot }/T_board/T_list" > <img src = "${appRoot }/resources/img/mainT.jpg"  width="100%" height="100%">
 
           <div class="container">
             <div class="carousel-caption">
@@ -120,7 +120,7 @@
           </div>
         </div>
         <div class="carousel-item">
-          <a href="${appRoot }/board/list" > <img src = "${appRoot }/resources/img/food.jpg"  width="100%" height="100%">
+          <a href="${appRoot }/board/list" > <img src = "${appRoot }/resources/img/mainF.jpg"  width="100%" height="100%">
 
           <div class="container">
             <div class="carousel-caption">
