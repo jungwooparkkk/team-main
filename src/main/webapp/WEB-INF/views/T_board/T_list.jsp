@@ -17,7 +17,7 @@
 	var userid = "${pinfo.member.userid}";
 </script>
 <script src="/controller/resources/js/T_get.js"></script>
-<title>Insert title here</title>
+<title>여행 리스트</title>
 
 <script>
 	$(document).ready(function() {
