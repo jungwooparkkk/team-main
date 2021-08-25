@@ -40,6 +40,12 @@
       .bd-placeholder-img-lg {
         font-size: 3.5rem;
       }
+     
+     
+    }
+    
+    .image-circle {
+    	border-radius: 30%;
     }
   </style>
 
@@ -155,16 +161,16 @@
       <!-- Three columns of text below the carousel -->
       <div class="row">
         <div class="col-lg-4">
-        <a href="${appRoot }/eatboard/list" ><img src="${appRoot }/resources/img/fboard.jpg"width="140" height="140""></a>
+        <a href="${appRoot }/eatboard/list" ><img src="${appRoot }/resources/img/fboard.jpg"width="140" height="140" class="image-circle"></a>
             <rect width="100%" height="100%" fill="#777" /><text x="50%" y="50%" fill="#777" dy=".3em"></text>
           </svg>
 
           <h2>맛집게시판</h2>
-         
+
 
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-         <a href="${appRoot }/T_board/T_list" ><img src="${appRoot }/resources/img/tboard.jpg"width="140" height="140""></a>
+         <a href="${appRoot }/T_board/T_list" ><img src="${appRoot }/resources/img/tboard.jpg"width="140" height="140" class="image-circle"></a>
             <rect width="100%" height="100%" fill="#777" /><text x="50%" y="50%" fill="#777" dy=".3em"></text>
           </svg>
 
@@ -174,7 +180,7 @@
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
          
-          <a href="${appRoot }/board/list" ><img src="${appRoot }/resources/img/board.jpg"width="140" height="140""></a>
+          <a href="${appRoot }/board/list" ><img src="${appRoot }/resources/img/board.jpg"width="140" height="140" class="image-circle"></a>
 
           <h2>자유게시판</h2>
           
