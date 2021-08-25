@@ -117,48 +117,51 @@
 	
 	
 	<!-- 댓글 입력 -->
-	
-  	<div class="row">
-		<div class="col-12">
-			<form>
-				<input type="text" value="${board.eatbno }" readonly hidden
-							id="reply-eatbno-input1">
-						<div hidden class="form-group">
-							<label for="recipient-name" class="col-form-label">작성자</label> <input
-								type="text" readonly value="${pinfo.member.nickName }"
-								class="form-control" /> <input type="hidden"
-								value="${pinfo.member.userid }" class="form-control"
-								id="reply-replyer-input1">
-						</div>
-					<sec:authorize access="isAuthenticated()">
-						<div class="form-group">
-							<label for="message-text" class="col-form-label">댓글</label>
-							<textarea class="form-control" id="reply-reply-textarea1"></textarea>
-						</div>
-						<input type="submit" class="btn btn-primary"
-							id="reply-insert-btn1" value="댓글 작성"/>
-					</sec:authorize>
-			</form>
+	<div class="container reply-wrap">
+	  	<div class="row">
+			<div class="col-12">
+				<div class="reply-header">
+					<form>
+						<input type="text" value="${board.eatbno }" readonly hidden
+									id="reply-eatbno-input1">
+								<div hidden class="form-group">
+									<label for="recipient-name" class="col-form-label">작성자</label> <input
+										type="text" readonly value="${pinfo.member.nickName }"
+										class="form-control" /> <input type="hidden"
+										value="${pinfo.member.userid }" class="form-control"
+										id="reply-replyer-input1">
+								</div>
+							<sec:authorize access="isAuthenticated()">
+								<div class="form-group">
+									<label for="message-text" class="col-form-label"></label>
+									<textarea class="form-control" id="reply-reply-textarea1"></textarea>
+								</div>
+								<input type="submit" class="btn btn-primary"
+									id="reply-insert-btn1" value="댓글 작성"/>
+							</sec:authorize>
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
 	
 	
-	<div class="container reply-wrap">
+	 <div class="container reply-wrap">
 		<div class="row">
 			<div class="col-12">
 				<div class="reply-header">
 					<h3>댓글</h3>
-					<sec:authorize access="isAuthenticated()">
+					<%-- <sec:authorize access="isAuthenticated()">
 						<button type="button" class="btn btn-primary" data-toggle="modal"
 							data-target="#reply-insert-modal">댓글 작성</button>
-					</sec:authorize>
+					</sec:authorize> --%>
 				</div>
 				<ul class="list-unstyled" id="reply-list-container">
 				</ul>
 			</div>
 		</div>
-	</div>
-	
+	</div> 
+	 
 	<%-- 댓글 입력 모달 --%>
 
 	<%-- <div class="modal fade" id="reply-insert-modal" tabindex="-1"
