@@ -45,8 +45,6 @@ public class MembersControllers {
 	
 	
 
-	
-
 	@RequestMapping("/loginMem")
 	public void login(){
 
@@ -176,17 +174,9 @@ public class MembersControllers {
 	
 
 	
-	@RequestMapping(value="/findid",method= {RequestMethod.GET,RequestMethod.POST})
-	public void findid() {
-		
-	}
+
 	
-	@GetMapping("/findpw")
-	public void findpw() {
-		
-	}
-	
-	@PostMapping("/findpw")
+	@RequestMapping(value="/findpw",method= {RequestMethod.GET,RequestMethod.POST})
 	public String findpw(HttpSession session, @RequestParam String email) {
 
 		MemberVO user = service.check(email);
@@ -208,11 +198,6 @@ public class MembersControllers {
 	
 
 	
-	@GetMapping("/simpleinfo")
-	public void simpleinfo() {
-		
-	}
-	
 	@GetMapping("/uploadAction")
 	public void upload() {
 		
@@ -228,12 +213,6 @@ public class MembersControllers {
 		return "redirect:/member/infoMem";
 	}
 	
-
-	
-	@GetMapping("/admin")
-	public void admin() {
-		
-	}
 
 	
 }
