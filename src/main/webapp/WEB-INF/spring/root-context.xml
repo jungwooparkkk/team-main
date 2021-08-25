@@ -10,10 +10,7 @@
       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
    
    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-   <!-- 
-      <property name="driverClassName" value="org.mariadb.jdbc.Driver"></property>
-      <property name="jdbcUrl" value="jdbc:mariadb://13.125.118.27/test"></property>
-    -->
+
        <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
       <property name="jdbcUrl" value="jdbc:log4jdbc:mariadb://52.79.57.117/teamproject"></property>
       <property name="username" value="root"></property>
@@ -57,33 +54,8 @@
         </property>
 	  </bean>
 	  
-<!-- 	
-	<bean id="mailService" class="org.zerock.service.MemberServiceimpl">
-    <property name="javaMailSender" ref="javaMailSender" />
-
-    </bean>
-    
-	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-	    <property name="host" value="smtp.gmail.com" />
-	    <property name="port" value="587" />
-	    <property name="username" value="testaddr67@gmail.com" />
-	    <property name="password" value="addr67!!" />
-	    <property name="javaMailProperties">
-	        <props>
-	            <prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
-	            <prop key="mail.smtp.starttls.enable">true</prop>
-	            <prop key="mail.smtp.auth">true</prop>
-	        </props>
-	    </property>
-	</bean>
-
- 	<context:component-scan base-package="org.zerock.sample"></context:component-scan>
- 	 -->
 	
 	<context:component-scan base-package="org.zerock.service"></context:component-scan>
-
-
-
 
 	<!-- transaction -->
 	<tx:annotation-driven/>
