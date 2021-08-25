@@ -22,6 +22,12 @@
 <body>
 <div class="container">
 
+	<c:if test="${param.status == 'success' }">
+		<script>
+	 		alert('회원가입을 축하드립니다.')
+		</script>	
+	</c:if>
+	
 	<div class="row justify-content-center">
 		<div class="col-md-6 col-7">	
 					<img class="loginLogo" src="${appRoot}/resources/img/logo.jpg">
