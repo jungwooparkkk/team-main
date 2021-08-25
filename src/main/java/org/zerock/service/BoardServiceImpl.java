@@ -51,7 +51,7 @@ public class BoardServiceImpl implements BoardService {
 	
 	public BoardServiceImpl() {
 		this.bucketName = "choongang-jaehyun2";
-		this.profileName = "spring1";
+		this.profileName = "team1";
 		
 		Path contentLocation = new File(System.getProperty("user.home") + "/.aws/credentials").toPath();
 		ProfileFile pf = ProfileFile.builder()
