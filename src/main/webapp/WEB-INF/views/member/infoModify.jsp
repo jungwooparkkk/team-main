@@ -46,7 +46,7 @@ var appRoot = '${appRoot}';
 				    	  
 				    	  >  
 			
-		-->
+	
 				
 					<input type="file" hidden class="btn btn-light" id="profile-file" name="file">
 					<button id="change-file-btn" type="button" class="btn btn-light" name="change-file-btn">사진 변경</button>

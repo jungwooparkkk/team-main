@@ -28,17 +28,8 @@ var appRoot = '${appRoot}';
 
 <body>
 <div class="container">
-	<c:if test="${param.status == 'success' }">
-		<script>
-	 		alert('회원가입을 축하드립니다.')
-		</script>	
-	</c:if>
+
 	
-	<c:if test="${not empty param.error }">
-			<div id="signup-alert" class="alert alert-danger" role="alert">
-  			회원가입에 실패했습니다.
-  			</div>
-	</c:if>
 		<div class="row justify-content-center">	
 				<div class="col-md-6 col-7">
 					<form id="signup" method="post" action="${appRoot }/member/signupMem">
